@@ -220,6 +220,20 @@ export const education = [
   },
 ];
 
+
+
+Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan Su, et al. (2026) A robust multi-location evaluation of a machine learning framework for wind power forecasting. PLOS ONE 21(4): e0344971. DOI: https://doi.org/10.1371/journal.pone.0344971	 
+Argenti, Lucia, Federico Massa, Mattia Losa, Lorenzo Lombardo, Luigi Lorenzini, Enrico Peira, Luca Sofia et al. (2026). "Neurotransmitter landscape and neurodegeneration patterns in Alzheimer’s Disease." Neurobiology of Aging. DOI: https://doi.org/10.1016/j.neurobiolaging.2026.02.004. (Impact Factor: 3.5)	 
+Ali Shahzad, Kreshpa W, Rosso N, Piana M, Roccatagliata L, Cirone A, Luigi L, Campi C, Pardini M and Garbarino S (2026) A systematic study on the integration of MRI connectivity metrics for Alzheimer's diagnosis, staging, and cognitive decline prediction. Front. Neuroimaging 5:1746464. DOI: https://doi.org/10.3389/fnimg.2026.1746464	 
+Naveed Manji, Salima, Imtiaz, Muhammad, Ehsan, Saroosh, Mehmood, Khizer, Ahmad, Shahzad, Zaheer, Naauman, Iqbal, Shazia, Ali, Shahzad, Perception of Dental Faculty Regarding Development of Preclinical Endodontic Simulation Curriculum for Undergraduate Dental Students in Pakistan, Scientifica, 2026, 1988107, 13 pages, 2026. DOI: https://doi.org/10.1155/sci5/1988107. (Impact Factor: 3.1)	 
+Losa, M., Ramusino, M. C., Cama, I., Gualco, L., Gandoglia, I., Massa, F., ... & Pardini, M. (2025). Cerebrospinal Fluid Biomarkers Profiling in Cerebral Amyloid Angiopathy and Relationship With Disease Phenotypes. Journal of the American Heart Association, e044784. DOI: https://doi.org/10.1161/JAHA.125.044784 (Impact Factor: 6.106)	 
+Ali, Shahzad, Michele Piana, Matteo Pardini, and Sara Garbarino. "Graph Neural Networks in Alzheimer's Disease Diagnosis: A Review of Unimodal and Multimodal Advances." Frontiers in Neuroscience 19: 1623141 (2025). DOI: 10.3389/fnins.2025.1623141. (Impact Factor: 3.2)	 
+Bashir, Anam Fayyaz, Ussamah Waheed Jatala, Muhammad Amber Fareed, Sheryar Sheryar, Saadia Ahmad Chattha, Saima Razaq Khan, Shahzad Ahmad, Shazia Iqbal, Muhammad Sohail Zafar, and Shahzad Ali. "Evaluation of Post‐Endodontic Pain Reduction Using Intracanal Cryotherapy in Symptomatic Apical Periodontitis." Australian Endodontic Journal (2025). DOI: 10.1111/aej.12983 (Impact Factor: 1.5)	 
+Kiran, Isha, Shahzad Ali, Musaed Alhussein, Sheraz Aslam, and Khursheed Aurangzeb. "An AI-Enabled Framework for Transparency and Interpretability in Cardiovascular Disease Risk Prediction." Computers, Materials & Continua 82, no. 3 (2025). DOI: https://doi.org/10.32604/cmc.2025.058724. (Journal Impact Factor: 1.7)	 
+
+
+
+
 export const publications = {
   journalsPublished: [
     {
@@ -257,6 +271,7 @@ export const publications = {
       year: 2020,
       status: 'Published',
       if: 2.9,
+      doi: https://doi.org/10.1007/s40808-020-00780-3,
     },
   ],
   journalsUnderReview: [],
