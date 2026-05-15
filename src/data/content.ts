@@ -14,7 +14,7 @@ export const personal = {
   email: 'shahzadali039@gmail.com',
   emailAcademic: 'shahzad.ali6@unibo.it',
   phone: '+39 348 2657723',
-  linkedin: 'https://www.linkedin.com/in/shahzadali21',
+  linkedin: 'https://www.linkedin.com/in/alishahzi',
   github: 'https://github.com/alishahzi',
   scholar: 'https://scholar.google.com/citations?user=shahzadali',
   orcid: 'https://orcid.org/0000-0002-0608-9515',
@@ -27,8 +27,8 @@ export const personal = {
 };
 
 export const stats = [
-  { value: '4', label: 'Peer-Reviewed Journals', sublabel: 'Frontiers, Springer, CMC, AEJ' },
-  { value: '4+', label: 'Conference & Symposium Papers', sublabel: 'IEEE · ICOSST · RIN IRCCS' },
+  { value: '9', label: 'Peer-Reviewed Journals', sublabel: 'Frontiers, Springer, CMC, AEJ' },
+  { value: '5', label: 'Conference & Symposium Papers', sublabel: 'IEEE · ICOSST · RIN IRCCS' },
   { value: '13+', label: 'Professional Certifications', sublabel: 'Coursera · IBM · Microsoft' },
   { value: '7+', label: 'Years Research & Teaching', sublabel: 'Italy · Pakistan' },
 ];
