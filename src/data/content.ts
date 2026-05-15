@@ -23,8 +23,7 @@ export const personal = {
   scopus: 'https://www.scopus.com/authid/detail.uri?authorId=57202066536',
   cvUrl: '/cv/CV_Shahzad.pdf',
   image: '/profile.png',
-  summary: `I'm a passionate PhD scholar specializing in the applications of Machine and Deep Learning in the realm of medical imaging and healthcare. My research involves leveraging graph neural networks, deep learning, and classical ML to address critical clinical challenges — with a particular focus on Alzheimer's disease diagnosis using multimodal neuroimaging (MRI, DTI) and interpretable AI for
-  cardiovascular risk prediction. I have a strong background in handling extensive datasets, developing algorithms, and building predictive models, and have presented my research in reputed international journals and conferences. I also enjoy collaborating with peers and mentoring students.`,
+  summary: `I'm a passionate PhD scholar specializing in the applications of Machine and Deep Learning in the realm of medical imaging and healthcare. My research involves leveraging graph neural networks, deep learning, and classical ML to address critical clinical challenges — with a particular focus on Alzheimer's disease diagnosis using multimodal neuroimaging and interpretable AI. I have a strong background in handling extensive datasets, developing algorithms, and building predictive models, and have presented my research in reputed international journals and conferences. I also enjoy collaborating with peers and mentoring students.`,
 };
 
 export const stats = [
