@@ -9,9 +9,7 @@ const SOCIAL = [
 ];
 
 const TAGS = [
-  "Graph Machine Learning","Graph Neural Networks","Graph Learning",
-  "Multimodal Neuroimaging","Neurodegenerative Diseases","Alzheimer's Disease",
-  "Medical Imaging AI","Digital Health","Interpretable AI",
+  "Graph Machine Learning","Graph Neural Networks","Multimodal Neuroimaging","Neurodegenerative Diseases","Alzheimer's Disease","Medical Imaging AI","Digital Health","Interpretable AI",
 ];
 
 export default function Hero() {
