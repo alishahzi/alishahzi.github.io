@@ -5,18 +5,13 @@ const SOCIAL = [
   { label: "Scholar",      href: "https://scholar.google.com/citations?user=n3XO81UAAAAJ&hl=en",             color: "#06b6d4", icon: "GS" },
   { label: "ORCID",        href: "https://orcid.org/0000-0002-0608-9515",                                    color: "#a6ce39", icon: "iD" },
   { label: "LinkedIn",     href: "https://linkedin.com/in/alishahzi",                                        color: "#3b82f6", icon: "in" },
-  { label: "GitHub",       href: "https://github.com/alishahzi",                                             color: "#8b5cf6", icon: "GH" },
   { label: "ResearchGate", href: "https://www.researchgate.net/profile/Shahzad-Ali-56",                      color: "#00ccbb", icon: "RG" },
-  { label: "Loop",         href: "https://loop.frontiersin.org/people/3051308/overview",                     color: "#ef4444", icon: "LP" },
-  { label: "Scopus",       href: "https://www.scopus.com/authid/detail.uri?authorId=57202066536",            color: "#f97316", icon: "SC" },
-  { label: "WoS",          href: "https://www.webofscience.com/wos/author/record/ODJ-8978-2025",             color: "#10b981", icon: "WS" },
-  { label: "X",            href: "https://x.com/shahzadali039",                                              color: "#94a3b8", icon: "X"  },
-  { label: "Email",        href: `mailto:${personal.email}`,                                                color: "#f59e0b", icon: "@"  },
 ];
 
 const TAGS = [
-  "Graph Learning","Neurodegenerative Diseases","Alzheimer's",
-  "Graph Neural Networks","Multimodal Neuroimaging","Healthcare AI",
+  "Graph Machine Learning","Graph Neural Networks","Graph Learning",
+  "Multimodal Neuroimaging","Neurodegenerative Diseases","Alzheimer's Disease",
+  "Medical Imaging AI","Digital Health","Interpretable AI",
 ];
 
 export default function Hero() {
@@ -49,7 +44,7 @@ export default function Hero() {
   const affiliation = parts[1]?.trim() || "";
 
   const summaryParas = (personal.summary || "").split(/\n+/).filter(Boolean);
-  const heroSummary = summaryParas[0] || "";
+  const heroSummary = (personal as { heroBlurb?: string }).heroBlurb || summaryParas[0] || "";
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
@@ -91,7 +86,7 @@ export default function Hero() {
             {heroSummary && (
               <div className="hero-line mb-6">
                 <p className="text-[0.93rem] leading-[1.75] max-w-xl" style={{color:"#94a3b8"}}>
-                  {heroSummary.length > 260 ? heroSummary.slice(0,260)+"..." : heroSummary}
+                  {heroSummary.length > 360 ? heroSummary.slice(0,360)+"..." : heroSummary}
                 </p>
               </div>
             )}
