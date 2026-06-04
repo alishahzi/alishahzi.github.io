@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 const NAV=[
-  {label:'Home',href:'#home'},{label:'About',href:'#about'},
-  {label:'Education',href:'#education'},{label:'Research',href:'#research'},
-  {label:'Experience',href:'#experience'},{label:'Publications',href:'#publications'},
-  {label:'Projects',href:'#projects'},{label:'Contact',href:'#contact'},
+  {label:'Home',href:'#home'},
+  {label:'About',href:'#about'},
+  {label:'Education',href:'#education'},
+  {label:'Research & Publications',href:'#research'},
+  {label:'Experience',href:'#experience'},
+  {label:'Contacts',href:'#contact'},
 ];
 export default function Navbar(){
   const [open,setOpen]=useState(false);

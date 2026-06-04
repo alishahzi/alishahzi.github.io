@@ -5,7 +5,6 @@ import About        from "./components/About";
 import Education    from "./components/Education";
 import Experience   from "./components/Experience";
 import Publications from "./components/Publications";
-import Projects     from "./components/Projects";
 import Contact      from "./components/Contact";
 import StarField    from "./components/StarField";
 
@@ -40,7 +39,6 @@ export default function App() {
           <section id="education"><EB name="Education"><Education /></EB>   </section>
           <section id="research"> <EB name="Publications"><Publications /></EB> </section>
           <section id="experience"><EB name="Experience"><Experience /></EB></section>
-          <section id="projects"> <EB name="Projects"><Projects /></EB>     </section>
           <section id="contact">  <EB name="Contact"><Contact /></EB>       </section>
         </main>
       </div>

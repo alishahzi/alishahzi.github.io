@@ -2,18 +2,21 @@ import { useEffect } from "react";
 import { personal } from "../data/content";
 
 const SOCIAL = [
-  { label: "Scholar",      href: "https://scholar.google.com/citations?user=shahzadali",                     color: "#06b6d4", icon: "GS" },
-  { label: "Scopus",       href: "https://www.scopus.com/authid/detail.uri?authorId=57202066536",            color: "#00ccbb", icon: "SC" },
-  { label: "WoS",          href: "https://www.webofscience.com/wos/author/record/ODJ-8978-2025",             color: "#10b981", icon: "WS" },
+  { label: "Scholar",      href: "https://scholar.google.com/citations?user=n3XO81UAAAAJ&hl=en",             color: "#06b6d4", icon: "GS" },
   { label: "ORCID",        href: "https://orcid.org/0000-0002-0608-9515",                                    color: "#a6ce39", icon: "iD" },
-  { label: "LinkedIn",     href: "https://www.linkedin.com/in/shahzadali21",                                 color: "#3b82f6", icon: "in" },
+  { label: "LinkedIn",     href: "https://linkedin.com/in/alishahzi",                                        color: "#3b82f6", icon: "in" },
   { label: "GitHub",       href: "https://github.com/alishahzi",                                             color: "#8b5cf6", icon: "GH" },
+  { label: "ResearchGate", href: "https://www.researchgate.net/profile/Shahzad-Ali-56",                      color: "#00ccbb", icon: "RG" },
+  { label: "Loop",         href: "https://loop.frontiersin.org/people/3051308/overview",                     color: "#ef4444", icon: "LP" },
+  { label: "Scopus",       href: "https://www.scopus.com/authid/detail.uri?authorId=57202066536",            color: "#f97316", icon: "SC" },
+  { label: "WoS",          href: "https://www.webofscience.com/wos/author/record/ODJ-8978-2025",             color: "#10b981", icon: "WS" },
+  { label: "X",            href: "https://x.com/shahzadali039",                                              color: "#94a3b8", icon: "X"  },
   { label: "Email",        href: `mailto:${personal.email}`,                                                color: "#f59e0b", icon: "@"  },
 ];
 
 const TAGS = [
-  "Graph Neural Networks","Medical Imaging","Alzheimer's Disease",
-  "Deep Learning","Interpretable AI","Neuroimaging",
+  "Graph Learning","Neurodegenerative Diseases","Alzheimer's",
+  "Graph Neural Networks","Multimodal Neuroimaging","Healthcare AI",
 ];
 
 export default function Hero() {
@@ -64,8 +67,8 @@ export default function Hero() {
               {[
                 {l:"PhD Researcher",           bg:"rgba(6,182,212,.12)",  bo:"rgba(6,182,212,.45)",  c:"#67e8f9"},
                 {l:"Università di Bologna",   bg:"rgba(59,130,246,.12)", bo:"rgba(59,130,246,.45)", c:"#93c5fd"},
-                {l:"IRCCS San Martino",       bg:"rgba(139,92,246,.12)", bo:"rgba(139,92,246,.45)", c:"#c4b5fd"},
-                {l:"Medical Imaging AI",      bg:"rgba(16,185,129,.12)", bo:"rgba(16,185,129,.45)", c:"#6ee7b7"},
+                {l:"IRCCS San Martino · LISCOMP", bg:"rgba(139,92,246,.12)", bo:"rgba(139,92,246,.45)", c:"#c4b5fd"},
+                {l:"Graph Learning · Healthcare AI", bg:"rgba(16,185,129,.12)", bo:"rgba(16,185,129,.45)", c:"#6ee7b7"},
               ].map(b=>(
                 <span key={b.l} className="text-xs px-3 py-1.5 rounded-full font-semibold tracking-wide"
                   style={{background:b.bg,border:`1px solid ${b.bo}`,color:b.c}}>{b.l}</span>
@@ -193,8 +196,8 @@ export default function Hero() {
               style={{background:"rgba(6,182,212,.06)",border:"1px solid rgba(6,182,212,.2)"}}>
               <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{color:"rgba(6,182,212,.6)"}}>Current Focus</p>
               <p className="text-xs leading-relaxed" style={{color:"#94a3b8"}}>
-                Graph Neural Networks and multimodal neuroimaging for{" "}
-                <span style={{color:"#67e8f9",fontWeight:600}}>Alzheimer&rsquo;s disease diagnosis</span>
+                Graph learning and AI methods for{" "}
+                <span style={{color:"#67e8f9",fontWeight:600}}>neurodegenerative disease modelling</span>
               </p>
             </div>
           </div>

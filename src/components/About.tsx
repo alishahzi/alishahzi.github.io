@@ -4,11 +4,14 @@ export default function About() {
   const paragraphs = (personal.summary || "").split(/\n+/).filter(Boolean);
 
   const PROFILE_LINKS = [
-    { href: "https://scholar.google.com/citations?user=shahzadali",                  label: "Google Scholar",  bg:"rgba(6,182,212,.1)",  bo:"rgba(6,182,212,.35)",  c:"#67e8f9" },
-    { href: "https://www.linkedin.com/in/shahzadali21",                               label: "LinkedIn",        bg:"rgba(59,130,246,.1)", bo:"rgba(59,130,246,.35)", c:"#93c5fd" },
-    { href: "https://www.webofscience.com/wos/author/record/ODJ-8978-2025",           label: "Web of Science",  bg:"rgba(16,185,129,.1)", bo:"rgba(16,185,129,.35)", c:"#6ee7b7" },
+    { href: "https://scholar.google.com/citations?user=n3XO81UAAAAJ&hl=en",          label: "Google Scholar",  bg:"rgba(6,182,212,.1)",  bo:"rgba(6,182,212,.35)",  c:"#67e8f9" },
+    { href: "https://linkedin.com/in/alishahzi",                                      label: "LinkedIn",        bg:"rgba(59,130,246,.1)", bo:"rgba(59,130,246,.35)", c:"#93c5fd" },
     { href: "https://orcid.org/0000-0002-0608-9515",                                  label: "ORCID",           bg:"rgba(166,206,57,.1)", bo:"rgba(166,206,57,.35)", c:"#d4ed6e" },
-    { href: "https://www.scopus.com/authid/detail.uri?authorId=57202066536",          label: "Scopus",          bg:"rgba(0,204,187,.1)",  bo:"rgba(0,204,187,.35)",  c:"#5eead4" },
+    { href: "https://loop.frontiersin.org/people/3051308/overview",                   label: "Loop (Frontiers)",bg:"rgba(239,68,68,.1)",  bo:"rgba(239,68,68,.35)",  c:"#fca5a5" },
+    { href: "https://www.researchgate.net/profile/Shahzad-Ali-56",                    label: "ResearchGate",    bg:"rgba(0,204,187,.1)",  bo:"rgba(0,204,187,.35)",  c:"#5eead4" },
+    { href: "https://www.scopus.com/authid/detail.uri?authorId=57202066536",          label: "Scopus",          bg:"rgba(249,115,22,.1)", bo:"rgba(249,115,22,.35)", c:"#fdba74" },
+    { href: "https://www.webofscience.com/wos/author/record/ODJ-8978-2025",           label: "Web of Science",  bg:"rgba(16,185,129,.1)", bo:"rgba(16,185,129,.35)", c:"#6ee7b7" },
+    { href: "https://x.com/shahzadali039",                                            label: "X / Twitter",     bg:"rgba(148,163,184,.1)",bo:"rgba(148,163,184,.35)",c:"#cbd5e1" },
     { href: personal.github || "https://github.com/alishahzi",                        label: "GitHub",          bg:"rgba(139,92,246,.1)", bo:"rgba(139,92,246,.35)", c:"#c4b5fd" },
   ];
 
@@ -20,7 +23,7 @@ export default function About() {
           <h2 className="text-4xl font-black text-white mb-4" style={{letterSpacing:"-0.02em"}}>About Me</h2>
           <div className="w-16 h-1 rounded-full mx-auto mb-4" style={{background:"linear-gradient(90deg,#06b6d4,#3b82f6)"}}/>
           <p className="text-sm max-w-lg mx-auto" style={{color:"#64748b"}}>
-            Researcher, teacher, and problem-solver working at the intersection of AI and healthcare.
+            Graph learning and AI for healthcare — modelling neurodegenerative disease mechanisms and progression.
           </p>
         </div>
 
