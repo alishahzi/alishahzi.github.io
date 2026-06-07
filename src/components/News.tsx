@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { news } from "../data/content";
+import { news, newsGallery } from "../data/content";
 import { inlineLinks } from "../lib/inlineLinks";
+import Slideshow from "./Slideshow";
 
 const INITIAL_VISIBLE = 6;
 
@@ -22,6 +23,10 @@ export default function News() {
             Conferences, talks, training, and milestones — what I've been up to recently.
           </p>
         </div>
+
+        {newsGallery && newsGallery.length > 0 && (
+          <Slideshow slides={newsGallery} />
+        )}
 
         <div className="relative">
           {/* timeline rail */}
