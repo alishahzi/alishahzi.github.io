@@ -85,7 +85,7 @@ export default function About() {
                 {personal.cvUrl && (
                   <a href={personal.cvUrl} target="_blank" rel="noopener noreferrer"
                     className="flex items-start gap-2 text-xs transition-colors hover:text-cyan-300" style={{color:"#06b6d4"}}>
-                    <span>📄</span>Download CV ↗
+                    <span>📄</span>View CV ↗
                   </a>
                 )}
               </div>

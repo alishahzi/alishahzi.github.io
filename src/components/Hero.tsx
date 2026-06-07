@@ -106,25 +106,6 @@ export default function Hero() {
               ))}
             </div>
 
-            <div className="hero-line flex flex-wrap gap-3">
-              <a href="#research"
-                className="px-8 py-3 rounded-xl font-bold text-sm text-slate-900 transition-all duration-200 hover:scale-105 hover:brightness-110"
-                style={{background:"linear-gradient(135deg,#06b6d4,#3b82f6)",boxShadow:"0 4px 30px rgba(6,182,212,.4)"}}>
-                View Research
-              </a>
-              <a href="#about"
-                className="px-8 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-105"
-                style={{border:"1px solid rgba(6,182,212,.4)",color:"#22d3ee",background:"rgba(6,182,212,.05)"}}>
-                About Me
-              </a>
-              {personal.cvUrl && (
-                <a href={personal.cvUrl} target="_blank" rel="noopener noreferrer"
-                  className="px-8 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-105"
-                  style={{border:"1px solid rgba(148,163,184,.25)",color:"#cbd5e1",background:"rgba(255,255,255,.03)"}}>
-                  Download CV
-                </a>
-              )}
-            </div>
           </div>
 
           {/* RIGHT — Avatar */}
