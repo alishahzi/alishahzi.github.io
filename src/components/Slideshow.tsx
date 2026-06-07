@@ -9,36 +9,49 @@ export interface Slide {
 
 interface Props {
   slides: Slide[];
-  intervalMs?: number;    // auto-advance interval, default 5000
-  height?: string;        // tailwind/css value for slide height, default responsive
+  intervalMs?: number;    // auto-advance interval, default 3500
 }
 
 /**
- * Auto-advancing image carousel.
+ * Auto-advancing image carousel — lightweight version.
  *
- *  • crossfade transitions
- *  • pause on hover / focus
- *  • prev/next arrows + dot indicators
- *  • caption banner at the bottom
- *  • renders nothing if `slides` is empty
+ *  • Only the current slide is rendered (plus an invisible preload of the next).
+ *    Keeps memory + paint cost low so the cursor and StarField stay smooth.
+ *  • Uses `object-contain` so portrait/landscape images both display fully,
+ *    with the section's dark background acting as letterboxing.
+ *  • Pauses auto-advance on hover / focus.
+ *  • Manual arrows + dot indicators.
+ *  • Renders nothing if `slides` is empty.
  */
-export default function Slideshow({ slides, intervalMs = 5000 }: Props) {
+export default function Slideshow({ slides, intervalMs = 3500 }: Props) {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [animKey, setAnimKey] = useState(0);   // bumps to restart fade-in animation
   const timer = useRef<number | null>(null);
 
+  // auto-advance
   useEffect(() => {
     if (paused || slides.length <= 1) return;
     timer.current = window.setTimeout(() => {
       setIdx(i => (i + 1) % slides.length);
+      setAnimKey(k => k + 1);
     }, intervalMs);
     return () => { if (timer.current) window.clearTimeout(timer.current); };
   }, [idx, paused, slides.length, intervalMs]);
 
   if (!slides || slides.length === 0) return null;
 
-  const go = (delta: number) =>
+  const go = (delta: number) => {
     setIdx(i => (i + delta + slides.length) % slides.length);
+    setAnimKey(k => k + 1);
+  };
+  const jumpTo = (i: number) => {
+    setIdx(i);
+    setAnimKey(k => k + 1);
+  };
+
+  const current = slides[idx];
+  const next = slides[(idx + 1) % slides.length];
 
   return (
     <div
@@ -54,53 +67,79 @@ export default function Slideshow({ slides, intervalMs = 5000 }: Props) {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {slides.map((s, i) => {
-        const isActive = i === idx;
-        const img = (
-          <img
-            src={s.src}
-            alt={s.alt || s.caption || `slide ${i + 1}`}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading={i === 0 ? "eager" : "lazy"}
-            onError={e => {
-              // hide broken images so the slideshow keeps working even if a
-              // file is missing from public/news/
-              (e.target as HTMLImageElement).style.opacity = "0";
-            }}
-          />
-        );
-        return (
-          <div
-            key={i}
-            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-            style={{
-              opacity: isActive ? 1 : 0,
-              pointerEvents: isActive ? "auto" : "none",
-            }}
-            aria-hidden={!isActive}
-          >
-            {s.href
-              ? <a href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{img}</a>
-              : img}
+      {/* keyframes for fade-in (scoped — emitted once, browsers dedupe identical content) */}
+      <style>{`
+        @keyframes slideshow-fade-in {
+          from { opacity: 0; transform: scale(1.012); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
 
-            {s.caption && (
-              <div
-                className="absolute left-0 right-0 bottom-0 px-6 py-4"
-                style={{
-                  background: "linear-gradient(to top, rgba(4,8,15,.95) 0%, rgba(4,8,15,.7) 60%, transparent 100%)",
-                }}
-              >
-                <p
-                  className="text-sm md:text-base font-semibold leading-snug max-w-3xl"
-                  style={{ color: "#f1f5f9", textShadow: "0 1px 8px rgba(0,0,0,.6)" }}
-                >
-                  {s.caption}
-                </p>
-              </div>
-            )}
+      {/* active slide */}
+      <div
+        key={animKey}
+        className="absolute inset-0"
+        style={{ animation: "slideshow-fade-in 600ms ease-out both" }}
+      >
+        {current.href ? (
+          <a href={current.href} target={current.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+            <img
+              src={current.src}
+              alt={current.alt || current.caption || `slide ${idx + 1}`}
+              className="absolute inset-0 w-full h-full"
+              style={{ objectFit: "contain" }}
+              decoding="async"
+              loading="eager"
+              onError={e => { (e.target as HTMLImageElement).style.opacity = "0"; }}
+            />
+          </a>
+        ) : (
+          <img
+            src={current.src}
+            alt={current.alt || current.caption || `slide ${idx + 1}`}
+            className="absolute inset-0 w-full h-full"
+            style={{ objectFit: "contain" }}
+            decoding="async"
+            loading="eager"
+            onError={e => { (e.target as HTMLImageElement).style.opacity = "0"; }}
+          />
+        )}
+
+        {current.caption && (
+          <div
+            className="absolute left-0 right-0 bottom-0 px-6 py-4"
+            style={{
+              background: "linear-gradient(to top, rgba(4,8,15,.95) 0%, rgba(4,8,15,.7) 60%, transparent 100%)",
+            }}
+          >
+            <p
+              className="text-sm md:text-base font-semibold leading-snug max-w-3xl"
+              style={{ color: "#f1f5f9", textShadow: "0 1px 8px rgba(0,0,0,.6)" }}
+            >
+              {current.caption}
+            </p>
           </div>
-        );
-      })}
+        )}
+      </div>
+
+      {/* invisible preload of the next image — keeps transitions snappy without
+          paying the cost of having every slide mounted at once */}
+      {slides.length > 1 && (
+        <img
+          src={next.src}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          loading="eager"
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+        />
+      )}
 
       {slides.length > 1 && (
         <>
@@ -142,7 +181,7 @@ export default function Slideshow({ slides, intervalMs = 5000 }: Props) {
                 type="button"
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={i === idx}
-                onClick={() => setIdx(i)}
+                onClick={() => jumpTo(i)}
                 className="h-2 rounded-full transition-all duration-300"
                 style={{
                   width: i === idx ? 24 : 8,
