@@ -1,4 +1,5 @@
 import { personal, stats } from "../data/content";
+import { inlineLinks } from "../lib/inlineLinks";
 
 export default function About() {
   const paragraphs = (personal.summary || "").split(/\n+/).filter(Boolean);
@@ -31,7 +32,7 @@ export default function About() {
           <div className="lg:col-span-2 space-y-5">
             {paragraphs.length > 0
               ? paragraphs.map((p, i) => (
-                  <p key={i} className="leading-[1.85] text-[0.925rem]" style={{color:"#94a3b8"}}>{p}</p>
+                  <p key={i} className="leading-[1.85] text-[0.925rem]" style={{color:"#94a3b8"}}>{inlineLinks(p)}</p>
                 ))
               : <p className="italic" style={{color:"#475569"}}>Biography not available.</p>
             }

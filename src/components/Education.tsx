@@ -1,5 +1,12 @@
 import { education } from "../data/content";
 
+interface EduEntry {
+  id?: string; degree: string; specialization?: string; institution: string;
+  institutionUrl?: string; location?: string; period?: string; department?: string;
+  thesis?: string; scholarship?: string; gpa?: string; pecReg?: string;
+  highlights?: string[];
+}
+
 export default function Education() {
   if (!education || education.length === 0) return null;
   return (
@@ -20,7 +27,12 @@ export default function Education() {
                 <div className="flex-1">
                   <h3 className="text-lg font-black text-white mb-1" style={{letterSpacing:"-0.01em"}}>{d.degree}</h3>
                   {d.specialization && <p className="text-sm font-bold mb-1" style={{color:"#22d3ee"}}>{d.specialization}</p>}
-                  <p className="text-sm font-semibold text-slate-200 mb-0.5">{d.institution}</p>
+                  <p className="text-sm font-semibold text-slate-200 mb-0.5">
+                    {(d as EduEntry).institutionUrl
+                      ? <a href={(d as EduEntry).institutionUrl} target="_blank" rel="noopener noreferrer"
+                          className="hover:text-cyan-300 underline decoration-cyan-500/30 underline-offset-2 transition-colors">{d.institution}</a>
+                      : d.institution}
+                  </p>
                   {d.department && <p className="text-xs" style={{color:"#64748b"}}>{d.department}</p>}
                   {d.location && <p className="flex items-center gap-1 text-xs mt-1" style={{color:"#64748b"}}><span>📍</span>{d.location}</p>}
                 </div>

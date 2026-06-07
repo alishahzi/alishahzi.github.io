@@ -1,4 +1,11 @@
 import { experience } from "../data/content";
+import { inlineLinks } from "../lib/inlineLinks";
+
+interface ExpEntry {
+  id?: string; role: string; org: string; orgUrl?: string;
+  department?: string; location?: string; period?: string;
+  type?: string; current?: boolean; highlights?: string[]; tags?: string[];
+}
 
 export default function Experience() {
   if (!experience || experience.length === 0) return null;
@@ -34,8 +41,13 @@ export default function Experience() {
                           </span>
                         )}
                       </div>
-                      <p className="font-bold text-sm mb-0.5" style={{color:"#22d3ee"}}>{e.org}</p>
-                      {e.department && <p className="text-xs" style={{color:"#64748b"}}>{e.department}</p>}
+                      <p className="font-bold text-sm mb-0.5" style={{color:"#22d3ee"}}>
+                        {(e as ExpEntry).orgUrl
+                          ? <a href={(e as ExpEntry).orgUrl} target="_blank" rel="noopener noreferrer"
+                              className="hover:text-cyan-200 underline decoration-cyan-500/30 underline-offset-2 transition-colors">{e.org}</a>
+                          : e.org}
+                      </p>
+                      {e.department && <p className="text-xs" style={{color:"#64748b"}}>{inlineLinks(e.department)}</p>}
                       {e.location && <p className="flex items-center gap-1 text-xs mt-0.5" style={{color:"#64748b"}}>📍 {e.location}</p>}
                     </div>
                     <div className="flex flex-col items-start md:items-end gap-2 shrink-0">

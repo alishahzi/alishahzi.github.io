@@ -5,6 +5,7 @@ const NAV=[
   {label:'Education',href:'#education'},
   {label:'Research & Publications',href:'#research'},
   {label:'Experience',href:'#experience'},
+  {label:'News',href:'#news'},
   {label:'Contacts',href:'#contact'},
 ];
 export default function Navbar(){

@@ -29,9 +29,9 @@ export const personal = {
   cvUrl: '/cv/CV_Shahzad.pdf',
   image: '/profile.png',
   heroBlurb: `PhD candidate at Università di Bologna and IRCCS San Martino working at the intersection of machine learning, graph neural networks, and multimodal neuroimaging. My research focuses on building AI methods that model brain network changes in Alzheimer's disease and predict cognitive decline.`,
-  summary: `I am a PhD candidate in Data Science and Computation at Alma Mater Studiorum – Università di Bologna, Italy. I began my doctoral studies in November 2022, with a PhD project focused on machine learning methods in digital health.
-My doctoral research is conducted within the Life Science Computational (LISCOMP) Laboratory, a multidisciplinary research environment formed through the collaboration between the MIDA (Methods for Image and Data Analysis) group and the IRCCS San Martino Hospital, Genova. Since September 2023, I am based at IRCCS San Martino Hospital and work under the supervision of Ing. Nicola Rosso and Dr. Sara Garbarino.
-From July 2025 to January 2026, I was a visiting researcher at the LILI Lab, University of Sussex, UK. During this period, my research focused on artificial intelligence and graph learning methods for neurodegenerative diseases, leveraging structured clinical and healthcare data to model disease mechanisms and disease progression. Prior to starting my PhD, I served as a lecturer in computer science at the University of Education, Lahore, Pakistan, where I was involved in teaching and academic activities.
+  summary: `I am a PhD candidate in Data Science and Computation at [Alma Mater Studiorum – Università di Bologna](https://www.unibo.it/en), Italy. I began my doctoral studies in November 2022, with a PhD project focused on machine learning methods in digital health.
+My doctoral research is conducted within the Life Science Computational ([LISCOMP](https://mida.unige.it/liscomp)) Laboratory, a multidisciplinary research environment formed through the collaboration between the [MIDA](https://mida.unige.it/) (Methods for Image and Data Analysis) group and the [IRCCS San Martino Hospital](https://www.ospedalesanmartino.it/it/), Genova. Since September 2023, I am based at IRCCS San Martino Hospital and work under the supervision of Ing. Nicola Rosso and Dr. Sara Garbarino.
+From July 2025 to January 2026, I was a visiting researcher at the [LILI Lab](https://lililab-sussex.github.io/), [University of Sussex](https://www.sussex.ac.uk/), UK. During this period, my research focused on artificial intelligence and graph learning methods for neurodegenerative diseases, leveraging structured clinical and healthcare data to model disease mechanisms and disease progression. Prior to starting my PhD, I served as a lecturer in computer science at the [University of Education](https://www.ue.edu.pk/index.php), Lahore, Pakistan, where I was involved in teaching and academic activities.
 My research focuses on graph learning and AI methods for neurodegenerative disease modelling, with an emphasis on Graph Neural Networks (GNNs) and multimodal data integration for healthcare and clinical applications.`,
 };
 
@@ -113,7 +113,8 @@ export const experience = [
     id: 'irccs-phd',
     role: 'PhD Researcher',
     org: 'IRCCS Ospedale Policlinico San Martino',
-    department: 'LISCOMP Laboratory — supervised by Ing. Nicola Rosso and Dr. Sara Garbarino',
+    orgUrl: 'https://www.ospedalesanmartino.it/it/',
+    department: '[LISCOMP Laboratory](https://mida.unige.it/liscomp) — supervised by Ing. Nicola Rosso and Dr. Sara Garbarino',
     location: 'Genova, Italy',
     period: 'Sep 2023 — Present',
     type: 'Clinical Research',
@@ -131,7 +132,8 @@ export const experience = [
     id: 'sussex-visiting',
     role: 'Visiting Researcher',
     org: 'LILI Lab, University of Sussex',
-    department: 'Lifespan Lab — graph learning for neurodegenerative diseases',
+    orgUrl: 'https://lililab-sussex.github.io/',
+    department: '[Lifespan Lab (LILI)](https://lililab-sussex.github.io/) at the [University of Sussex](https://www.sussex.ac.uk/) — graph learning for neurodegenerative diseases',
     location: 'Brighton, United Kingdom',
     period: 'Jul 2025 — Jan 2026',
     type: 'Visiting Research',
@@ -148,6 +150,7 @@ export const experience = [
     id: 'ue-lecturer',
     role: 'Lecturer — Computer Science',
     org: 'University of Education, Lahore',
+    orgUrl: 'https://www.ue.edu.pk/index.php',
     department: 'Department of Information Sciences',
     location: 'Lahore, Pakistan',
     period: 'Mar 2019 — Present',
@@ -164,6 +167,7 @@ export const experience = [
     id: 'uet-gra',
     role: 'Graduate Research Assistant',
     org: 'University of Engineering and Technology, Lahore',
+    orgUrl: 'https://www.uet.edu.pk/home/',
     department: 'Department of Computer Science & Engineering',
     location: 'Lahore, Pakistan',
     period: 'Oct 2016 — May 2018',
@@ -184,6 +188,7 @@ export const education = [
     degree: 'PhD in Data Science and Computation',
     specialization: 'Machine Learning Methods in Digital Health',
     institution: 'Alma Mater Studiorum — Università di Bologna',
+    institutionUrl: 'https://www.unibo.it/en',
     location: 'Bologna, Italy',
     period: 'Nov 2022 — Present',
     department: 'PhD Programme in Data Science and Computation',
@@ -200,6 +205,7 @@ export const education = [
     degree: 'Master of Science in Computer Science',
     specialization: 'Computer Science · Machine Learning',
     institution: 'University of Engineering and Technology, Lahore',
+    institutionUrl: 'https://www.uet.edu.pk/home/',
     location: 'Lahore, Pakistan',
     period: 'Jan 2016 — Jul 2018',
     department: 'Department of Computer Science & Engineering',
@@ -217,6 +223,7 @@ export const education = [
     degree: 'Bachelor of Science in Telecommunication and Networking',
     specialization: 'Computer Science · Telecommunication & Networking',
     institution: 'COMSATS University Islamabad, Sahiwal Campus',
+    institutionUrl: 'https://sahiwal.comsats.edu.pk/',
     location: 'Sahiwal, Pakistan',
     period: 'Aug 2011 — Jun 2015',
     department: '',
@@ -488,3 +495,97 @@ export const professionalDevelopment = [
   { title: 'Build your first Machine Learning Pipeline using Dataiku',    org: 'Coursera', year: '2024' },
   { title: 'Overview of Data Visualization',                              org: 'Coursera', year: '2024' },
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NEWS & UPDATES
+// Newest first. Each entry's `body` may contain [label](url) inline links
+// — they're rendered as clickable cyan accents by the inlineLinks helper.
+// ─────────────────────────────────────────────────────────────────────────────
+export const news = [
+  {
+    id: 'n17',
+    date: 'Jun 2026',
+    body: `Our abstract, "MRI Connectivity Metrics for Alzheimer's Diagnosis, Staging, and Cognitive Decline Prediction," has been accepted for a poster presentation at the [Organization for Human Brain Mapping (OHBM) 2026 Annual Meeting](https://humanbrainmapping.org/i4a/pages/index.cfm?pageid=4317), June 14–18, 2026, in Bordeaux, France. I look forward to presenting this research and engaging with the international neuroimaging community at OHBM 2026.`,
+  },
+  {
+    id: 'n16',
+    date: 'Jun 2026',
+    body: `Our abstract, "Hierarchical Graph-of-Graphs Learning for Multimodal Alzheimer's Disease Staging and Progression Modelling," has been accepted for presentation at the [Learning on Graphs Italian Meetup 2026](https://log26pisa.github.io/), June 9–11, 2026, in Pisa, Italy. I look forward to presenting this work and engaging with the graph learning and biomedical AI community.`,
+  },
+  {
+    id: 'n15',
+    date: 'May 2026',
+    body: `Participated in the European Prevention of Alzheimer's Disease Consortium ([EURO-PAD](https://www.symposiacongressi.com/euro-pad-scientific-symposium/)) Scientific Symposium, held in Genoa, Italy, from 28–29 May 2026.`,
+  },
+  {
+    id: 'n14',
+    date: 'Jul 2025 – Jan 2026',
+    body: `Visiting Researcher at the [University of Sussex](https://www.sussex.ac.uk/), UK. During this period, I conducted research at the [LILI Lab](https://lililab-sussex.github.io/), focusing on AI and graph learning methods for neurodegenerative disease modelling, with an emphasis on clinically relevant and translational applications.`,
+  },
+  {
+    id: 'n13',
+    date: 'Dec 2025',
+    body: `Participated in the [Rastuc Labs](https://www.linkedin.com/company/rastuc-labs) Computational Neuroscience Workshop 2025, held from 15–19 December 2025, focusing on computational and data-driven approaches in neuroscience.`,
+  },
+  {
+    id: 'n12',
+    date: 'Dec 2025',
+    body: `Successfully completed the [NCEAC–HEC Generative AI Training](https://www.pakangels.com/hec-generative-ai-training-program/) (Oct–Nov 2025) and was awarded the Generative AI Application Developer Certificate by UETIANS Lahore Endowment Foundation, in collaboration with [Higher Education Commission](https://www.hec.gov.pk), [Pak Angels](https://www.pakangels.com/), [iCode Guru](https://icode.guru/), and [Aspire Pakistan](https://aspirepk.org/). Recognised as a Top Performer.`,
+  },
+  {
+    id: 'n11',
+    date: 'Oct 2025',
+    body: `Successfully completed Soft Skills Training (3 days / 17 hours), recognised by the [International Centre for Migration Policy Development (ICMPD)](https://www.icmpd.org/) and the [Overseas Employment Corporation (OEC)](https://oec.gov.pk/), focusing on employability skills and career readiness.`,
+  },
+  {
+    id: 'n10',
+    date: 'Oct 2025',
+    body: `Participated in the Author Workshop: Publishing Open Access, organised by [Wiley Customer Education](https://www.wiley.com/en-us/solutions-partnerships/customer-success-hub/webinars-and-events/) in collaboration with the [Higher Education Commission (HEC)](https://www.hec.gov.pk/english/Pages/default.aspx), covering open-access publishing models and best practices.`,
+  },
+  {
+    id: 'n9',
+    date: 'Sep 2025',
+    body: `Attended the [Clarivate](https://clarivate.com/) webinar "Peer Review: Best Practices and Recommendations", focusing on peer-review ethics, reviewer responsibilities, and editorial standards.`,
+  },
+  {
+    id: 'n8',
+    date: 'Sep 2025',
+    body: `Attended webinars organised by ECOSISTER Pillar Training: "How to Design an Award-Winning Scientific Poster" (24 Sept 2025) and "Grant Graphics Masterclass: Visuals That Win Funding" (25 Sept 2025), focusing on effective visual communication for scientific dissemination and competitive research funding.`,
+  },
+  {
+    id: 'n7',
+    date: 'May 2025',
+    body: `Attended the scientific meeting "[Update on the Pathophysiology and Neuroimaging of Amyloid-Related Imaging Abnormalities (ARIA)](https://www.symposiacongressi.com/aria2025/)", held in Genoa, Italy (22 May 2025). The event focused on clinical and neuroimaging aspects of ARIA, including MRI manifestations, pathophysiological mechanisms, and implications for amyloid-targeting therapies.`,
+  },
+  {
+    id: 'n6',
+    date: 'Nov 2024',
+    body: `Presented work titled "Integration of Graph Theory and Brain Microstructural Analysis with Machine Learning for Advanced Diagnosis of Alzheimer's Disease and Prediction of Cognitive Decline" at the IV Annual Meeting RIN IRCCS Network – Symposia, 21–22 November 2024.`,
+  },
+  {
+    id: 'n5',
+    date: 'Jan 2024',
+    body: `Participated in the [Geilo Winter School](https://www.sintef.no/projectweb/geilowinterschool/) on [Graphs and Applications](https://www.sintef.no/projectweb/geilowinterschool/2024-winter-school/), held in Geilo, Norway, from 21–26 January 2024.`,
+  },
+  {
+    id: 'n4',
+    date: 'Oct 2023',
+    body: `Participated in the IEEE Communication Society (ComSoc) eHealth Technical Committee (TC) PhD School, held in Genoa, Italy, from 25–27 October 2023.`,
+  },
+  {
+    id: 'n3',
+    date: 'Nov 2022',
+    body: `Started PhD (38th cycle) in Data Science and Computation at [Alma Mater Studiorum – Università di Bologna](https://www.unibo.it/en), funded by Next Generation EU – NRRP (D.M. 351/2022).`,
+  },
+  {
+    id: 'n2',
+    date: 'Mar 2019',
+    body: `Appointed as Lecturer in Information Technology (BS-18) at the [University of Education Lahore](https://www.ue.edu.pk/index.php) – Multan Campus, Pakistan, effective 20 March 2019. Transferred to the University of Education Lahore – Vehari Campus, Pakistan, effective 23 October 2020.`,
+  },
+  {
+    id: 'n1',
+    date: 'Jul 2018',
+    body: `Completed Master of Science (M.Sc.) in Computer Science from the [University of Engineering and Technology](https://www.uet.edu.pk/home/), Lahore, Pakistan, with the degree awarded on 23 November 2018.`,
+  },
+];
+
