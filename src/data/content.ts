@@ -589,3 +589,90 @@ export const news = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// NEWS GALLERY — slideshow above the news timeline
+// Drop image files into  public/news/  and reference them here with leading "/news/".
+// Slides without a corresponding file simply don't display (the img onError
+// handler hides them), so it is safe to ship this list even if some images
+// are not yet provided. Order = display order; the slideshow rotates them.
+// ─────────────────────────────────────────────────────────────────────────────
+export const newsGallery = [
+  // EURO-PAD Scientific Symposium — Genoa, May 2026
+  {
+    src: '/news/euro-pad-1.jpg',
+    alt: 'EURO-PAD Scientific Symposium in Genoa',
+    caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
+  },
+  {
+    src: '/news/euro-pad-3.jpg',
+    alt: 'EURO-PAD Scientific Symposium in Genoa',
+    caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
+  },
+  {
+    src: '/news/euro-pad-4.jpg',
+    alt: 'EURO-PAD Scientific Symposium in Genoa',
+    caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
+  },
+
+  // Visiting Researcher — LILI Lab, University of Sussex, UK
+  {
+    src: '/news/sussex-mobility-1.jpg',
+    alt: 'Visiting research period at LILI Lab, University of Sussex',
+    caption: 'Visiting Researcher · LILI Lab, University of Sussex (Jul 2025 – Jan 2026)',
+  },
+  {
+    src: '/news/sussex-mobility-2.jpg',
+    alt: 'Visiting research period at LILI Lab, University of Sussex',
+    caption: 'Visiting Researcher · LILI Lab, University of Sussex (Jul 2025 – Jan 2026)',
+  },
+
+  // RIN IRCCS Network Symposium — Nov 2024
+  {
+    src: '/news/rin-irccs-symposia.jpg',
+    alt: 'IV Annual Meeting RIN IRCCS Network — Symposia',
+    caption: 'IV Annual Meeting RIN IRCCS Network — Symposia (Nov 2024)',
+  },
+
+  // Geilo Winter School — Graphs and Applications, Norway, Jan 2024
+  {
+    src: '/news/geilo-winter-school-1.jpg',
+    alt: 'Geilo Winter School on Graphs and Applications, Norway',
+    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
+  },
+  {
+    src: '/news/geilo-winter-school-2.jpg',
+    alt: 'Geilo Winter School on Graphs and Applications, Norway',
+    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
+  },
+  {
+    src: '/news/geilo-winter-school-3.jpg',
+    alt: 'Geilo Winter School on Graphs and Applications, Norway',
+    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
+  },
+  {
+    src: '/news/geilo-winter-school-4.jpg',
+    alt: 'Geilo Winter School on Graphs and Applications, Norway',
+    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
+  },
+
+  // IEEE ComSoc eHealth PhD School — Genoa, Oct 2023
+  {
+    src: '/news/comsoc-phd-school.jpg',
+    alt: 'IEEE ComSoc eHealth Technical Committee PhD School in Genoa',
+    caption: 'IEEE ComSoc eHealth Technical Committee PhD School · Genoa (Oct 2023)',
+  },
+
+  // Porto Antico, Genova — decorative city shots from where the research lives
+  {
+    src: '/news/porto-antico-genova-1.jpg',
+    alt: 'Porto Antico, Genoa, Italy',
+    caption: 'Porto Antico, Genova — where the research lives',
+  },
+  {
+    src: '/news/porto-antico-genova-2.jpg',
+    alt: 'Porto Antico, Genoa, Italy',
+    caption: 'Porto Antico, Genova — where the research lives',
+  },
+];
+
+
