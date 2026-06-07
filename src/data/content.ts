@@ -614,16 +614,17 @@ export const newsGallery = [
     caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
   },
 
-  // Visiting Researcher — LILI Lab, University of Sussex, UK
+  // Visiting research period at LILI Lab, University of Sussex (Jul 2025 – Jan 2026)
+  // Photos taken at London Bridge / around the UK during that period.
   {
     src: '/news/sussex-mobility-1.jpg',
-    alt: 'Visiting research period at LILI Lab, University of Sussex',
-    caption: 'Visiting Researcher · LILI Lab, University of Sussex (Jul 2025 – Jan 2026)',
+    alt: 'London Bridge, taken during the visiting research period at the University of Sussex',
+    caption: 'London Bridge · during visiting research at the University of Sussex (Jul 2025 – Jan 2026)',
   },
   {
     src: '/news/sussex-mobility-2.jpg',
-    alt: 'Visiting research period at LILI Lab, University of Sussex',
-    caption: 'Visiting Researcher · LILI Lab, University of Sussex (Jul 2025 – Jan 2026)',
+    alt: 'UK photo from the visiting research period at the University of Sussex',
+    caption: 'London Bridge · during visiting research at the University of Sussex (Jul 2025 – Jan 2026)',
   },
 
   // RIN IRCCS Network Symposium — Nov 2024
