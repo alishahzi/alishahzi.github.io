@@ -258,8 +258,15 @@ interface CityMarker {
 
 function aggregate(): CityMarker[] {
   const map = new Map<string, CityMarker>();
+  // Don't draw a separate pin for Genova — it's already represented by the
+  // origin marker (Shahzad's location). Their labels were overlapping.
+  const isOrigin = (lat: number, lon: number) =>
+    Math.abs(lat - SHAHZAD_NODE.affiliation.lat) < 0.1 &&
+    Math.abs(lon - SHAHZAD_NODE.affiliation.lon) < 0.1;
+
   for (const n of coAuthorNodes) {
     if (n.affiliation.lat === 0 && n.affiliation.lon === 0) continue;
+    if (isOrigin(n.affiliation.lat, n.affiliation.lon)) continue;
     const key = `${n.affiliation.city}|${n.affiliation.country}`;
     if (!map.has(key)) {
       map.set(key, {
@@ -404,8 +411,9 @@ export default function CollaborationMap() {
             const isActive = hovered?.key === a.city.key;
             const dim = hovered && !isActive;
             const baseWeight = 0.6 + Math.min(a.city.totalPapers * 0.22, 1.8);
-            const animDur = Math.max(2.4, Math.min(a.dist / 130, 5.5));
-            const particleDelay = (i * 0.27) % animDur;
+            // Slower, calmer flow — particles cruise rather than race
+            const animDur = Math.max(6, Math.min(a.dist / 70, 12));
+            const particleDelay = (i * 0.72) % animDur;
             return (
               <g key={a.city.key} style={{ transition: "opacity .2s ease", opacity: dim ? 0.18 : 1 }}>
                 <path
