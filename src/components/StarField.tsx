@@ -76,10 +76,12 @@ export default function StarField() {
       cursorCanvas.height = window.innerHeight;
     }
 
-    // Hide OS cursor
+    // Keep the OS cursor visible — the canvas-drawn cursor fell behind on
+    // heavier pages (Network tab) and felt laggy. The OS cursor is hardware-
+    // accelerated and never drops a frame. We still keep the cursor canvas
+    // for the star-connection effect, just no longer hide the real cursor.
     const styleEl = document.createElement("style");
     styleEl.id = "star-cursor-hide";
-    styleEl.textContent = "html,body,*{cursor:none!important}";
     document.head.appendChild(styleEl);
 
     // ── Draw loop ─────────────────────────────────────────────────────────
@@ -186,7 +188,9 @@ export default function StarField() {
       }
 
       // ── Custom cursor (top canvas) ────────────────────────────────────────
-      if (mouse.active) {
+      // Disabled — the OS cursor is back, drawing a duplicate canvas reticle
+      // looked off, and the canvas one lagged behind on heavier pages.
+      if (false && mouse.active) {
         const pulse   = 1 + 0.08 * Math.sin(t * 0.08);
         const R_OUTER = 16 * pulse;
 

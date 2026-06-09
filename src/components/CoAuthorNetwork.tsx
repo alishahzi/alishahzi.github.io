@@ -349,7 +349,10 @@ export default function CoAuthorNetwork() {
                           : (isHovered ? `drop-shadow(0 0 10px ${fill})` : `drop-shadow(0 0 4px ${fill}66)`),
                       }}
                     />
-                    {(n.isShahzad || n.count >= 2 || isHovered) && (
+                    {/* Labels: Shahzad + top collaborators (count ≥ 3) only.
+                        Everyone else shows their name on hover, so the canvas
+                        doesn't get smothered in overlapping text. */}
+                    {(n.isShahzad || n.count >= 3 || isHovered) && (
                       <text
                         x={radius + 6}
                         y={4}

@@ -295,10 +295,40 @@ export default function CollaborationMap() {
   const cities = useMemo(aggregate, []);
   const stars = useMemo(() => generateStars(160, 137), []);
   const [hovered, setHovered] = useState<CityMarker | null>(null);
-  const [pinned, setPinned] = useState<CityMarker | null>(null);
+  // Selected REGION (continent name). Clicking a city or a continent
+  // toggles highlight on that continent. Hover continues to drive the info panel.
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
-  // Active = pinned takes precedence over hover (so clicking holds the highlight)
-  const active = pinned || hovered;
+  // The info panel and visual focus follow hover only — clicking is now
+  // reserved for region highlighting, not pin-to-city.
+  const active = hovered;
+
+  // Precompute which continent contains each city — used for the region click
+  const cityToRegion = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const c of cities) {
+      const [x, y] = proj(c.lon, c.lat);
+      for (const cont of CONTINENTS) {
+        for (const ring of cont.rings) {
+          if (pointInRing(x, y, ring)) {
+            m.set(c.key, cont.name);
+            break;
+          }
+        }
+        if (m.has(c.key)) break;
+      }
+    }
+    return m;
+  }, [cities]);
+
+  // The region highlight color = the dominant group color in that region,
+  // falling back to cyan if no city resolves there.
+  const regionColor = selectedRegion
+    ? (() => {
+        const cityInRegion = cities.find(c => cityToRegion.get(c.key) === selectedRegion);
+        return cityInRegion ? GROUP_COLOR[cityInRegion.group] : "#67e8f9";
+      })()
+    : null;
 
   const [originX, originY] = proj(SHAHZAD_NODE.affiliation.lon, SHAHZAD_NODE.affiliation.lat);
 
@@ -379,16 +409,27 @@ export default function CollaborationMap() {
 
         {/* ── Continents ──────────────────────────────────────────────── */}
         <g>
-          {CONTINENTS.map((c, i) => (
-            <path
-              key={i}
-              d={pathFromRings(c.rings)}
-              fill="rgba(30,41,59,.7)"
-              stroke="rgba(100,116,139,.45)"
-              strokeWidth={0.7}
-              strokeLinejoin="round"
-            />
-          ))}
+          {CONTINENTS.map((c, i) => {
+            const isSelected = selectedRegion === c.name;
+            const isAnySelected = selectedRegion != null;
+            return (
+              <path
+                key={i}
+                d={pathFromRings(c.rings)}
+                fill={isSelected ? `${regionColor}33` : "rgba(30,41,59,.7)"}
+                stroke={isSelected ? (regionColor || "#67e8f9") : "rgba(100,116,139,.45)"}
+                strokeWidth={isSelected ? 1.6 : 0.7}
+                strokeLinejoin="round"
+                style={{
+                  cursor: "pointer",
+                  opacity: isAnySelected && !isSelected ? 0.4 : 1,
+                  transition: "fill .25s ease, stroke .25s ease, stroke-width .25s ease, opacity .25s ease",
+                  filter: isSelected ? `drop-shadow(0 0 14px ${regionColor}66)` : "none",
+                }}
+                onClick={() => setSelectedRegion(prev => prev === c.name ? null : c.name)}
+              />
+            );
+          })}
         </g>
 
         {/* ── Continent labels ──────────────────────────────────────── */}
@@ -416,7 +457,8 @@ export default function CollaborationMap() {
         <g>
           {arcs.map((a, i) => {
             const isActive = active?.key === a.city.key;
-            const dim = active && !isActive;
+            const inSelectedRegion = selectedRegion ? cityToRegion.get(a.city.key) === selectedRegion : true;
+            const dim = (active && !isActive) || (selectedRegion && !inSelectedRegion);
             const baseWeight = 0.6 + Math.min(a.city.totalPapers * 0.22, 1.8);
             // Slower, calmer flow — particles cruise rather than race
             const animDur = Math.max(6, Math.min(a.dist / 70, 12));
@@ -492,7 +534,8 @@ export default function CollaborationMap() {
             const r = 3.5 + Math.min(c.totalPapers * 0.8, 8);
             const color = GROUP_COLOR[c.group];
             const isActive = active?.key === c.key;
-            const dim = active && !isActive;
+            const inSelectedRegion = selectedRegion ? cityToRegion.get(c.key) === selectedRegion : true;
+            const dim = (active && !isActive) || (selectedRegion && !inSelectedRegion);
             const pulseDur = 2.4 + (i % 4) * 0.35;
             const pulseDelay = (i * 0.41) % pulseDur;
             return (
@@ -500,7 +543,11 @@ export default function CollaborationMap() {
                 key={c.key}
                 onPointerEnter={() => setHovered(c)}
                 onPointerLeave={() => setHovered(null)}
-                onClick={() => setPinned(prev => prev?.key === c.key ? null : c)}
+                onClick={() => {
+                  const region = cityToRegion.get(c.key);
+                  if (!region) return;
+                  setSelectedRegion(prev => prev === region ? null : region);
+                }}
                 style={{ cursor: "pointer", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
               >
                 {/* Pulse rings */}
@@ -567,7 +614,7 @@ export default function CollaborationMap() {
         </g>
       </svg>
 
-      {/* Info panel — pinned (clicked) or hovered */}
+      {/* Info panel — appears on hover */}
       {active && (
         <div
           className="absolute top-3 right-3 px-4 py-3 rounded-lg max-w-[280px]"
@@ -579,26 +626,7 @@ export default function CollaborationMap() {
             boxShadow: `0 8px 30px ${GROUP_COLOR[active.group]}40`,
           }}
         >
-          <div className="flex items-start justify-between gap-3 mb-1">
-            <div className="min-w-0">
-              <p className="text-sm font-bold">{active.city}, {active.country}</p>
-              {pinned?.key === active.key && (
-                <p className="text-[9px] uppercase tracking-widest mt-0.5" style={{ color: GROUP_COLOR[active.group] }}>
-                  ● Pinned · click pin again to release
-                </p>
-              )}
-            </div>
-            {pinned && (
-              <button
-                onClick={() => setPinned(null)}
-                aria-label="Close pinned info"
-                className="text-base leading-none transition-opacity hover:opacity-100"
-                style={{ color: "rgba(203,213,225,.6)", opacity: 0.7 }}
-              >
-                ×
-              </button>
-            )}
-          </div>
+          <p className="text-sm font-bold mb-0.5">{active.city}, {active.country}</p>
           <p className="text-[11px] mb-2" style={{ color: "rgba(203,213,225,.7)" }}>{active.org}</p>
           <p className="text-[11px] mb-2" style={{ color: "#67e8f9" }}>
             {active.totalPapers} co-author appearance{active.totalPapers === 1 ? "" : "s"} across {active.people.length} collaborator{active.people.length === 1 ? "" : "s"}
@@ -610,6 +638,30 @@ export default function CollaborationMap() {
               </p>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Selected-region indicator */}
+      {selectedRegion && (
+        <div
+          className="absolute top-3 left-3 px-3 py-2 rounded-lg flex items-center gap-2"
+          style={{
+            background: "rgba(4,8,18,.94)",
+            border: `1px solid ${regionColor}`,
+            color: "#f1f5f9",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <span className="w-2 h-2 rounded-full" style={{ background: regionColor || "#67e8f9", boxShadow: `0 0 8px ${regionColor}` }} />
+          <span className="text-xs font-semibold" style={{ color: regionColor || "#67e8f9" }}>{selectedRegion}</span>
+          <button
+            onClick={() => setSelectedRegion(null)}
+            aria-label="Clear region selection"
+            className="text-base leading-none ml-1 transition-opacity"
+            style={{ color: "rgba(203,213,225,.6)", opacity: 0.7 }}
+          >
+            ×
+          </button>
         </div>
       )}
 
