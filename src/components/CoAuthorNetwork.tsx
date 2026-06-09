@@ -22,35 +22,44 @@ const H = 620;
 const GROUP_COLOR: Record<Affiliation["group"], string> = {
   "italy-genoa":      "#67e8f9",
   "italy-bologna":    "#a5b4fc",
+  "italy-other":      "#7dd3fc",  // sky blue
   "uk-sussex":        "#fca5a5",
   "pakistan-lahore":  "#fdba74",
   "pakistan-other":   "#fcd34d",
   "saudi-arabia":     "#6ee7b7",
   "cyprus":           "#f0abfc",  // pink-magenta
+  "netherlands":      "#f97316",  // orange
+  "usa":              "#34d399",  // emerald
   "other":            "#cbd5e1",
 };
 
 const GROUP_LABEL: Record<Affiliation["group"], string> = {
   "italy-genoa":      "Italy · LISCOMP / MIDA / IRCCS San Martino",
   "italy-bologna":    "Italy · UniBo",
+  "italy-other":      "Italy · Pavia / Siena / Milano",
   "uk-sussex":        "UK · Sussex / LILI Lab",
   "pakistan-lahore":  "Pakistan · Lahore",
   "pakistan-other":   "Pakistan · other",
   "saudi-arabia":     "Saudi Arabia",
   "cyprus":           "Cyprus · CIU",
+  "netherlands":      "Netherlands · Amsterdam UMC",
+  "usa":              "USA · Harvard / Mass General",
   "other":            "Other",
 };
 
 // Cluster anchors as fractions of canvas so they're responsive
 const GROUP_ANCHOR: Record<Affiliation["group"], { fx: number; fy: number }> = {
-  "italy-genoa":      { fx: 0.26, fy: 0.40 },  // left
-  "italy-bologna":    { fx: 0.38, fy: 0.18 },  // upper-left
-  "uk-sussex":        { fx: 0.50, fy: 0.10 },  // top
-  "pakistan-lahore":  { fx: 0.78, fy: 0.42 },  // right
-  "pakistan-other":   { fx: 0.78, fy: 0.78 },  // lower-right
-  "saudi-arabia":     { fx: 0.50, fy: 0.85 },  // bottom
-  "cyprus":           { fx: 0.62, fy: 0.28 },  // mid-upper-right (between Italy and Pakistan)
-  "other":            { fx: 0.22, fy: 0.80 },  // lower-left
+  "italy-genoa":      { fx: 0.22, fy: 0.42 },  // left
+  "italy-bologna":    { fx: 0.34, fy: 0.18 },  // upper-left
+  "italy-other":      { fx: 0.42, fy: 0.62 },  // lower-left-center
+  "uk-sussex":        { fx: 0.48, fy: 0.10 },  // top
+  "pakistan-lahore":  { fx: 0.80, fy: 0.42 },  // right
+  "pakistan-other":   { fx: 0.80, fy: 0.78 },  // lower-right
+  "saudi-arabia":     { fx: 0.58, fy: 0.85 },  // bottom
+  "cyprus":           { fx: 0.66, fy: 0.28 },  // mid-upper-right
+  "netherlands":      { fx: 0.10, fy: 0.20 },  // upper-left corner
+  "usa":              { fx: 0.10, fy: 0.62 },  // lower-left
+  "other":            { fx: 0.20, fy: 0.85 },  // bottom-left
 };
 
 interface SimNode extends SimulationNodeDatum {

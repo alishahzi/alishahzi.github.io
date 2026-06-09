@@ -246,7 +246,7 @@ export const publications = {
   journalsPublished: [
     {
       id: 'J9',
-      authors: 'Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan S, et al.',
+      authors: 'Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan S, Raza N, Sultana J, Habib MA',
       title: 'A robust multi-location evaluation of a machine learning framework for wind power forecasting.',
       venue: 'PLOS ONE',
       vol: '21(4): e0344971',
@@ -255,7 +255,7 @@ export const publications = {
     },
     {
       id: 'J8',
-      authors: 'Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Pardini M, Garbarino S, et al.',
+      authors: 'Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Raffa S, Sambuceti G, Garbarino S, Kreshpa W, Bozzo G, Pelagotti V, Pulze M, Gualco L, Hamedani M, Cirone A, Francia S, Brugnolo A, Girtler N, Caneva S, Roccatagliata L, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Orso B, Pardini M',
       title: 'Neurotransmitter landscape and neurodegeneration patterns in Alzheimer\'s Disease.',
       venue: 'Neurobiology of Aging',
       year: 2026,
@@ -290,7 +290,7 @@ export const publications = {
     },
     {
       id: 'J4',
-      authors: 'Losa M, Cotta Ramusino M, Cama I, Gualco L, Gandoglia I, Massa F, Donniaquio A, Pardini M, Garbarino S, et al.',
+      authors: 'Losa M, Cotta Ramusino M, Cama I, Gualco L, Gandoglia I, Massa F, Donniaquio A, Mortola P, Argenti L, Lombardo L, Kreshpa W, Pelagotti V, Bozzo G, Orso B, Mattioli P, Arnaldi D, Cirone A, Ali S, Hamedani M, Pulze M, Plantone D, Lorenzini L, Falcitano L, Mazzacane F, Perini G, Costa A, Piana M, Castellan L, Uccelli A, Schenone A, Kozberg M, Piazza F, Del Sette M, Garbarino S, Roccatagliata L, Farina LM, Pardini M',
       title: 'Cerebrospinal Fluid Biomarkers Profiling in Cerebral Amyloid Angiopathy and Relationship With Disease Phenotypes.',
       venue: 'Journal of the American Heart Association',
       vol: '14(20): e044784',

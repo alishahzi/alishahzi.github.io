@@ -20,11 +20,14 @@ const TABS: { id: TabId; label: string; sub: string }[] = [
 const GROUP_COLOR: Record<string, string> = {
   "italy-genoa":      "#67e8f9",
   "italy-bologna":    "#a5b4fc",
+  "italy-other":      "#7dd3fc",
   "uk-sussex":        "#fca5a5",
   "pakistan-lahore":  "#fdba74",
   "pakistan-other":   "#fcd34d",
   "saudi-arabia":     "#6ee7b7",
   "cyprus":           "#f0abfc",
+  "netherlands":      "#f97316",
+  "usa":              "#34d399",
   "other":            "#cbd5e1",
 };
 

@@ -29,8 +29,9 @@ export interface Affiliation {
   country: string;
   lat: number;
   lon: number;
-  group: "italy-genoa" | "italy-bologna" | "uk-sussex" | "pakistan-lahore" |
-         "pakistan-other" | "saudi-arabia" | "cyprus" | "other";
+  group: "italy-genoa" | "italy-bologna" | "italy-other" | "uk-sussex" |
+         "pakistan-lahore" | "pakistan-other" | "saudi-arabia" | "cyprus" |
+         "netherlands" | "usa" | "other";
 }
 
 export const AFFILIATIONS: Record<string, Affiliation> = {
@@ -54,7 +55,47 @@ export const AFFILIATIONS: Record<string, Affiliation> = {
   "cotta ramusino": { org: "IRCCS Mondino · UniGe",           city: "Pavia / Genova", country: "Italy", lat: 45.18, lon:  9.16, group: "italy-genoa" },
   cama:         { org: "Università di Genova (MIDA)",         city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
   gualco:       { org: "IRCCS San Martino · UniGe",           city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
-  gandoglia:    { org: "IRCCS San Martino · UniGe",           city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  gandoglia:    { org: "IRCCS San Martino",                   city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+
+  // — UniGe / IRCCS San Martino — Neurology, PET, Connectomics team ─────────
+  raffa:        { org: "IRCCS San Martino · UniGe (PET)",         city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  sambuceti:    { org: "IRCCS San Martino · UniGe (Nuclear Med.)", city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  bozzo:        { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  pelagotti:    { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  pulze:        { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  hamedani:     { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  francia:      { org: "IRCCS San Martino · UniGe",               city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  brugnolo:     { org: "IRCCS San Martino · UniGe (Neurology)",   city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  girtler:      { org: "IRCCS San Martino · UniGe (Neurology)",   city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  caneva:       { org: "IRCCS San Martino · UniGe",               city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  mattioli:     { org: "IRCCS San Martino · UniGe",               city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  morbelli:     { org: "IRCCS San Martino · UniGe (Nuclear Med.)", city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  serrati:      { org: "IRCCS San Martino (Neurology)",           city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  uccelli:      { org: "IRCCS San Martino · UniGe",               city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  chincarini:   { org: "INFN · UniGe",                            city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  arnaldi:      { org: "IRCCS San Martino · UniGe (Neurology)",   city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  orso:         { org: "IRCCS San Martino · UniGe",               city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  schenone:     { org: "IRCCS San Martino · UniGe (Neurology)",   city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  "del sette":  { org: "IRCCS San Martino (Neurology)",           city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  castellan:    { org: "IRCCS San Martino (Neuroradiology)",      city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  mortola:      { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  falcitano:    { org: "IRCCS San Martino",                       city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+
+  // — IRCCS Mondino Foundation, Pavia ──────────────────────────────────────
+  mazzacane:    { org: "IRCCS Mondino Foundation",  city: "Pavia",  country: "Italy", lat: 45.18, lon:  9.16, group: "italy-other" },
+  perini:       { org: "IRCCS Mondino Foundation",  city: "Pavia",  country: "Italy", lat: 45.18, lon:  9.16, group: "italy-other" },
+  costa:        { org: "IRCCS Mondino Foundation",  city: "Pavia",  country: "Italy", lat: 45.18, lon:  9.16, group: "italy-other" },
+  farina:       { org: "IRCCS Mondino Foundation",  city: "Pavia",  country: "Italy", lat: 45.18, lon:  9.16, group: "italy-other" },
+
+  // — Other Italian institutions ───────────────────────────────────────────
+  plantone:     { org: "University of Siena",            city: "Siena", country: "Italy", lat: 43.32, lon: 11.33, group: "italy-other" },
+  piazza:       { org: "University of Milano-Bicocca",   city: "Monza", country: "Italy", lat: 45.58, lon:  9.27, group: "italy-other" },
+
+  // — Amsterdam UMC, Netherlands (Lorenzini L) ─────────────────────────────
+  lorenzini:    { org: "Amsterdam UMC, Vrije Universiteit",  city: "Amsterdam", country: "Netherlands", lat: 52.37, lon:  4.90, group: "netherlands" },
+
+  // — USA (Mariel Kozberg, Harvard / Mass General) ─────────────────────────
+  kozberg:      { org: "Massachusetts General Hospital · Harvard Medical School", city: "Boston", country: "USA", lat: 42.36, lon: -71.06, group: "usa" },
 
   // — UET Lahore (Pakistan) ─────────────────────────────────────────────────
   shahbaz:      { org: "UET Lahore (CSE)",                    city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
@@ -95,6 +136,9 @@ export const AFFILIATIONS: Record<string, Affiliation> = {
 
   // — Wind power / forecasting paper (Pakistan) ─────────────────────────────
   sufyan:       { org: "Pakistani research partners",            city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  raza:         { org: "Pakistani research partners",            city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  sultana:      { org: "Pakistani research partners",            city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  habib:        { org: "Pakistani research partners",            city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
 
   // — ISBM 2025 / Springer LNNS Pakistani ML researchers ────────────────────
   usman:        { org: "Pakistani research partners",            city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
