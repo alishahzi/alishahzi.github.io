@@ -153,46 +153,80 @@ function isShahzad(name: string): boolean {
   return false;
 }
 
-function lookupAffiliation(displayName: string): Affiliation {
-  const lower = displayName.toLowerCase();
-  // Try matching by surname (first word in displayName) or full lowercased string
-  const tokens = lower.split(/\s+/);
-  for (const t of tokens) {
-    if (AFFILIATIONS[t]) return AFFILIATIONS[t];
-  }
-  // Try two-word surnames like "cotta ramusino" / "ur rehman khan"
-  if (tokens.length >= 2) {
-    const last2 = tokens.slice(-2).join(" ");
-    if (AFFILIATIONS[last2]) return AFFILIATIONS[last2];
-    const first2 = tokens.slice(0, 2).join(" ");
-    if (AFFILIATIONS[first2]) return AFFILIATIONS[first2];
-  }
-  if (tokens.length >= 3) {
-    const last3 = tokens.slice(-3).join(" ");
-    if (AFFILIATIONS[last3]) return AFFILIATIONS[last3];
-  }
+function lookupAffiliation(surname: string): Affiliation {
+  if (AFFILIATIONS[surname]) return AFFILIATIONS[surname];
+  // Try the single-word surname (last word) when the parsed surname is multi-word
+  const toks = surname.split(/\s+/);
+  if (toks.length > 1 && AFFILIATIONS[toks[toks.length - 1]]) return AFFILIATIONS[toks[toks.length - 1]];
   return DEFAULT_AFFILIATION;
 }
 
-function canonicalDisplay(raw: string): string {
-  // Convert "Shahbaz M" → "M. Shahbaz" stays as is for readability
-  // Convert "Shahbaz, Muhammad" → "Muhammad Shahbaz"
-  const parts = raw.split(/,/).map(s => s.trim()).filter(Boolean);
-  if (parts.length === 2 && parts[1].length > 2 && parts[0].length > 2) {
-    // "Surname, Forename(s)" → "Forename Surname"
-    return `${parts[1]} ${parts[0]}`.replace(/\s+/g, " ").trim();
-  }
-  return raw;
+// Returns true if a token looks like an "initial(s) only" string:
+//   "M"   "S"   "MM"   "AF"   "MS"   are initials
+//   "Ali" "Sara" "Piana" are not
+function looksLikeInitials(tok: string): boolean {
+  const clean = tok.replace(/[.]/g, "");
+  // 1–4 chars, ALL uppercase (handles single, double, triple initials)
+  return /^[A-Z]{1,4}$/.test(clean);
 }
 
-function authorKey(displayName: string): string {
-  // Match by last surname token, lowercase, plus initial of first token if available
-  const norm = displayName.toLowerCase().replace(/[^a-z\s]/g, "").trim();
-  const toks = norm.split(/\s+/);
-  if (toks.length === 0) return norm;
-  // The last token is usually the surname for "Forename Surname" forms
-  const surname = toks[toks.length - 1];
-  const firstInitial = toks[0]?.[0] || "";
+/**
+ * Parse a raw author string into a normalised { surname, firstInitial, display } triple.
+ *
+ *   "Piana M"             → { surname: "piana",         firstInitial: "m", display: "M. Piana" }
+ *   "Michele Piana"       → { surname: "piana",         firstInitial: "m", display: "Michele Piana" }
+ *   "Piana, Michele"      → { surname: "piana",         firstInitial: "m", display: "Michele Piana" }
+ *   "Cotta Ramusino M"    → { surname: "cotta ramusino", firstInitial: "m", display: "M. Cotta Ramusino" }
+ *   "Bashir AF"           → { surname: "bashir",        firstInitial: "a", display: "AF. Bashir" }
+ *   "Misbah"              → { surname: "misbah",        firstInitial: "", display: "Misbah" }
+ *
+ * Same person under any of these forms ends up with the same surname + firstInitial,
+ * so the key   `${surname}-${firstInitial}`   correctly de-duplicates them.
+ */
+function parseAuthor(raw: string): { surname: string; firstInitial: string; display: string } {
+  const cleaned = raw.replace(/\s+/g, " ").trim();
+  // Comma form: "Surname, Forename(s)"
+  if (cleaned.includes(",")) {
+    const [s, f] = cleaned.split(",").map(p => p.trim());
+    const surname = (s || "").toLowerCase();
+    const firstInitial = (f || "").replace(/[^A-Za-z]/g, "")[0]?.toLowerCase() || "";
+    const display = f ? `${f} ${s}` : (s || raw);
+    return { surname, firstInitial, display };
+  }
+
+  const tokens = cleaned.split(" ").filter(Boolean);
+  if (tokens.length === 0) return { surname: "", firstInitial: "", display: raw };
+  if (tokens.length === 1) {
+    return {
+      surname: tokens[0].toLowerCase().replace(/[^a-z]/g, ""),
+      firstInitial: "",
+      display: tokens[0],
+    };
+  }
+
+  // Is the last token initials only?
+  const lastTok = tokens[tokens.length - 1];
+  if (looksLikeInitials(lastTok) && tokens.length >= 2) {
+    // "Surname (possibly multi-word) Initial(s)"
+    const surname = tokens.slice(0, -1).join(" ").toLowerCase();
+    const firstInitial = lastTok.replace(/[^A-Za-z]/g, "")[0]?.toLowerCase() || "";
+    const initialsDot = lastTok.replace(/[.]/g, "").split("").join(".") + ".";
+    const display = `${initialsDot} ${tokens.slice(0, -1).join(" ")}`;
+    return { surname, firstInitial, display };
+  }
+
+  // "Forename(s) Surname"
+  const surname = lastTok.toLowerCase().replace(/[^a-z]/g, "");
+  const firstInitial = tokens[0].replace(/[^A-Za-z]/g, "")[0]?.toLowerCase() || "";
+  return { surname, firstInitial, display: tokens.join(" ") };
+}
+
+function canonicalDisplay(raw: string): string {
+  return parseAuthor(raw).display;
+}
+
+function authorKey(raw: string): string {
+  const { surname, firstInitial } = parseAuthor(raw);
   return `${surname}-${firstInitial}`;
 }
 
@@ -250,16 +284,21 @@ const edgeMap = new Map<string, NetworkEdge>();
 
 for (const pub of ALL_PUBS) {
   const names = namesFromAuthorString(pub.authors);
+  // De-dup any same-person-twice within a single paper (paranoia)
+  const seenInThisPub = new Set<string>();
   for (const raw of names) {
     if (isShahzad(raw)) continue;
-    const display = canonicalDisplay(raw);
-    const key = authorKey(display);
+    const parsed = parseAuthor(raw);
+    const key = `${parsed.surname}-${parsed.firstInitial}`;
+    if (!key || key === "-" || seenInThisPub.has(key)) continue;
+    seenInThisPub.add(key);
+
     if (!nodeMap.has(key)) {
       nodeMap.set(key, {
         id: key,
-        display,
+        display: parsed.display,
         count: 0,
-        affiliation: lookupAffiliation(display),
+        affiliation: lookupAffiliation(parsed.surname),
         paperIds: [],
       });
     }
