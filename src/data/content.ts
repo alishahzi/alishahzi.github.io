@@ -327,19 +327,7 @@ export const publications = {
   ],
   journalsUnderReview: [],
   bookChapters: [],
-  // workingPapers are NOT rendered in the Publications section (we keep that
-  // to just "Journal Articles" + "Conference Papers"), but they DO feed the
-  // co-author network so symposium contributions still count toward
-  // collaboration totals.
-  workingPapers: [
-    {
-      id: 'W1',
-      authors: 'Shahzad Ali, Wendy Kreshpa, Michele Piana, Matteo Pardini, Sara Garbarino',
-      title: 'Integration of Graph Theory and Brain Microstructural Analysis with Machine Learning for Advanced Diagnosis of Alzheimer\'s Disease and Prediction of Cognitive Decline.',
-      venue: 'IV Annual Meeting RIN IRCCS Network — Symposia',
-      year: 2024,
-    },
-  ],
+  workingPapers: [],
   selectedConferences: [
     {
       id: 'C5',

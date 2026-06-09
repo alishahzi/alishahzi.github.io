@@ -283,9 +283,6 @@ const SHAHZAD_ID = "shahzad-ali";
 const ALL_PUBS: PubLite[] = [
   ...((publications as { journalsPublished?: PubLite[] }).journalsPublished || []).map(p => ({ ...p, kind: "journal" as const })),
   ...((publications as { selectedConferences?: PubLite[] }).selectedConferences || []).map(p => ({ ...p, kind: "conference" as const })),
-  // Symposium / working papers count toward the co-author network too, even though
-  // the Publications section hides them. They're real co-authored work.
-  ...((publications as { workingPapers?: PubLite[] }).workingPapers || []).map(p => ({ ...p, kind: "conference" as const })),
 ];
 
 // ── Co-author nodes + edges ────────────────────────────────────────────────
