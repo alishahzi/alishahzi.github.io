@@ -3,10 +3,12 @@ import Navbar       from "./components/Navbar";
 import Hero         from "./components/Hero";
 import About        from "./components/About";
 import Education    from "./components/Education";
-import Experience   from "./components/Experience";
-import Publications from "./components/Publications";
-import News         from "./components/News";
-import Contact      from "./components/Contact";
+import Experience    from "./components/Experience";
+import Publications  from "./components/Publications";
+import NetworkImpact from "./components/NetworkImpact";
+import Awards        from "./components/Awards";
+import News          from "./components/News";
+import Contact       from "./components/Contact";
 import StarField    from "./components/StarField";
 
 interface EBState { hasError: boolean; error?: Error; }
@@ -39,7 +41,9 @@ export default function App() {
           <section id="about">    <EB name="About"><About /></EB>           </section>
           <section id="education"><EB name="Education"><Education /></EB>   </section>
           <section id="research"> <EB name="Publications"><Publications /></EB> </section>
+          <EB name="NetworkImpact"><NetworkImpact /></EB>
           <section id="experience"><EB name="Experience"><Experience /></EB></section>
+          <EB name="Awards"><Awards /></EB>
           <section id="news">     <EB name="News"><News /></EB>             </section>
           <section id="contact">  <EB name="Contact"><Contact /></EB>       </section>
         </main>

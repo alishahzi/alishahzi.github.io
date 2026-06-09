@@ -26,7 +26,7 @@ export const personal = {
   publons: 'https://www.webofscience.com/wos/author/record/ODJ-8978-2025',
   twitter: 'https://x.com/shahzadali039',
   website: 'https://sites.google.com/view/alishahzad/',
-  cvUrl: '/cv/CV_Shahzad.pdf',
+  cvUrl: '/cv.html',
   image: '/profile.png',
   heroBlurb: `PhD candidate at Università di Bologna and IRCCS San Martino working at the intersection of machine learning, graph neural networks, and multimodal neuroimaging. My research focuses on building AI methods that model brain network changes in Alzheimer's disease and predict cognitive decline.`,
   summary: `I am a PhD candidate in Data Science and Computation at [Alma Mater Studiorum – Università di Bologna](https://www.unibo.it/en), Italy. I began my doctoral studies in November 2022, with a PhD project focused on machine learning methods in digital health.

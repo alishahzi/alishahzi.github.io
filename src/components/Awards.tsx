@@ -1,94 +1,133 @@
-import type { ElementType } from 'react';
-import { Award, Star, Gift, GraduationCap } from 'lucide-react';
-import { awards, peerReview, professionalDevelopment } from '../data/content';
-import SectionTitle from './ui/SectionTitle';
-import { StaggerContainer, StaggerItem } from './ui/AnimatedSection';
-import AnimatedSection from './ui/AnimatedSection';
-import TiltCard from './ui/TiltCard';
+import { awards, peerReview, professionalDevelopment } from "../data/content";
 
-const tierConfig: Record<string, {
-  icon: ElementType; iconColor: string; iconBg: string; border: string; label: string; glow: string;
-}> = {
-  major: { icon: Star,         iconColor: 'text-amber-400',   iconBg: 'bg-amber-500/10 border-amber-500/20',  border: 'border-amber-500/20',  label: 'Major Award',   glow: 'rgba(251,191,36,0.2)' },
-  award: { icon: Award,        iconColor: 'text-cyan-400',    iconBg: 'bg-cyan-500/10 border-cyan-500/20',    border: 'border-cyan-500/20',   label: 'Award',        glow: 'rgba(6,182,212,0.2)' },
-  grant: { icon: Gift,         iconColor: 'text-violet-400',  iconBg: 'bg-violet-500/10 border-violet-500/20',border: 'border-violet-500/20', label: 'Research Grant', glow: 'rgba(139,92,246,0.2)' },
+interface Award {
+  id?: string;
+  title: string;
+  org: string;
+  year: string | number;
+  description?: string;
+  tier?: string;
+}
+
+interface PD {
+  title: string;
+  org: string;
+  year: string | number;
+}
+
+const TIER_STYLE: Record<string, { bg: string; bo: string; c: string; label: string; icon: string }> = {
+  major: { bg: "rgba(245,158,11,.12)",  bo: "rgba(245,158,11,.4)",  c: "#fcd34d", label: "Major award",   icon: "★" },
+  grant: { bg: "rgba(168,85,247,.12)",  bo: "rgba(168,85,247,.4)",  c: "#c4b5fd", label: "Grant",         icon: "◆" },
+  award: { bg: "rgba(6,182,212,.12)",   bo: "rgba(6,182,212,.4)",   c: "#67e8f9", label: "Award",         icon: "●" },
+  fellowship: { bg: "rgba(99,102,241,.12)", bo: "rgba(99,102,241,.4)", c: "#a5b4fc", label: "Fellowship", icon: "▲" },
 };
+const DEFAULT_TIER = TIER_STYLE.award;
 
 export default function Awards() {
+  const all = awards as Award[];
+  if (!all || all.length === 0) return null;
+
   return (
-    <section id="awards" className="relative py-24 overflow-hidden" style={{ background: 'rgba(11,21,37,0.88)' }}>
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 50% 40% at 50% 20%, rgba(251,191,36,0.03) 0%, transparent 70%)',
-        }}
-      />
+    <section id="awards" className="py-24" style={{ background: "rgba(4,8,18,0.72)" }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-xs font-bold tracking-[.3em] uppercase mb-3" style={{ color: "#06b6d4" }}>Recognition</p>
+          <h2 className="text-4xl font-black text-white mb-4" style={{ letterSpacing: "-0.02em" }}>Awards &amp; Grants</h2>
+          <div className="w-16 h-1 rounded-full mx-auto mb-4" style={{ background: "linear-gradient(90deg,#06b6d4,#3b82f6)" }} />
+          <p className="text-sm max-w-md mx-auto" style={{ color: "#64748b" }}>
+            Scholarships, fellowships, and research grants supporting my academic path.
+          </p>
+        </div>
 
-      <div className="section-container relative z-10">
-        <div className="flex flex-col gap-12">
-          <SectionTitle
-            eyebrow="Recognition"
-            title="Awards, Grants & Honors"
-            subtitle="Competitive fellowships, research grants, and academic distinctions."
-            accentWord="Awards"
-          />
-
-          {/* Award cards */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4" staggerDelay={0.1}>
-            {awards.map((award) => {
-              const tc = tierConfig[award.tier] ?? tierConfig['award'];
-              const Icon = tc.icon;
-              return (
-                <StaggerItem key={award.id}>
-                  <TiltCard glowColor={tc.glow}>
-                    <div className={`glass-card p-6 h-full flex flex-col gap-4 border ${tc.border} hover:-translate-y-0.5 transition-transform duration-200`}>
-                      <div className="flex items-start gap-4">
-                        <div className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center border ${tc.iconBg}`}>
-                          <Icon className={`w-5 h-5 ${tc.iconColor}`} />
-                        </div>
-                        <div className="flex flex-col gap-1 flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-2 flex-wrap">
-                            <h3 className="font-display font-semibold text-slate-100 text-sm leading-snug">
-                              {award.title}
-                            </h3>
-                            <span className="shrink-0 font-mono text-xs text-slate-500 bg-slate-800/60 px-2 py-0.5 rounded">
-                              {award.year}
-                            </span>
-                          </div>
-                          <p className="text-xs font-medium text-slate-400">{award.org}</p>
-                        </div>
-                      </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">{award.description}</p>
-                    </div>
-                  </TiltCard>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-
-          {/* Professional Development */}
-          <AnimatedSection delay={0.2}>
-            <div className="glass-card p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-                  <GraduationCap className="w-4 h-4 text-indigo-400" />
-                </div>
-                <h3 className="font-display font-semibold text-slate-100 text-sm">Professional Development & Summer Schools</h3>
-              </div>
-              <div className="flex flex-col gap-3">
-                {professionalDevelopment.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 pb-3 border-b border-slate-800/50 last:border-0 last:pb-0 hover:bg-slate-800/30 -mx-6 px-6 py-2 rounded transition-colors">
-                    <span className="shrink-0 mt-1.5 w-1 h-1 rounded-full bg-indigo-400/60" />
-                    <div>
-                      <p className="text-xs text-slate-200 font-medium">{item.title}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{item.org} · {item.year}</p>
+        {/* Awards grid */}
+        <div className="grid md:grid-cols-2 gap-5 mb-14">
+          {all.map((a, i) => {
+            const t = TIER_STYLE[a.tier || ""] || DEFAULT_TIER;
+            return (
+              <div
+                key={a.id || i}
+                className="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5"
+                style={{
+                  background: "rgba(12,20,38,0.78)",
+                  border: "1px solid rgba(100,116,139,.22)",
+                  borderTop: `2px solid ${t.bo}`,
+                  boxShadow: "0 4px 24px rgba(0,0,0,.35)",
+                }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-base font-black shrink-0"
+                    style={{
+                      background: t.bg,
+                      border: `1px solid ${t.bo}`,
+                      color: t.c,
+                      textShadow: `0 0 10px ${t.c}40`,
+                    }}
+                  >
+                    {t.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base font-bold text-white mb-1" style={{ letterSpacing: "-0.01em" }}>
+                      {a.title}
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <span className="text-xs font-semibold" style={{ color: t.c }}>{a.org}</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full"
+                        style={{ background: "rgba(15,23,42,.8)", border: "1px solid rgba(100,116,139,.3)", color: "#cbd5e1" }}>
+                        {a.year}
+                      </span>
                     </div>
                   </div>
-                ))}
+                </div>
+                {a.description && (
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(203,213,225,.7)" }}>
+                    {a.description}
+                  </p>
+                )}
               </div>
+            );
+          })}
+        </div>
+
+        {/* Peer review + Professional development */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {peerReview && (peerReview as string[]).length > 0 && (
+            <div
+              className="rounded-2xl p-6"
+              style={{ background: "rgba(12,20,38,0.7)", border: "1px solid rgba(100,116,139,.22)" }}
+            >
+              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "rgba(6,182,212,.7)" }}>
+                Peer review
+              </p>
+              <ul className="space-y-1.5">
+                {(peerReview as string[]).map((j, i) => (
+                  <li key={i} className="text-xs flex items-start gap-2" style={{ color: "rgba(203,213,225,.8)" }}>
+                    <span style={{ color: "#06b6d4" }}>▸</span>
+                    {j}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </AnimatedSection>
+          )}
+
+          {professionalDevelopment && (professionalDevelopment as PD[]).length > 0 && (
+            <div
+              className="rounded-2xl p-6"
+              style={{ background: "rgba(12,20,38,0.7)", border: "1px solid rgba(100,116,139,.22)" }}
+            >
+              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "rgba(6,182,212,.7)" }}>
+                Schools, workshops &amp; certifications
+              </p>
+              <ul className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
+                {(professionalDevelopment as PD[]).map((p, i) => (
+                  <li key={i} className="text-xs" style={{ color: "rgba(203,213,225,.8)", lineHeight: 1.55 }}>
+                    <span className="font-semibold" style={{ color: "#cbd5e1" }}>{p.title}</span>
+                    <span style={{ color: "rgba(148,163,184,.6)" }}> — {p.org} · {p.year}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </section>
