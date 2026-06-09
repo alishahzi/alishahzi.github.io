@@ -232,7 +232,7 @@ export default function CoAuthorNetwork() {
               </radialGradient>
             </defs>
 
-            {/* Soft cluster halos — brighten under the hovered cluster */}
+            {/* Cluster halos + lasso ring around the active cluster */}
             <g>
               {(Object.keys(GROUP_ANCHOR) as Affiliation["group"][])
                 .filter(g => coAuthorNodes.some(n => n.affiliation.group === g))
@@ -241,19 +241,53 @@ export default function CoAuthorNetwork() {
                   const cx = a.fx * W;
                   const cy = a.fy * H;
                   const hoveredGroup = hovered ? hovered.affiliation.group : null;
+                  const isActiveCluster = hoveredGroup === g;
                   const haloOpacity = !hoveredGroup ? 0.05
-                    : hoveredGroup === g ? 0.20
-                    : 0.015;
+                    : isActiveCluster ? 0.32
+                    : 0.012;
                   return (
-                    <circle
-                      key={g}
-                      cx={cx}
-                      cy={cy}
-                      r={120}
-                      fill={GROUP_COLOR[g]}
-                      opacity={haloOpacity}
-                      style={{ filter: "blur(34px)", transition: "opacity .25s ease" }}
-                    />
+                    <g key={g}>
+                      {/* big soft blurred halo */}
+                      <circle
+                        cx={cx}
+                        cy={cy}
+                        r={140}
+                        fill={GROUP_COLOR[g]}
+                        opacity={haloOpacity}
+                        style={{ filter: "blur(44px)", transition: "opacity .35s ease" }}
+                      />
+                      {/* lasso ring — only on the active cluster, gives a
+                          "this constellation" outline so the eye doesn't have to
+                          piece it together from individual nodes */}
+                      {isActiveCluster && (
+                        <circle
+                          cx={cx}
+                          cy={cy}
+                          r={140}
+                          fill="none"
+                          stroke={GROUP_COLOR[g]}
+                          strokeWidth={1.2}
+                          strokeDasharray="6 8"
+                          opacity={0.45}
+                          style={{ transformOrigin: `${cx}px ${cy}px` }}
+                        >
+                          <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="0"
+                            to="360"
+                            dur="60s"
+                            repeatCount="indefinite"
+                          />
+                          <animate
+                            attributeName="r"
+                            values="140;148;140"
+                            dur="4s"
+                            repeatCount="indefinite"
+                          />
+                        </circle>
+                      )}
+                    </g>
                   );
                 })}
             </g>
@@ -331,6 +365,9 @@ export default function CoAuthorNetwork() {
                   else                                            nodeOpacity = 0.15;
                 }
 
+                // Subtle hover scale on the focused node
+                const hoverScale = isHovered ? 1.18 : 1;
+
                 return (
                   <g
                     key={n.id}
@@ -338,7 +375,7 @@ export default function CoAuthorNetwork() {
                     style={{
                       cursor: "pointer",
                       opacity: nodeOpacity,
-                      transition: "opacity .2s ease",
+                      transition: "opacity .25s ease",
                     }}
                     onPointerDown={e => onPointerDown(e, n)}
                     onPointerEnter={() => setHovered(n)}
@@ -354,21 +391,24 @@ export default function CoAuthorNetwork() {
                         </circle>
                       </>
                     )}
-                    {!n.isShahzad && n.count >= 2 && (
-                      <circle r={radius + 4} fill="none" stroke={fill} strokeWidth={1} opacity={0.4}>
-                        <animate attributeName="r" values={`${radius + 4};${radius + 14};${radius + 4}`} dur={`${2.5 + (radius % 2)}s`} repeatCount="indefinite" />
-                        <animate attributeName="opacity" values="0.6;0;0.6" dur={`${2.5 + (radius % 2)}s`} repeatCount="indefinite" />
+                    {/* Pulse ring ONLY on the hovered node — no more always-on
+                        ring noise across every 2+ collaborator. */}
+                    {!n.isShahzad && isHovered && (
+                      <circle r={radius + 5} fill="none" stroke={fill} strokeWidth={1.2} opacity={0.7}>
+                        <animate attributeName="r" values={`${radius + 5};${radius + 18};${radius + 5}`} dur="2s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite" />
                       </circle>
                     )}
                     <circle
-                      r={radius}
+                      r={radius * hoverScale}
                       fill={fill}
-                      stroke={n.isShahzad ? "#a5f3fc" : "#04080f"}
-                      strokeWidth={n.isShahzad ? 3 : 1.5}
+                      stroke={n.isShahzad ? "#a5f3fc" : (isHovered ? fill : "#04080f")}
+                      strokeWidth={n.isShahzad ? 3 : (isHovered ? 2.2 : 1.5)}
                       style={{
                         filter: n.isShahzad
                           ? "drop-shadow(0 0 14px rgba(6,182,212,.7))"
-                          : (isHovered ? `drop-shadow(0 0 10px ${fill})` : `drop-shadow(0 0 4px ${fill}66)`),
+                          : (isHovered ? `drop-shadow(0 0 14px ${fill})` : `drop-shadow(0 0 3px ${fill}55)`),
+                        transition: "stroke .25s ease, stroke-width .25s ease",
                       }}
                     />
                     {/* Labels: Shahzad + top collaborators (count ≥ 3) only.
