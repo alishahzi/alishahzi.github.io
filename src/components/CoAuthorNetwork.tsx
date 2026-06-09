@@ -232,7 +232,7 @@ export default function CoAuthorNetwork() {
               </radialGradient>
             </defs>
 
-            {/* Soft cluster halos — one big blurred circle per group anchor */}
+            {/* Soft cluster halos — brighten under the hovered cluster */}
             <g>
               {(Object.keys(GROUP_ANCHOR) as Affiliation["group"][])
                 .filter(g => coAuthorNodes.some(n => n.affiliation.group === g))
@@ -240,15 +240,19 @@ export default function CoAuthorNetwork() {
                   const a = GROUP_ANCHOR[g];
                   const cx = a.fx * W;
                   const cy = a.fy * H;
+                  const hoveredGroup = hovered ? hovered.affiliation.group : null;
+                  const haloOpacity = !hoveredGroup ? 0.05
+                    : hoveredGroup === g ? 0.20
+                    : 0.015;
                   return (
                     <circle
                       key={g}
                       cx={cx}
                       cy={cy}
-                      r={110}
+                      r={120}
                       fill={GROUP_COLOR[g]}
-                      opacity={0.06}
-                      style={{ filter: "blur(28px)" }}
+                      opacity={haloOpacity}
+                      style={{ filter: "blur(34px)", transition: "opacity .25s ease" }}
                     />
                   );
                 })}
@@ -260,23 +264,35 @@ export default function CoAuthorNetwork() {
                 const s = (typeof e.source === "object" ? e.source : simNodes.find(n => n.id === e.source)) as SimNode | undefined;
                 const t = (typeof e.target === "object" ? e.target : simNodes.find(n => n.id === e.target)) as SimNode | undefined;
                 if (!s || !t || s.x == null || t.x == null) return null;
-                const dim = hovered && hovered.id !== s.id && hovered.id !== t.id;
-                const active = hovered && (hovered.id === s.id || hovered.id === t.id);
+                const hoveredGroup = hovered ? hovered.affiliation.group : null;
+                // The non-Shahzad endpoint determines which cluster the edge belongs to
+                const coAuthor = s.isShahzad ? t : s;
+                const isHoveredEdge = hovered && (hovered.id === s.id || hovered.id === t.id);
+                const inHoveredCluster = hoveredGroup && coAuthor.affiliation.group === hoveredGroup;
+
+                let edgeOpacity: number;
+                if (!hoveredGroup)              edgeOpacity = 0.45;   // default dim
+                else if (isHoveredEdge)         edgeOpacity = 0.95;   // edge to hovered node
+                else if (inHoveredCluster)      edgeOpacity = 0.75;   // edges in hovered cluster
+                else                            edgeOpacity = 0.05;   // other clusters
+
                 const path = edgePath(s, t);
+                const showParticle = e.weight >= 2 && (!hoveredGroup || inHoveredCluster);
+
                 return (
                   <g key={i}>
                     <path
                       id={`ne-${i}`}
                       d={path}
                       fill="none"
-                      stroke={active ? "#67e8f9" : "url(#edgeFade)"}
+                      stroke={isHoveredEdge ? "#67e8f9" : "url(#edgeFade)"}
                       strokeWidth={Math.max(0.7, Math.min(e.weight * 1.1, 3.8))}
                       strokeLinecap="round"
-                      opacity={dim ? 0.08 : (active ? 0.95 : 0.55)}
-                      style={{ transition: "opacity .15s ease, stroke .15s ease" }}
+                      opacity={edgeOpacity}
+                      style={{ transition: "opacity .2s ease, stroke .2s ease" }}
                     />
-                    {/* particle flow along edge — only for top collaborators to avoid clutter */}
-                    {e.weight >= 2 && !dim && (
+                    {/* particle flow only on edges in the active cluster (or all when no hover) */}
+                    {showParticle && (
                       <circle r={2} fill="#a5f3fc" style={{ filter: "drop-shadow(0 0 4px rgba(167,243,252,.9))" }}>
                         <animateMotion dur={`${3 + i * 0.3 % 2}s`} repeatCount="indefinite" begin={`${-i * 0.3 % 3}s`}>
                           <mpath href={`#ne-${i}`} />
@@ -296,18 +312,24 @@ export default function CoAuthorNetwork() {
               })}
             </g>
 
-            {/* Nodes */}
+            {/* Nodes — cluster-aware opacity:
+                · no hover:        all clusters dim (Shahzad stays bright)
+                · hover on a node: that node's whole cluster brightens, other clusters dim more
+            */}
             <g>
               {simNodes.map(n => {
                 const radius = n.isShahzad ? 24 : 5 + Math.min(n.count, 6) * 2.8;
                 const fill = n.isShahzad ? "#06b6d4" : GROUP_COLOR[n.affiliation.group];
                 const isHovered = hovered?.id === n.id;
-                const isFaded = !!hovered && !isHovered &&
-                  !(simLinks.some(e => {
-                    const sid = typeof e.source === "object" ? (e.source as SimNode).id : e.source;
-                    const tid = typeof e.target === "object" ? (e.target as SimNode).id : e.target;
-                    return (sid === hovered.id && tid === n.id) || (tid === hovered.id && sid === n.id);
-                  }));
+                const hoveredGroup = hovered ? hovered.affiliation.group : null;
+
+                // Cluster-based opacity
+                let nodeOpacity = 1;
+                if (!n.isShahzad) {
+                  if (!hoveredGroup)                              nodeOpacity = 0.5;
+                  else if (n.affiliation.group === hoveredGroup)  nodeOpacity = 1;
+                  else                                            nodeOpacity = 0.15;
+                }
 
                 return (
                   <g
@@ -315,8 +337,8 @@ export default function CoAuthorNetwork() {
                     transform={`translate(${n.x ?? 0},${n.y ?? 0})`}
                     style={{
                       cursor: "pointer",
-                      opacity: isFaded ? 0.25 : 1,
-                      transition: "opacity .15s ease",
+                      opacity: nodeOpacity,
+                      transition: "opacity .2s ease",
                     }}
                     onPointerDown={e => onPointerDown(e, n)}
                     onPointerEnter={() => setHovered(n)}
