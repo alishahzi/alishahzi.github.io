@@ -197,6 +197,9 @@ export default function CoAuthorNetwork() {
     return `M${sx},${sy} Q${mx + px * curve},${my + py * curve} ${tx},${ty}`;
   }
 
+  const visibleGroups = (Object.keys(GROUP_LABEL) as Affiliation["group"][])
+    .filter(g => coAuthorNodes.some(n => n.affiliation.group === g));
+
   return (
     <div className="relative w-full">
       <div className="grid lg:grid-cols-[1fr,280px] gap-6">
@@ -365,19 +368,6 @@ export default function CoAuthorNetwork() {
             </g>
           </svg>
 
-          {/* legend */}
-          <div className="absolute bottom-3 left-3 px-3 py-2 rounded-lg flex flex-wrap gap-x-3 gap-y-1.5 max-w-[68%]"
-            style={{ background: "rgba(4,8,18,.7)", border: "1px solid rgba(100,116,139,.25)", backdropFilter: "blur(6px)" }}>
-            {(Object.keys(GROUP_LABEL) as Affiliation["group"][])
-              .filter(g => coAuthorNodes.some(n => n.affiliation.group === g))
-              .map(g => (
-                <span key={g} className="flex items-center gap-1.5 text-[10px]" style={{ color: "rgba(203,213,225,.78)" }}>
-                  <span className="w-2 h-2 rounded-full inline-block" style={{ background: GROUP_COLOR[g] }} />
-                  {GROUP_LABEL[g]}
-                </span>
-              ))}
-          </div>
-
           {/* hover tooltip */}
           {hovered && !selected && (
             <div
@@ -396,6 +386,30 @@ export default function CoAuthorNetwork() {
               </p>
             </div>
           )}
+
+          {/* legend — sits below the SVG canvas, inside the same column,
+              so it never overlaps any node */}
+          <div
+            className="px-4 py-3 mt-3 rounded-xl flex flex-wrap gap-x-4 gap-y-2"
+            style={{
+              background: "rgba(12,20,38,.65)",
+              border: "1px solid rgba(100,116,139,.22)",
+            }}
+          >
+            {visibleGroups.map(g => (
+              <span
+                key={g}
+                className="flex items-center gap-1.5 text-[11px]"
+                style={{ color: "rgba(203,213,225,.82)" }}
+              >
+                <span
+                  className="w-2.5 h-2.5 rounded-full inline-block"
+                  style={{ background: GROUP_COLOR[g], boxShadow: `0 0 6px ${GROUP_COLOR[g]}88` }}
+                />
+                {GROUP_LABEL[g]}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* side panel — selected co-author's joint papers */}

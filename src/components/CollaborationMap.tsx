@@ -295,6 +295,10 @@ export default function CollaborationMap() {
   const cities = useMemo(aggregate, []);
   const stars = useMemo(() => generateStars(160, 137), []);
   const [hovered, setHovered] = useState<CityMarker | null>(null);
+  const [pinned, setPinned] = useState<CityMarker | null>(null);
+
+  // Active = pinned takes precedence over hover (so clicking holds the highlight)
+  const active = pinned || hovered;
 
   const [originX, originY] = proj(SHAHZAD_NODE.affiliation.lon, SHAHZAD_NODE.affiliation.lat);
 
@@ -411,8 +415,8 @@ export default function CollaborationMap() {
         {/* ── Arcs (static path, then a flowing particle per arc) ────── */}
         <g>
           {arcs.map((a, i) => {
-            const isActive = hovered?.key === a.city.key;
-            const dim = hovered && !isActive;
+            const isActive = active?.key === a.city.key;
+            const dim = active && !isActive;
             const baseWeight = 0.6 + Math.min(a.city.totalPapers * 0.22, 1.8);
             // Slower, calmer flow — particles cruise rather than race
             const animDur = Math.max(6, Math.min(a.dist / 70, 12));
@@ -487,8 +491,8 @@ export default function CollaborationMap() {
             const [x, y] = proj(c.lon, c.lat);
             const r = 3.5 + Math.min(c.totalPapers * 0.8, 8);
             const color = GROUP_COLOR[c.group];
-            const isActive = hovered?.key === c.key;
-            const dim = hovered && !isActive;
+            const isActive = active?.key === c.key;
+            const dim = active && !isActive;
             const pulseDur = 2.4 + (i % 4) * 0.35;
             const pulseDelay = (i * 0.41) % pulseDur;
             return (
@@ -496,6 +500,7 @@ export default function CollaborationMap() {
                 key={c.key}
                 onPointerEnter={() => setHovered(c)}
                 onPointerLeave={() => setHovered(null)}
+                onClick={() => setPinned(prev => prev?.key === c.key ? null : c)}
                 style={{ cursor: "pointer", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
               >
                 {/* Pulse rings */}
@@ -562,25 +567,44 @@ export default function CollaborationMap() {
         </g>
       </svg>
 
-      {/* Hover panel */}
-      {hovered && (
+      {/* Info panel — pinned (clicked) or hovered */}
+      {active && (
         <div
           className="absolute top-3 right-3 px-4 py-3 rounded-lg max-w-[280px]"
           style={{
             background: "rgba(4,8,18,.94)",
-            border: `1px solid ${GROUP_COLOR[hovered.group]}`,
+            border: `1px solid ${GROUP_COLOR[active.group]}`,
             color: "#f1f5f9",
             backdropFilter: "blur(8px)",
-            boxShadow: `0 8px 30px ${GROUP_COLOR[hovered.group]}40`,
+            boxShadow: `0 8px 30px ${GROUP_COLOR[active.group]}40`,
           }}
         >
-          <p className="text-sm font-bold mb-0.5">{hovered.city}, {hovered.country}</p>
-          <p className="text-[11px] mb-2" style={{ color: "rgba(203,213,225,.7)" }}>{hovered.org}</p>
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <div className="min-w-0">
+              <p className="text-sm font-bold">{active.city}, {active.country}</p>
+              {pinned?.key === active.key && (
+                <p className="text-[9px] uppercase tracking-widest mt-0.5" style={{ color: GROUP_COLOR[active.group] }}>
+                  ● Pinned · click pin again to release
+                </p>
+              )}
+            </div>
+            {pinned && (
+              <button
+                onClick={() => setPinned(null)}
+                aria-label="Close pinned info"
+                className="text-base leading-none transition-opacity hover:opacity-100"
+                style={{ color: "rgba(203,213,225,.6)", opacity: 0.7 }}
+              >
+                ×
+              </button>
+            )}
+          </div>
+          <p className="text-[11px] mb-2" style={{ color: "rgba(203,213,225,.7)" }}>{active.org}</p>
           <p className="text-[11px] mb-2" style={{ color: "#67e8f9" }}>
-            {hovered.totalPapers} co-author appearance{hovered.totalPapers === 1 ? "" : "s"} across {hovered.people.length} collaborator{hovered.people.length === 1 ? "" : "s"}
+            {active.totalPapers} co-author appearance{active.totalPapers === 1 ? "" : "s"} across {active.people.length} collaborator{active.people.length === 1 ? "" : "s"}
           </p>
           <div className="space-y-0.5">
-            {hovered.people.map((p, i) => (
+            {active.people.map((p, i) => (
               <p key={i} className="text-[10px]" style={{ color: "rgba(203,213,225,.65)" }}>
                 · {p.display} ({p.count})
               </p>
