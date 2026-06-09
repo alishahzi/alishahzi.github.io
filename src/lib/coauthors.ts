@@ -30,7 +30,7 @@ export interface Affiliation {
   lat: number;
   lon: number;
   group: "italy-genoa" | "italy-bologna" | "uk-sussex" | "pakistan-lahore" |
-         "pakistan-other" | "saudi-arabia" | "other";
+         "pakistan-other" | "saudi-arabia" | "cyprus" | "other";
 }
 
 export const AFFILIATIONS: Record<string, Affiliation> = {
@@ -68,8 +68,12 @@ export const AFFILIATIONS: Record<string, Affiliation> = {
   aurangzeb:    { org: "King Saud University",                city: "Riyadh", country: "Saudi Arabia", lat: 24.71, lon: 46.68, group: "saudi-arabia" },
 
   // — COMSATS / Pakistan general ────────────────────────────────────────────
-  aslam:        { org: "COMSATS / Cyprus International University", city: "Lahore / Nicosia", country: "Pakistan / Cyprus", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
-  kiran:        { org: "COMSATS Lahore",                      city: "Lahore", country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  // Surname-only fallback for any Aslam not matched by the surname-initial keys below
+  aslam:        { org: "Pakistani research partners",                  city: "Lahore",   country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  // Surname+initial precise entries
+  "aslam-s":    { org: "Cyprus International University · COMSATS",    city: "Nicosia",  country: "Cyprus",   lat: 35.17, lon: 33.36, group: "cyprus" },
+  "aslam-m":    { org: "Pakistani research partners",                  city: "Lahore",   country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
+  kiran:        { org: "COMSATS Lahore",                               city: "Lahore",   country: "Pakistan", lat: 31.58, lon: 74.34, group: "pakistan-lahore" },
   "rehman khan":{ org: "COMSATS / Sahiwal partners",          city: "Sahiwal", country: "Pakistan", lat: 30.66, lon: 73.10, group: "pakistan-other" },
   "ur rehman khan":{ org: "COMSATS / Sahiwal partners",       city: "Sahiwal", country: "Pakistan", lat: 30.66, lon: 73.10, group: "pakistan-other" },
 
@@ -153,9 +157,13 @@ function isShahzad(name: string): boolean {
   return false;
 }
 
-function lookupAffiliation(surname: string): Affiliation {
+function lookupAffiliation(surname: string, firstInitial: string): Affiliation {
+  // Most precise: surname-initial (lets us distinguish "Aslam S" from "Aslam M")
+  const preciseKey = firstInitial ? `${surname}-${firstInitial}` : "";
+  if (preciseKey && AFFILIATIONS[preciseKey]) return AFFILIATIONS[preciseKey];
+  // Surname only
   if (AFFILIATIONS[surname]) return AFFILIATIONS[surname];
-  // Try the single-word surname (last word) when the parsed surname is multi-word
+  // Last word of multi-word surname
   const toks = surname.split(/\s+/);
   if (toks.length > 1 && AFFILIATIONS[toks[toks.length - 1]]) return AFFILIATIONS[toks[toks.length - 1]];
   return DEFAULT_AFFILIATION;
@@ -275,6 +283,9 @@ const SHAHZAD_ID = "shahzad-ali";
 const ALL_PUBS: PubLite[] = [
   ...((publications as { journalsPublished?: PubLite[] }).journalsPublished || []).map(p => ({ ...p, kind: "journal" as const })),
   ...((publications as { selectedConferences?: PubLite[] }).selectedConferences || []).map(p => ({ ...p, kind: "conference" as const })),
+  // Symposium / working papers count toward the co-author network too, even though
+  // the Publications section hides them. They're real co-authored work.
+  ...((publications as { workingPapers?: PubLite[] }).workingPapers || []).map(p => ({ ...p, kind: "conference" as const })),
 ];
 
 // ── Co-author nodes + edges ────────────────────────────────────────────────
@@ -298,7 +309,7 @@ for (const pub of ALL_PUBS) {
         id: key,
         display: parsed.display,
         count: 0,
-        affiliation: lookupAffiliation(parsed.surname),
+        affiliation: lookupAffiliation(parsed.surname, parsed.firstInitial),
         paperIds: [],
       });
     }

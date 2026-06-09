@@ -26,6 +26,7 @@ const GROUP_COLOR: Record<Affiliation["group"], string> = {
   "pakistan-lahore":  "#fdba74",
   "pakistan-other":   "#fcd34d",
   "saudi-arabia":     "#6ee7b7",
+  "cyprus":           "#f0abfc",  // pink-magenta
   "other":            "#cbd5e1",
 };
 
@@ -36,6 +37,7 @@ const GROUP_LABEL: Record<Affiliation["group"], string> = {
   "pakistan-lahore":  "Pakistan · Lahore",
   "pakistan-other":   "Pakistan · other",
   "saudi-arabia":     "Saudi Arabia",
+  "cyprus":           "Cyprus · CIU",
   "other":            "Other",
 };
 
@@ -47,6 +49,7 @@ const GROUP_ANCHOR: Record<Affiliation["group"], { fx: number; fy: number }> = {
   "pakistan-lahore":  { fx: 0.78, fy: 0.42 },  // right
   "pakistan-other":   { fx: 0.78, fy: 0.78 },  // lower-right
   "saudi-arabia":     { fx: 0.50, fy: 0.85 },  // bottom
+  "cyprus":           { fx: 0.62, fy: 0.28 },  // mid-upper-right (between Italy and Pakistan)
   "other":            { fx: 0.22, fy: 0.80 },  // lower-left
 };
 

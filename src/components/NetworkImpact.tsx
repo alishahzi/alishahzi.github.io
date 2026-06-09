@@ -24,6 +24,7 @@ const GROUP_COLOR: Record<string, string> = {
   "pakistan-lahore":  "#fdba74",
   "pakistan-other":   "#fcd34d",
   "saudi-arabia":     "#6ee7b7",
+  "cyprus":           "#f0abfc",
   "other":            "#cbd5e1",
 };
 

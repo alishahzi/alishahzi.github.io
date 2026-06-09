@@ -255,7 +255,7 @@ export const publications = {
     },
     {
       id: 'J8',
-      authors: 'Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, et al.',
+      authors: 'Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Pardini M, Garbarino S, et al.',
       title: 'Neurotransmitter landscape and neurodegeneration patterns in Alzheimer\'s Disease.',
       venue: 'Neurobiology of Aging',
       year: 2026,
@@ -290,7 +290,7 @@ export const publications = {
     },
     {
       id: 'J4',
-      authors: 'Losa M, Cotta Ramusino M, Cama I, Gualco L, Gandoglia I, Massa F, Donniaquio A, et al.',
+      authors: 'Losa M, Cotta Ramusino M, Cama I, Gualco L, Gandoglia I, Massa F, Donniaquio A, Pardini M, Garbarino S, et al.',
       title: 'Cerebrospinal Fluid Biomarkers Profiling in Cerebral Amyloid Angiopathy and Relationship With Disease Phenotypes.',
       venue: 'Journal of the American Heart Association',
       vol: '14(20): e044784',
@@ -327,7 +327,19 @@ export const publications = {
   ],
   journalsUnderReview: [],
   bookChapters: [],
-  workingPapers: [],
+  // workingPapers are NOT rendered in the Publications section (we keep that
+  // to just "Journal Articles" + "Conference Papers"), but they DO feed the
+  // co-author network so symposium contributions still count toward
+  // collaboration totals.
+  workingPapers: [
+    {
+      id: 'W1',
+      authors: 'Shahzad Ali, Wendy Kreshpa, Michele Piana, Matteo Pardini, Sara Garbarino',
+      title: 'Integration of Graph Theory and Brain Microstructural Analysis with Machine Learning for Advanced Diagnosis of Alzheimer\'s Disease and Prediction of Cognitive Decline.',
+      venue: 'IV Annual Meeting RIN IRCCS Network — Symposia',
+      year: 2024,
+    },
+  ],
   selectedConferences: [
     {
       id: 'C5',
