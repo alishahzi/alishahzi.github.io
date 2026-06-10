@@ -1,5 +1,16 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { coAuthorNodes, SHAHZAD_NODE, type Affiliation } from "../lib/coauthors";
+
+// GeoJSON shape for the world-land file we fetch at runtime
+interface WorldLand {
+  type: "FeatureCollection";
+  features: Array<{
+    type: "Feature";
+    geometry:
+      | { type: "Polygon"; coordinates: number[][][] }
+      | { type: "MultiPolygon"; coordinates: number[][][][] };
+  }>;
+}
 
 // ────────────────────────────────────────────────────────────────────────────
 //  Equirectangular world map  —  catchy edition
@@ -41,19 +52,43 @@ const GROUP_COLOR: Record<Affiliation["group"], string> = {
 //   world map at a glance.
 
 const CONTINENTS: { name: string; rings: [number, number][][] }[] = [
+  // ── Europe ──
+  // Bounded south by the Mediterranean and east by the conventional
+  // Ural-Caucasus-Bosphorus line (≈ 30–50°E depending on latitude).
   {
-    name: "Eurasia",
+    name: "Europe",
     rings: [[
-      [-9, 71], [-2, 69], [5, 64], [12, 60], [22, 58], [30, 60], [40, 64], [55, 67], [68, 70],
-      [80, 73], [100, 75], [120, 75], [140, 73], [160, 70], [170, 68], [178, 64],
-      [178, 55], [165, 51], [150, 48], [140, 45], [135, 40], [128, 35], [122, 28],
-      [118, 22], [110, 18], [108, 13], [106, 10], [104, 6], [101, 2], [98, 7],
-      [100, 13], [99, 17], [95, 18], [90, 21], [85, 21], [80, 15], [76, 11],
-      [73, 16], [68, 24], [60, 25], [55, 17], [52, 12], [50, 14], [48, 24],
-      [44, 30], [38, 31], [34, 34], [28, 36], [22, 38], [16, 41], [12, 38],
-      [8, 39], [3, 43], [-3, 35], [-6, 36], [-9, 38], [-9, 44], [-2, 49],
-      [4, 51], [8, 55], [12, 57], [14, 60], [11, 63], [4, 64], [-1, 64],
-      [-3, 67], [-7, 69], [-9, 71]
+      [-9, 71], [-2, 69], [5, 64], [12, 60], [22, 58], [30, 60], [40, 64], [45, 65],
+      [50, 64], [55, 60], [55, 55], [55, 48],            // down the Ural-ish meridian
+      [50, 45], [45, 43], [40, 43],                       // Caucasus area
+      [35, 41], [30, 40], [26, 38],                       // Black Sea + Aegean north shore
+      [22, 38], [16, 41], [12, 38], [8, 39], [3, 43],     // Mediterranean north shore
+      [-3, 35], [-6, 36], [-9, 38],                       // Iberian peninsula south
+      [-9, 44],                                            // Iberia west
+      [-2, 49], [4, 51], [8, 55], [12, 57],               // NW Europe
+      [14, 60], [11, 63], [4, 64], [-1, 64],              // Norway
+      [-3, 67], [-7, 69], [-9, 71]                         // close
+    ]]
+  },
+  // ── Asia ──
+  // Picks up east of the Ural-Caucasus line, all the way across to the
+  // Pacific, down through SE Asia. Cyprus / Lebanon / Israel fall inside
+  // the Asia outline (geographic Middle East).
+  {
+    name: "Asia",
+    rings: [[
+      [45, 65], [55, 67], [68, 70], [80, 73],
+      [100, 75], [120, 75], [140, 73], [160, 70], [170, 68], [178, 64],
+      [178, 55], [165, 51], [150, 48], [140, 45],
+      [135, 40], [128, 35], [122, 28],
+      [118, 22], [110, 18], [108, 13], [106, 10], [104, 6], [101, 2],
+      [98, 7], [100, 13], [99, 17], [95, 18], [90, 21], [85, 21],
+      [80, 15], [76, 11], [73, 16], [68, 24], [60, 25],
+      [55, 17], [52, 12], [50, 14], [48, 24],
+      [44, 30], [38, 31], [34, 34],                       // Middle East
+      [30, 40], [35, 41],                                  // Bosphorus / E. Mediterranean
+      [40, 43], [45, 43], [50, 45], [55, 48],              // back up the Caucasus
+      [55, 55], [55, 60], [50, 64], [45, 65]               // close at northern boundary
     ]]
   },
   {
@@ -295,6 +330,39 @@ export default function CollaborationMap() {
   const cities = useMemo(aggregate, []);
   const stars = useMemo(() => generateStars(160, 137), []);
   const [hovered, setHovered] = useState<CityMarker | null>(null);
+
+  // Load the high-resolution world land outline (Natural Earth 110m, decoded
+  // from TopoJSON). Cached by the browser after the first fetch.
+  const [worldLand, setWorldLand] = useState<WorldLand | null>(null);
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}world-land.geojson`)
+      .then(r => r.ok ? r.json() : null)
+      .then(setWorldLand)
+      .catch(() => setWorldLand(null));
+  }, []);
+
+  // Compute world-land SVG paths once we have the GeoJSON
+  const worldLandPaths = useMemo(() => {
+    if (!worldLand) return [] as string[];
+    const out: string[] = [];
+    const ringToSvg = (ring: number[][]) =>
+      ring.map(([lon, lat], i) => {
+        const [x, y] = proj(lon, lat);
+        return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+      }).join(" ") + " Z";
+
+    for (const f of worldLand.features) {
+      const g = f.geometry;
+      if (g.type === "Polygon") {
+        out.push(g.coordinates.map(ringToSvg).join(" "));
+      } else if (g.type === "MultiPolygon") {
+        for (const poly of g.coordinates) {
+          out.push(poly.map(ringToSvg).join(" "));
+        }
+      }
+    }
+    return out;
+  }, [worldLand]);
   // Selected REGION (continent name). Clicking a city or a continent
   // toggles highlight on that continent. Hover continues to drive the info panel.
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
@@ -407,23 +475,47 @@ export default function CollaborationMap() {
           })}
         </g>
 
-        {/* ── Continents ──────────────────────────────────────────────── */}
+        {/* ── Accurate world land (Natural Earth 110m, fetched at runtime) ── */}
+        <g style={{ pointerEvents: "none" }}>
+          {worldLandPaths.length > 0
+            ? worldLandPaths.map((d, i) => (
+                <path
+                  key={i}
+                  d={d}
+                  fill="rgba(30,41,59,.75)"
+                  stroke="rgba(100,116,139,.55)"
+                  strokeWidth={0.5}
+                  strokeLinejoin="round"
+                />
+              ))
+            : /* Fallback while geo data is loading: low-poly outlines */
+              CONTINENTS.map((c, i) => (
+                <path
+                  key={i}
+                  d={pathFromRings(c.rings)}
+                  fill="rgba(30,41,59,.7)"
+                  stroke="rgba(100,116,139,.45)"
+                  strokeWidth={0.6}
+                  strokeLinejoin="round"
+                />
+              ))}
+        </g>
+
+        {/* ── Click regions (Europe, Asia, …) — invisible until selected ── */}
         <g>
           {CONTINENTS.map((c, i) => {
             const isSelected = selectedRegion === c.name;
-            const isAnySelected = selectedRegion != null;
             return (
               <path
                 key={i}
                 d={pathFromRings(c.rings)}
-                fill={isSelected ? `${regionColor}33` : "rgba(30,41,59,.7)"}
-                stroke={isSelected ? (regionColor || "#67e8f9") : "rgba(100,116,139,.45)"}
-                strokeWidth={isSelected ? 1.6 : 0.7}
+                fill={isSelected ? `${regionColor}33` : "transparent"}
+                stroke={isSelected ? (regionColor || "#67e8f9") : "transparent"}
+                strokeWidth={isSelected ? 1.6 : 0}
                 strokeLinejoin="round"
                 style={{
                   cursor: "pointer",
-                  opacity: isAnySelected && !isSelected ? 0.4 : 1,
-                  transition: "fill .25s ease, stroke .25s ease, stroke-width .25s ease, opacity .25s ease",
+                  transition: "fill .25s ease, stroke .25s ease, stroke-width .25s ease",
                   filter: isSelected ? `drop-shadow(0 0 14px ${regionColor}66)` : "none",
                 }}
                 onClick={() => setSelectedRegion(prev => prev === c.name ? null : c.name)}
