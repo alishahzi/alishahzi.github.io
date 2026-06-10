@@ -330,6 +330,8 @@ export default function CollaborationMap() {
   const cities = useMemo(aggregate, []);
   const stars = useMemo(() => generateStars(160, 137), []);
   const [hovered, setHovered] = useState<CityMarker | null>(null);
+  // Zoom state — null = world view; otherwise a named region (continent)
+  const [zoomedRegion, setZoomedRegion] = useState<string | null>(null);
 
   // Load the high-resolution world land outline (Natural Earth 110m, decoded
   // from TopoJSON). Cached by the browser after the first fetch.
@@ -363,13 +365,47 @@ export default function CollaborationMap() {
     }
     return out;
   }, [worldLand]);
-  // Selected REGION (continent name). Clicking a city or a continent
-  // toggles highlight on that continent. Hover continues to drive the info panel.
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-
-  // The info panel and visual focus follow hover only — clicking is now
-  // reserved for region highlighting, not pin-to-city.
+  // The info panel and visual focus follow hover only — clicking is reserved
+  // for zooming into the region.
   const active = hovered;
+
+  // Compute the SVG transform that zooms into the active region.
+  // Strategy: find the projected bounding box of the region's polygon(s),
+  // then translate + scale so it fills ~80 % of the viewport. Tween smoothly.
+  const zoomTransform = useMemo(() => {
+    if (!zoomedRegion) return "translate(0 0) scale(1)";
+    const cont = CONTINENTS.find(c => c.name === zoomedRegion);
+    if (!cont) return "translate(0 0) scale(1)";
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const ring of cont.rings) {
+      for (const [lon, lat] of ring) {
+        const [x, y] = proj(lon, lat);
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      }
+    }
+    if (!Number.isFinite(minX)) return "translate(0 0) scale(1)";
+    const pad = 0.86;   // leave ~14 % breathing room around the region
+    const w = maxX - minX;
+    const h = maxY - minY;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const scale = Math.min(MAP_W / w, MAP_H / h) * pad;
+    const tx = MAP_W / 2 - cx * scale;
+    const ty = MAP_H / 2 - cy * scale;
+    return `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${scale.toFixed(3)})`;
+  }, [zoomedRegion]);
+
+  const zoomScale = useMemo(() => {
+    const m = zoomTransform.match(/scale\(([\d.]+)\)/);
+    return m ? parseFloat(m[1]) : 1;
+  }, [zoomTransform]);
+
+  // When zoomed, counter-scale UI elements (pin sizes, label fonts, ring
+  // widths) so they don't balloon out. This keeps a clean readable look.
+  const inv = zoomedRegion ? 1 / zoomScale : 1;
 
   // Precompute which continent contains each city — used for the region click
   const cityToRegion = useMemo(() => {
@@ -389,14 +425,6 @@ export default function CollaborationMap() {
     return m;
   }, [cities]);
 
-  // The region highlight color = the dominant group color in that region,
-  // falling back to cyan if no city resolves there.
-  const regionColor = selectedRegion
-    ? (() => {
-        const cityInRegion = cities.find(c => cityToRegion.get(c.key) === selectedRegion);
-        return cityInRegion ? GROUP_COLOR[cityInRegion.group] : "#67e8f9";
-      })()
-    : null;
 
   const [originX, originY] = proj(SHAHZAD_NODE.affiliation.lon, SHAHZAD_NODE.affiliation.lat);
 
@@ -428,6 +456,13 @@ export default function CollaborationMap() {
       }}
     >
       <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} width="100%" height="auto" style={{ display: "block" }}>
+        <g
+          style={{
+            transform: zoomTransform,
+            transformOrigin: "0 0",
+            transition: "transform .8s cubic-bezier(0.45, 0.05, 0.15, 1)",
+          }}
+        >
         <defs>
           <radialGradient id="oceanGlow" cx="50%" cy="40%" r="60%">
             <stop offset="0%"  stopColor="rgba(6,182,212,.06)" />
@@ -501,27 +536,21 @@ export default function CollaborationMap() {
               ))}
         </g>
 
-        {/* ── Click regions (Europe, Asia, …) — invisible until selected ── */}
+        {/* ── Click regions (Europe, Asia, …) — invisible; clicking zooms ── */}
         <g>
-          {CONTINENTS.map((c, i) => {
-            const isSelected = selectedRegion === c.name;
-            return (
-              <path
-                key={i}
-                d={pathFromRings(c.rings)}
-                fill={isSelected ? `${regionColor}33` : "transparent"}
-                stroke={isSelected ? (regionColor || "#67e8f9") : "transparent"}
-                strokeWidth={isSelected ? 1.6 : 0}
-                strokeLinejoin="round"
-                style={{
-                  cursor: "pointer",
-                  transition: "fill .25s ease, stroke .25s ease, stroke-width .25s ease",
-                  filter: isSelected ? `drop-shadow(0 0 14px ${regionColor}66)` : "none",
-                }}
-                onClick={() => setSelectedRegion(prev => prev === c.name ? null : c.name)}
-              />
-            );
-          })}
+          {CONTINENTS.map((c, i) => (
+            <path
+              key={i}
+              d={pathFromRings(c.rings)}
+              fill="transparent"
+              stroke="transparent"
+              style={{ cursor: zoomedRegion ? "default" : "zoom-in" }}
+              onClick={() => {
+                if (zoomedRegion) return;     // already zoomed, ignore further region clicks
+                setZoomedRegion(c.name);
+              }}
+            />
+          ))}
         </g>
 
         {/* ── Continent labels ──────────────────────────────────────── */}
@@ -549,8 +578,7 @@ export default function CollaborationMap() {
         <g>
           {arcs.map((a, i) => {
             const isActive = active?.key === a.city.key;
-            const inSelectedRegion = selectedRegion ? cityToRegion.get(a.city.key) === selectedRegion : true;
-            const dim = (active && !isActive) || (selectedRegion && !inSelectedRegion);
+            const dim = active && !isActive;
             const baseWeight = 0.6 + Math.min(a.city.totalPapers * 0.22, 1.8);
             // Slower, calmer flow — particles cruise rather than race
             const animDur = Math.max(6, Math.min(a.dist / 70, 12));
@@ -595,23 +623,23 @@ export default function CollaborationMap() {
           })}
         </g>
 
-        {/* ── Origin (Genova) ────────────────────────────────────────── */}
+        {/* ── Origin (Genova) — also counter-scaled on zoom ──────────── */}
         <g>
-          <circle cx={originX} cy={originY} r={36} fill="url(#originGlow)" opacity={0.6} />
-          <circle cx={originX} cy={originY} r={10} fill="none" stroke="#06b6d4" strokeWidth={1.5}>
-            <animate attributeName="r" values="10;30;10" dur="3.2s" repeatCount="indefinite" />
+          <circle cx={originX} cy={originY} r={36 * inv} fill="url(#originGlow)" opacity={0.6} />
+          <circle cx={originX} cy={originY} r={10 * inv} fill="none" stroke="#06b6d4" strokeWidth={1.5 * inv}>
+            <animate attributeName="r" values={`${10 * inv};${30 * inv};${10 * inv}`} dur="3.2s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.95;0;0.95" dur="3.2s" repeatCount="indefinite" />
           </circle>
-          <circle cx={originX} cy={originY} r={18} fill="none" stroke="#67e8f9" strokeWidth={1}>
-            <animate attributeName="r" values="18;36;18" dur="3.2s" begin="1s" repeatCount="indefinite" />
+          <circle cx={originX} cy={originY} r={18 * inv} fill="none" stroke="#67e8f9" strokeWidth={1 * inv}>
+            <animate attributeName="r" values={`${18 * inv};${36 * inv};${18 * inv}`} dur="3.2s" begin="1s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.7;0;0.7" dur="3.2s" begin="1s" repeatCount="indefinite" />
           </circle>
-          <circle cx={originX} cy={originY} r={7} fill="#06b6d4" stroke="#a5f3fc" strokeWidth={2} />
+          <circle cx={originX} cy={originY} r={7 * inv} fill="#06b6d4" stroke="#a5f3fc" strokeWidth={2 * inv} />
           <text
-            x={originX + 12}
-            y={originY + 5}
+            x={originX + 12 * inv}
+            y={originY + 5 * inv}
             fill="#f1f5f9"
-            fontSize={12}
+            fontSize={12 * inv}
             fontWeight={800}
             style={{ textShadow: "0 1px 4px rgba(0,0,0,.95)", letterSpacing: ".02em" }}
           >
@@ -623,11 +651,12 @@ export default function CollaborationMap() {
         <g>
           {cities.map((c, i) => {
             const [x, y] = proj(c.lon, c.lat);
-            const r = 3.5 + Math.min(c.totalPapers * 0.8, 8);
+            // Counter-scale pin sizes when zoomed so pins stay visually
+            // the same size regardless of zoom level
+            const r = (3.5 + Math.min(c.totalPapers * 0.8, 8)) * inv;
             const color = GROUP_COLOR[c.group];
             const isActive = active?.key === c.key;
-            const inSelectedRegion = selectedRegion ? cityToRegion.get(c.key) === selectedRegion : true;
-            const dim = (active && !isActive) || (selectedRegion && !inSelectedRegion);
+            const dim = active && !isActive;
             const pulseDur = 2.4 + (i % 4) * 0.35;
             const pulseDelay = (i * 0.41) % pulseDur;
             return (
@@ -636,17 +665,17 @@ export default function CollaborationMap() {
                 onPointerEnter={() => setHovered(c)}
                 onPointerLeave={() => setHovered(null)}
                 onClick={() => {
+                  if (zoomedRegion) return;       // when already zoomed, click on pin is a no-op
                   const region = cityToRegion.get(c.key);
-                  if (!region) return;
-                  setSelectedRegion(prev => prev === region ? null : region);
+                  if (region) setZoomedRegion(region);
                 }}
-                style={{ cursor: "pointer", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
+                style={{ cursor: zoomedRegion ? "default" : "zoom-in", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
               >
-                {/* Pulse rings */}
-                <circle cx={x} cy={y} r={r + 4} fill="none" stroke={color} strokeWidth={1.2} opacity={0.6}>
+                {/* Pulse rings — counter-scaled too so they stay readable */}
+                <circle cx={x} cy={y} r={r + 4 * inv} fill="none" stroke={color} strokeWidth={1.2 * inv} opacity={0.6}>
                   <animate
                     attributeName="r"
-                    values={`${r + 4};${r + 22};${r + 4}`}
+                    values={`${r + 4 * inv};${r + 22 * inv};${r + 4 * inv}`}
                     dur={`${pulseDur}s`}
                     begin={`${pulseDelay}s`}
                     repeatCount="indefinite"
@@ -659,10 +688,10 @@ export default function CollaborationMap() {
                     repeatCount="indefinite"
                   />
                 </circle>
-                <circle cx={x} cy={y} r={r + 2} fill="none" stroke={color} strokeWidth={1} opacity={0.4}>
+                <circle cx={x} cy={y} r={r + 2 * inv} fill="none" stroke={color} strokeWidth={1 * inv} opacity={0.4}>
                   <animate
                     attributeName="r"
-                    values={`${r + 2};${r + 12};${r + 2}`}
+                    values={`${r + 2 * inv};${r + 12 * inv};${r + 2 * inv}`}
                     dur={`${pulseDur}s`}
                     begin={`${pulseDelay + 0.6}s`}
                     repeatCount="indefinite"
@@ -684,12 +713,12 @@ export default function CollaborationMap() {
                   strokeWidth={1.5}
                   style={{ filter: isActive ? `drop-shadow(0 0 12px ${color})` : `drop-shadow(0 0 5px ${color}88)` }}
                 />
-                {(c.totalPapers >= 2 || isActive) && (
+                {(c.totalPapers >= 2 || isActive || zoomedRegion) && (
                   <text
-                    x={x + r + 5}
-                    y={y + 3.5}
+                    x={x + r + 5 * inv}
+                    y={y + 3.5 * inv}
                     fill={color}
-                    fontSize={10.5}
+                    fontSize={10.5 * inv}
                     fontWeight={700}
                     style={{
                       textShadow: "0 1px 4px rgba(0,0,0,.95)",
@@ -704,6 +733,7 @@ export default function CollaborationMap() {
             );
           })}
         </g>
+        </g>{/* close zoom wrapper */}
       </svg>
 
       {/* Info panel — appears on hover */}
@@ -733,27 +763,38 @@ export default function CollaborationMap() {
         </div>
       )}
 
-      {/* Selected-region indicator */}
-      {selectedRegion && (
-        <div
-          className="absolute top-3 left-3 px-3 py-2 rounded-lg flex items-center gap-2"
+      {/* Zoomed-region badge + Back-to-world button */}
+      {zoomedRegion && (
+        <button
+          onClick={() => setZoomedRegion(null)}
+          className="absolute top-3 left-3 px-4 py-2 rounded-full flex items-center gap-2 text-xs font-semibold transition-all duration-200 hover:scale-105"
           style={{
             background: "rgba(4,8,18,.94)",
-            border: `1px solid ${regionColor}`,
-            color: "#f1f5f9",
+            border: "1px solid rgba(6,182,212,.45)",
+            color: "#67e8f9",
             backdropFilter: "blur(8px)",
+            boxShadow: "0 4px 18px rgba(6,182,212,.18)",
           }}
         >
-          <span className="w-2 h-2 rounded-full" style={{ background: regionColor || "#67e8f9", boxShadow: `0 0 8px ${regionColor}` }} />
-          <span className="text-xs font-semibold" style={{ color: regionColor || "#67e8f9" }}>{selectedRegion}</span>
-          <button
-            onClick={() => setSelectedRegion(null)}
-            aria-label="Clear region selection"
-            className="text-base leading-none ml-1 transition-opacity"
-            style={{ color: "rgba(203,213,225,.6)", opacity: 0.7 }}
-          >
-            ×
-          </button>
+          <span aria-hidden="true">←</span>
+          <span>Back to world view</span>
+          <span style={{ color: "rgba(203,213,225,.5)" }}>·</span>
+          <span style={{ color: "rgba(203,213,225,.7)", fontWeight: 500 }}>{zoomedRegion}</span>
+        </button>
+      )}
+
+      {/* Hint when at world view */}
+      {!zoomedRegion && (
+        <div
+          className="absolute top-3 left-3 px-3 py-1.5 rounded-full text-[10px]"
+          style={{
+            background: "rgba(4,8,18,.55)",
+            border: "1px solid rgba(100,116,139,.2)",
+            color: "rgba(203,213,225,.6)",
+            backdropFilter: "blur(6px)",
+          }}
+        >
+          Click a region or city to zoom in
         </div>
       )}
 
