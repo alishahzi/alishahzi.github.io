@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Auto-deploy after the daily Scholar metrics workflow lands a new commit.
+  # (GitHub deliberately does not re-trigger workflows from pushes made with the
+  # default GITHUB_TOKEN, so we wire this in explicitly.)
+  workflow_run:
+    workflows: ["Update Scholar Metrics"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -15,6 +21,9 @@ concurrency:
 jobs:
   Build:
     runs-on: ubuntu-latest
+    # When triggered by the Scholar workflow, only deploy if it actually
+    # succeeded — no point rebuilding for a failed metrics fetch.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
