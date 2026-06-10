@@ -219,7 +219,7 @@ const CONTINENT_LABELS: { name: string; lon: number; lat: number; size: number }
   { name: "EUROPE",        lon: 18,   lat: 53, size: 9 },
   { name: "AFRICA",        lon: 22,   lat: 5, size: 11 },
   { name: "ASIA",          lon: 90,   lat: 50, size: 11 },
-  { name: "OCEANIA",       lon: 135,  lat: -28, size: 9 },
+  { name: "AUSTRALIA",     lon: 135,  lat: -28, size: 9 },
 ];
 
 // ── Stable random number generator for stars (deterministic across renders) ─
@@ -372,10 +372,17 @@ export default function CollaborationMap() {
   // Compute the SVG transform that zooms into the active region.
   // Strategy: find the projected bounding box of the region's polygon(s),
   // then translate + scale so it fills ~80 % of the viewport. Tween smoothly.
-  const zoomTransform = useMemo(() => {
-    if (!zoomedRegion) return "translate(0 0) scale(1)";
+  // We need TWO transform strings:
+  //   • svgTransform — SVG attribute syntax `translate(x y) scale(s)`; works
+  //     reliably on <g> across all browsers (Safari, Firefox, Chrome).
+  //   • cssTransform — CSS string with px + commas; used in the inline style
+  //     so CSS transitions can interpolate it smoothly.
+  // Setting both at once makes the zoom both correct AND animated.
+  const { svgTransform, cssTransform, zoomScale } = useMemo(() => {
+    const identity = { svgTransform: "translate(0 0) scale(1)", cssTransform: "translate(0px, 0px) scale(1)", zoomScale: 1 };
+    if (!zoomedRegion) return identity;
     const cont = CONTINENTS.find(c => c.name === zoomedRegion);
-    if (!cont) return "translate(0 0) scale(1)";
+    if (!cont) return identity;
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     for (const ring of cont.rings) {
       for (const [lon, lat] of ring) {
@@ -386,8 +393,8 @@ export default function CollaborationMap() {
         if (y > maxY) maxY = y;
       }
     }
-    if (!Number.isFinite(minX)) return "translate(0 0) scale(1)";
-    const pad = 0.86;   // leave ~14 % breathing room around the region
+    if (!Number.isFinite(minX)) return identity;
+    const pad = 0.86;
     const w = maxX - minX;
     const h = maxY - minY;
     const cx = (minX + maxX) / 2;
@@ -395,13 +402,12 @@ export default function CollaborationMap() {
     const scale = Math.min(MAP_W / w, MAP_H / h) * pad;
     const tx = MAP_W / 2 - cx * scale;
     const ty = MAP_H / 2 - cy * scale;
-    return `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${scale.toFixed(3)})`;
+    return {
+      svgTransform: `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${scale.toFixed(3)})`,
+      cssTransform: `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${scale.toFixed(3)})`,
+      zoomScale: scale,
+    };
   }, [zoomedRegion]);
-
-  const zoomScale = useMemo(() => {
-    const m = zoomTransform.match(/scale\(([\d.]+)\)/);
-    return m ? parseFloat(m[1]) : 1;
-  }, [zoomTransform]);
 
   // When zoomed, counter-scale UI elements (pin sizes, label fonts, ring
   // widths) so they don't balloon out. This keeps a clean readable look.
@@ -457,8 +463,9 @@ export default function CollaborationMap() {
     >
       <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} width="100%" height="auto" style={{ display: "block" }}>
         <g
+          transform={svgTransform}
           style={{
-            transform: zoomTransform,
+            transform: cssTransform,
             transformOrigin: "0 0",
             transition: "transform .8s cubic-bezier(0.45, 0.05, 0.15, 1)",
           }}
@@ -544,11 +551,8 @@ export default function CollaborationMap() {
               d={pathFromRings(c.rings)}
               fill="transparent"
               stroke="transparent"
-              style={{ cursor: zoomedRegion ? "default" : "zoom-in" }}
-              onClick={() => {
-                if (zoomedRegion) return;     // already zoomed, ignore further region clicks
-                setZoomedRegion(c.name);
-              }}
+              style={{ cursor: "zoom-in" }}
+              onClick={() => setZoomedRegion(c.name)}
             />
           ))}
         </g>
@@ -665,11 +669,10 @@ export default function CollaborationMap() {
                 onPointerEnter={() => setHovered(c)}
                 onPointerLeave={() => setHovered(null)}
                 onClick={() => {
-                  if (zoomedRegion) return;       // when already zoomed, click on pin is a no-op
                   const region = cityToRegion.get(c.key);
                   if (region) setZoomedRegion(region);
                 }}
-                style={{ cursor: zoomedRegion ? "default" : "zoom-in", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
+                style={{ cursor: "zoom-in", opacity: dim ? 0.35 : 1, transition: "opacity .2s ease" }}
               >
                 {/* Pulse rings — counter-scaled too so they stay readable */}
                 <circle cx={x} cy={y} r={r + 4 * inv} fill="none" stroke={color} strokeWidth={1.2 * inv} opacity={0.6}>
