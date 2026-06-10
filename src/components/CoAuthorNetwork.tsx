@@ -240,11 +240,12 @@ export default function CoAuthorNetwork() {
                   const a = GROUP_ANCHOR[g];
                   const cx = a.fx * W;
                   const cy = a.fy * H;
-                  const isShahzadHovered = hovered?.isShahzad === true;
-                  const hoveredGroup = (hovered && !hovered.isShahzad) ? hovered.affiliation.group : null;
-                  const isActiveCluster = hoveredGroup === g;
-                  const haloOpacity = isShahzadHovered ? 0.18      // hub hover → every halo brighter
-                    : !hoveredGroup ? 0.05
+                  const focus = hovered ?? selected;
+                  const isShahzadFocus = focus?.isShahzad === true;
+                  const focusGroup = (focus && !focus.isShahzad) ? focus.affiliation.group : null;
+                  const isActiveCluster = focusGroup === g;
+                  const haloOpacity = isShahzadFocus ? 0.18         // hub focus → every halo brighter
+                    : !focusGroup ? 0.05
                     : isActiveCluster ? 0.32
                     : 0.012;
                   return (
@@ -300,22 +301,25 @@ export default function CoAuthorNetwork() {
                 const s = (typeof e.source === "object" ? e.source : simNodes.find(n => n.id === e.source)) as SimNode | undefined;
                 const t = (typeof e.target === "object" ? e.target : simNodes.find(n => n.id === e.target)) as SimNode | undefined;
                 if (!s || !t || s.x == null || t.x == null) return null;
-                const isShahzadHovered = hovered?.isShahzad === true;
-                const hoveredGroup = (hovered && !hovered.isShahzad) ? hovered.affiliation.group : null;
-                // The non-Shahzad endpoint determines which cluster the edge belongs to
+                // Focus = hovered (preview) ?? selected (clicked, persistent).
+                // This way the cluster highlight stays while the side panel is open.
+                const focus = hovered ?? selected;
+                const isShahzadFocus = focus?.isShahzad === true;
+                const focusGroup = (focus && !focus.isShahzad) ? focus.affiliation.group : null;
                 const coAuthor = s.isShahzad ? t : s;
-                const isHoveredEdge = hovered && (hovered.id === s.id || hovered.id === t.id);
-                const inHoveredCluster = hoveredGroup && coAuthor.affiliation.group === hoveredGroup;
+                const isFocusEdge = focus && (focus.id === s.id || focus.id === t.id);
+                const inFocusCluster = focusGroup && coAuthor.affiliation.group === focusGroup;
 
                 let edgeOpacity: number;
-                if (isShahzadHovered)           edgeOpacity = 0.75;   // hub hover → all edges glow
-                else if (!hoveredGroup)         edgeOpacity = 0.45;   // default dim
-                else if (isHoveredEdge)         edgeOpacity = 0.95;   // edge to specifically hovered node
-                else if (inHoveredCluster)      edgeOpacity = 0.45;   // sibling edges in active cluster
+                if (isShahzadFocus)             edgeOpacity = 0.75;   // hub focus → all edges glow
+                else if (!focusGroup)           edgeOpacity = 0.45;   // default dim
+                else if (isFocusEdge)           edgeOpacity = 0.95;   // edge to the focused node
+                else if (inFocusCluster)        edgeOpacity = 0.45;   // sibling edges in active cluster
                 else                            edgeOpacity = 0.05;   // other clusters
 
                 const path = edgePath(s, t);
-                const showParticle = e.weight >= 2 && (!hoveredGroup || isShahzadHovered || inHoveredCluster);
+                const showParticle = e.weight >= 2 && (!focusGroup || isShahzadFocus || inFocusCluster);
+                const isHoveredEdge = hovered && (hovered.id === s.id || hovered.id === t.id);
 
                 return (
                   <g key={i}>
@@ -350,10 +354,10 @@ export default function CoAuthorNetwork() {
               })}
             </g>
 
-            {/* Nodes — cluster-aware opacity:
-                · no hover:           all clusters dim (Shahzad stays bright)
-                · hover on Shahzad:   every cluster lights up (he's the hub)
-                · hover on a co-author:
+            {/* Nodes — cluster-aware opacity. Focus = hovered ?? selected.
+                · no focus:           all clusters dim (Shahzad stays bright)
+                · focus on Shahzad:   every cluster lights up (he's the hub)
+                · focus on a co-author:
                     - that node          → 1.0  (full, plus scale + pulse)
                     - same-cluster peers → 0.7  (visible but clearly secondary)
                     - other clusters     → 0.15 (heavily dimmed)
@@ -363,17 +367,18 @@ export default function CoAuthorNetwork() {
                 const radius = n.isShahzad ? 24 : 5 + Math.min(n.count, 6) * 2.8;
                 const fill = n.isShahzad ? "#06b6d4" : GROUP_COLOR[n.affiliation.group];
                 const isHovered = hovered?.id === n.id;
-                const isShahzadHovered = hovered?.isShahzad === true;
-                // Only narrow hovered group when hovering a co-author (not Shahzad)
-                const hoveredGroup = (hovered && !hovered.isShahzad) ? hovered.affiliation.group : null;
+                const focus = hovered ?? selected;
+                const isFocused = focus?.id === n.id;
+                const isShahzadFocus = focus?.isShahzad === true;
+                const focusGroup = (focus && !focus.isShahzad) ? focus.affiliation.group : null;
 
                 // Cluster-based opacity
                 let nodeOpacity = 1;
                 if (!n.isShahzad) {
-                  if (isShahzadHovered)                           nodeOpacity = 1;     // hub hover → all bright
-                  else if (!hoveredGroup)                         nodeOpacity = 0.5;
-                  else if (isHovered)                             nodeOpacity = 1;     // the focused node
-                  else if (n.affiliation.group === hoveredGroup)  nodeOpacity = 0.7;   // same-cluster siblings
+                  if (isShahzadFocus)                             nodeOpacity = 1;     // hub focus → all bright
+                  else if (!focusGroup)                           nodeOpacity = 0.5;
+                  else if (isFocused)                             nodeOpacity = 1;     // the focused node
+                  else if (n.affiliation.group === focusGroup)    nodeOpacity = 0.7;   // same-cluster siblings
                   else                                            nodeOpacity = 0.15;  // other clusters
                 }
 
