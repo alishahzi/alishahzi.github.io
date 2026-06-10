@@ -328,6 +328,38 @@ export const publications = {
   journalsUnderReview: [],
   bookChapters: [],
   workingPapers: [],
+  // ── Conference / symposium abstracts & posters ─────────────────────────
+  abstracts: [
+    {
+      id: 'A1',
+      authors: 'Ali S, Kreshpa W, Rosso N, Piana M, Roccatagliata L, Cirone A, Lorenzini L, Campi C, Pardini M, Garbarino S',
+      title: 'MRI Connectivity Metrics for Alzheimer\'s Diagnosis, Staging, and Cognitive Decline Prediction.',
+      venue: 'Organization for Human Brain Mapping (OHBM) Annual Meeting',
+      location: 'Bordeaux, France',
+      year: 2026,
+      type: 'Accepted poster',
+      url: 'https://humanbrainmapping.org/i4a/pages/index.cfm?pageid=4317',
+    },
+    {
+      id: 'A2',
+      authors: 'Ali S, et al.',
+      title: 'Hierarchical Graph-of-Graphs Learning for Multimodal Alzheimer\'s Disease Staging and Progression Modelling.',
+      venue: 'Learning on Graphs Italian Meetup 2026',
+      location: 'Pisa, Italy',
+      year: 2026,
+      type: 'Accepted oral / poster',
+      url: 'https://log26pisa.github.io/',
+    },
+    {
+      id: 'A3',
+      authors: 'Ali S, Kreshpa W, Piana M, Pardini M, Garbarino S',
+      title: 'Integration of Graph Theory and Brain Microstructural Analysis with Machine Learning for Advanced Diagnosis of Alzheimer\'s Disease and Prediction of Cognitive Decline.',
+      venue: 'IV Annual Meeting RIN IRCCS Network — Symposia',
+      location: 'Italy',
+      year: 2024,
+      type: 'Presented poster',
+    },
+  ],
   selectedConferences: [
     {
       id: 'C5',

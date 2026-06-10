@@ -1,0 +1,44 @@
+name: Update Scholar Metrics
+
+# Runs daily at 06:00 UTC (≈ 08:00 in Genova, 11:00 in Lahore).
+# Scholar updates citation counts irregularly, so daily is more than enough.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # so the bot can commit the updated JSON back
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install scholarly
+        run: |
+          python -m pip install --upgrade pip
+          pip install scholarly==1.7.11
+
+      - name: Fetch Scholar metrics
+        run: python .github/scripts/fetch-scholar.py
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain public/scholar-metrics.json)" ]]; then
+            git add public/scholar-metrics.json
+            git commit -m "chore(scholar): auto-update metrics"
+            git push
+            echo "Pushed metrics update."
+          else
+            echo "No change."
+          fi
