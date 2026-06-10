@@ -297,7 +297,8 @@ export interface PubLite {
 export interface CoAuthorNode {
   id: string;
   display: string;
-  count: number;
+  count: number;          // total joint papers
+  journalCount: number;   // journal-only count (used as a tiebreaker on sort)
   affiliation: Affiliation;
   paperIds: string[];
 }
@@ -350,12 +351,14 @@ for (const pub of ALL_PUBS) {
         id: key,
         display: parsed.display,
         count: 0,
+        journalCount: 0,
         affiliation: lookupAffiliation(parsed.surname, parsed.firstInitial),
         paperIds: [],
       });
     }
     const node = nodeMap.get(key)!;
     node.count += 1;
+    if (pub.kind === "journal") node.journalCount += 1;
     if (pub.id) node.paperIds.push(pub.id);
 
     const edgeKey = `${SHAHZAD_ID}--${key}`;
@@ -383,8 +386,11 @@ export const SHAHZAD_NODE = {
   isShahzad: true,
 };
 
+// Sort by total joint papers (desc). When tied, prefer the collaborator with
+// more *journal* articles — journals carry more weight than conference papers,
+// so this surfaces the most academically substantial collaborations first.
 export const coAuthorNodes: CoAuthorNode[] = Array.from(nodeMap.values())
-  .sort((a, b) => b.count - a.count);
+  .sort((a, b) => b.count - a.count || b.journalCount - a.journalCount);
 
 export const networkEdges: NetworkEdge[] = Array.from(edgeMap.values())
   .sort((a, b) => b.weight - a.weight);
