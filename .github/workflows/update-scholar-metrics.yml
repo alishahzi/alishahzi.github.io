@@ -22,12 +22,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install scholarly
+      - name: Install requests
         run: |
           python -m pip install --upgrade pip
-          pip install scholarly==1.7.11
+          pip install "requests>=2.31,<3"
 
       - name: Fetch Scholar metrics
+        timeout-minutes: 1
         run: python .github/scripts/fetch-scholar.py
 
       - name: Commit changes (if any)
