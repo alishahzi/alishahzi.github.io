@@ -347,7 +347,7 @@ export const publications = {
       venue: 'Learning on Graphs Italian Meetup 2026',
       location: 'Pisa, Italy',
       year: 2026,
-      type: 'Accepted oral / poster',
+      type: 'Presented',
       url: 'https://log26pisa.github.io/',
     },
     {
@@ -542,7 +542,7 @@ export const news = [
   {
     id: 'n16',
     date: 'Jun 2026',
-    body: `Our abstract, "Hierarchical Graph-of-Graphs Learning for Multimodal Alzheimer's Disease Staging and Progression Modelling," has been accepted for presentation at the [Learning on Graphs Italian Meetup 2026](https://log26pisa.github.io/), June 9–11, 2026, in Pisa, Italy. I look forward to presenting this work and engaging with the graph learning and biomedical AI community.`,
+    body: `Presented our work, "Hierarchical Graph-of-Graphs Learning for Multimodal Alzheimer's Disease Staging and Progression Modelling," at the [Learning on Graphs Italian Meetup 2026](https://log26pisa.github.io/), June 9–11, 2026, in Pisa, Italy. Great to share this research and engage with the graph learning and biomedical AI community.`,
   },
   {
     id: 'n15',
@@ -629,19 +629,16 @@ export const news = [
 // are not yet provided. Order = display order; the slideshow rotates them.
 // ─────────────────────────────────────────────────────────────────────────────
 export const newsGallery = [
+  // LoG Italian Meetup 2026 — Pisa, June 2026 (newest)
+  {
+    src: '/news/log-italy-2026.jpeg',
+    alt: 'Presenting Hierarchical Graph-of-Graphs Learning poster at LoG Italian Meetup, Pisa',
+    caption: 'Presented poster at LoG Italian Meetup · Pisa, Italy (Jun 2026)',
+  },
+
   // EURO-PAD Scientific Symposium — Genoa, May 2026
   {
-    src: '/news/euro-pad-1.jpg',
-    alt: 'EURO-PAD Scientific Symposium in Genoa',
-    caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
-  },
-  {
-    src: '/news/euro-pad-3.jpg',
-    alt: 'EURO-PAD Scientific Symposium in Genoa',
-    caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
-  },
-  {
-    src: '/news/euro-pad-4.jpg',
+    src: '/news/euro-pad.jpg',
     alt: 'EURO-PAD Scientific Symposium in Genoa',
     caption: 'EURO-PAD Scientific Symposium · Genoa (May 2026)',
   },
@@ -663,34 +660,19 @@ export const newsGallery = [
   {
     src: '/news/rin-irccs-symposia.jpg',
     alt: 'IV Annual Meeting RIN IRCCS Network — Symposia',
-    caption: 'IV Annual Meeting RIN IRCCS Network — Symposia (Nov 2024)',
+    caption: 'Presented at IV Annual Meeting RIN IRCCS Network — Symposia (Nov 2024)',
   },
 
   // Geilo Winter School — Graphs and Applications, Norway, Jan 2024
   {
-    src: '/news/geilo-winter-school-1.jpg',
-    alt: 'Geilo Winter School on Graphs and Applications, Norway',
-    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
-  },
-  {
-    src: '/news/geilo-winter-school-2.jpg',
-    alt: 'Geilo Winter School on Graphs and Applications, Norway',
-    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
-  },
-  {
-    src: '/news/geilo-winter-school-3.jpg',
-    alt: 'Geilo Winter School on Graphs and Applications, Norway',
-    caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
-  },
-  {
-    src: '/news/geilo-winter-school-4.jpg',
+    src: '/news/geilo-winter-school.png',
     alt: 'Geilo Winter School on Graphs and Applications, Norway',
     caption: 'Geilo Winter School — Graphs and Applications · Norway (Jan 2024)',
   },
 
   // IEEE ComSoc eHealth PhD School — Genoa, Oct 2023
   {
-    src: '/news/comsoc-phd-school.jpg',
+    src: '/news/comsoc-phd-school.png',
     alt: 'IEEE ComSoc eHealth Technical Committee PhD School in Genoa',
     caption: 'IEEE ComSoc eHealth Technical Committee PhD School · Genoa (Oct 2023)',
   },
