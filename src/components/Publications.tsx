@@ -1,5 +1,84 @@
+import { useEffect, useMemo, useState } from "react";
 import { publications } from "../data/content";
 import ScholarMetrics from "./ScholarMetrics";
+
+interface SitesPub {
+  doi: string;
+  title: string;
+  authors: string;
+  venue: string;
+  vol?: string | null;
+  year: number | null;
+  section: "journal" | "conference" | "other";
+}
+interface SitesPayload {
+  publications: SitesPub[];
+  last_updated: string;
+}
+
+/**
+ * Hook: merge the manually-curated `publications` from content.ts with the
+ * auto-synced sites-publications.json (Google Sites → Crossref).
+ *
+ *   - content.ts entries win on DOI (they have richer data — full author
+ *     lists with et al. expansions, abstracts categorisation, etc.)
+ *   - Anything in the JSON whose DOI isn't in content.ts gets appended to
+ *     the appropriate section so newly-added Google Sites papers show up
+ *     automatically.
+ */
+function useMergedPublications() {
+  const [sites, setSites] = useState<SitesPayload | null>(null);
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}sites-publications.json`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(setSites)
+      .catch(() => setSites(null));
+  }, []);
+
+  return useMemo(() => {
+    const jp = publications.journalsPublished    || [];
+    const sc = publications.selectedConferences  || [];
+
+    const norm = (x: string | undefined) => (x || "").toLowerCase().replace(/\.$/, "");
+    const knownDois = new Set<string>(
+      [...jp, ...sc]
+        .map(p => norm((p as { doi?: string }).doi))
+        .filter(Boolean)
+    );
+
+    const extraJ: typeof jp = [];
+    const extraC: typeof sc = [];
+    let autoCount = 0;
+
+    for (const p of sites?.publications || []) {
+      const d = norm(p.doi);
+      if (!d || knownDois.has(d)) continue;
+      autoCount += 1;
+      const stub = {
+        id: `Auto-${d}`,
+        authors: p.authors,
+        title: p.title,
+        venue: p.venue,
+        year: p.year || undefined,
+        vol: p.vol || undefined,
+        doi: p.doi,
+      };
+      if (p.section === "journal") extraJ.push(stub);
+      else extraC.push(stub);
+    }
+
+    // Sort newest first within each section
+    const byYearDesc = (a: { year?: number | string }, b: { year?: number | string }) =>
+      Number(b.year || 0) - Number(a.year || 0);
+
+    return {
+      jp: [...jp, ...extraJ].sort(byYearDesc),
+      sc: [...sc, ...extraC].sort(byYearDesc),
+      autoCount,
+      lastSynced: sites?.last_updated,
+    };
+  }, [sites]);
+}
 
 interface Pub{id?:string;authors?:string;title:string;venue?:string;year?:number|string;doi?:string;if?:number|string;note?:string;vol?:string;location?:string;}
 
@@ -103,8 +182,7 @@ function AbstractsSec({pubs}:{pubs:AbstractPub[]}){
 }
 
 export default function Publications(){
-  const jp = publications.journalsPublished    || [];
-  const sc = publications.selectedConferences  || [];
+  const { jp, sc, autoCount, lastSynced } = useMergedPublications();
   const ab = ((publications as { abstracts?: AbstractPub[] }).abstracts) || [];
   const total = jp.length + sc.length + ab.length;
 
@@ -115,9 +193,23 @@ export default function Publications(){
           <p className="text-xs font-bold tracking-[.3em] uppercase mb-3" style={{color:"#06b6d4"}}>Scholarly output</p>
           <h2 className="text-4xl font-black text-white mb-4" style={{letterSpacing:"-0.02em"}}>Research &amp; Publications</h2>
           <div className="w-16 h-1 rounded-full mx-auto mb-4" style={{background:"linear-gradient(90deg,#06b6d4,#3b82f6)"}}/>
-          <p className="text-sm max-w-md mx-auto mb-8" style={{color:"#64748b"}}>
+          <p className="text-sm max-w-md mx-auto mb-3" style={{color:"#64748b"}}>
             {total} peer-reviewed works across international journals, conferences, and accepted abstracts.
           </p>
+          {lastSynced && (
+            <p className="text-[10px] mb-5 flex items-center justify-center gap-1.5" style={{color:"rgba(148,163,184,.55)"}}>
+              <span className="relative inline-flex w-1.5 h-1.5">
+                <span className="absolute inline-flex w-full h-full rounded-full" style={{background:"#10b981", animation:"pubsPing 2s cubic-bezier(0,0,.2,1) infinite", opacity:0.65}}/>
+                <span className="relative inline-flex rounded-full w-1.5 h-1.5" style={{background:"#10b981"}}/>
+              </span>
+              Auto-synced daily from{" "}
+              <a href="https://sites.google.com/view/alishahzad/publications" target="_blank" rel="noopener noreferrer" style={{color:"#67e8f9"}} className="hover:brightness-125">
+                Google Sites
+              </a>
+              {autoCount > 0 && <span style={{color:"rgba(148,163,184,.4)"}}>· {autoCount} entr{autoCount===1?"y":"ies"} fetched automatically</span>}
+            </p>
+          )}
+          <style>{`@keyframes pubsPing { 0%{transform:scale(1);opacity:.65} 75%,100%{transform:scale(2.6);opacity:0} }`}</style>
           <div className="flex flex-wrap justify-center gap-4">
             {[
               {n:jp.length, l:"Journal Articles",        c:"#06b6d4", bg:"rgba(6,182,212,.1)",  bo:"rgba(6,182,212,.3)"},

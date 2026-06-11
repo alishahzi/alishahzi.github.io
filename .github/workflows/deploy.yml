@@ -8,7 +8,7 @@ on:
   # (GitHub deliberately does not re-trigger workflows from pushes made with the
   # default GITHUB_TOKEN, so we wire this in explicitly.)
   workflow_run:
-    workflows: ["Update Scholar Metrics"]
+    workflows: ["Update Scholar Metrics", "Sync Publications"]
     types: [completed]
 
 permissions:
