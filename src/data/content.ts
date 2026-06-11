@@ -658,7 +658,7 @@ export const newsGallery = [
 
   // RIN IRCCS Network Symposium — Nov 2024
   {
-    src: '/news/rin-irccs-symposia.jpg',
+    src: '/news/rin-irccs-symposia.png',
     alt: 'IV Annual Meeting RIN IRCCS Network — Symposia',
     caption: 'Presented at IV Annual Meeting RIN IRCCS Network — Symposia (Nov 2024)',
   },
