@@ -28,8 +28,24 @@ jobs:
           pip install "requests>=2.31,<3"
 
       - name: Fetch Scholar metrics
-        timeout-minutes: 1
-        run: python .github/scripts/fetch-scholar.py
+        id: fetch
+        timeout-minutes: 3
+        run: |
+          set +e
+          python .github/scripts/fetch-scholar.py
+          code=$?
+          # Exit codes:
+          #   0  → success (will commit + push)
+          #   75 → temporary block / parse failure after retries.
+          #        Treat as success-no-change so transient Scholar throttling
+          #        doesn't generate a failure email every day. The site keeps
+          #        showing the last good snapshot. If the trend persists you'll
+          #        notice the last_updated stamp staying old.
+          if [[ $code -eq 75 ]]; then
+            echo "Transient Scholar block — skipping commit, keeping last good snapshot."
+            exit 0
+          fi
+          exit $code
 
       - name: Commit changes (if any)
         run: |
