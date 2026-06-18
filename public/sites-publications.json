@@ -123,17 +123,6 @@
     },
     {
       "id": null,
-      "doi": "10.1109/icosst48232.2019.9044042",
-      "title": "Entropy-Based Feature Selection Classification Approach for Detecting Phishing Websites.",
-      "authors": "Ali S, Shahbaz M, Jamil K",
-      "venue": "2019 13th International Conference on Open Source Systems and Technologies (ICOSST)",
-      "vol": "pp. 1-6",
-      "year": 2019,
-      "section": "conference",
-      "type": "proceedings-article"
-    },
-    {
-      "id": null,
       "doi": "10.5220/0007949902960303",
       "title": "Classification of Alzheimer’s Disease using Machine Learning Techniques.",
       "authors": "Shahbaz M, Ali S, Guergachi A, Niazi A, Umer A",
@@ -145,5 +134,5 @@
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-06-17T11:17:15Z"
+  "last_updated": "2026-06-18T10:46:58Z"
 }
