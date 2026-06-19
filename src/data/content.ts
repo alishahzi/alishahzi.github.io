@@ -36,7 +36,7 @@ My research focuses on graph learning and AI methods for neurodegenerative disea
 };
 
 export const stats = [
-  { value: '9',   label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Elsevier · Springer · CMC' },
+  { value: '10',  label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Wiley · Elsevier · Springer · CMC' },
   { value: '5',   label: 'Conference Papers',         sublabel: 'IEEE · Springer · SciTePress' },
   { value: '13+', label: 'Professional Certifications', sublabel: 'Coursera · IBM · Microsoft' },
   { value: '7+',  label: 'Years Research & Teaching',  sublabel: 'Italy · UK · Pakistan' },
