@@ -80,6 +80,12 @@ export const AFFILIATIONS: Record<string, Affiliation> = {
   castellan:    { org: "IRCCS San Martino (Neuroradiology)",      city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
   mortola:      { org: "Università di Genova",                    city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
   falcitano:    { org: "IRCCS San Martino",                       city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  sentieri:     { org: "Università di Genova (DINOGMI)",          city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  bauckneht:    { org: "Università di Genova (Health Sciences · Nuclear Med.)", city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  tomassini:    { org: "Università di Genova (DINOGMI)",          city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  "de cesari":  { org: "Università di Genova (DINOGMI)",          city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  razzetta:     { org: "IRCCS San Martino · LISCOMP",             city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
+  bandini:      { org: "IRCCS Azienda Ospedaliera Metropolitana", city: "Genova", country: "Italy",  lat: 44.40, lon:  8.93, group: "italy-genoa" },
 
   // — IRCCS Mondino Foundation, Pavia ──────────────────────────────────────
   mazzacane:    { org: "IRCCS Mondino Foundation",  city: "Pavia",  country: "Italy", lat: 45.18, lon:  9.16, group: "italy-other" },

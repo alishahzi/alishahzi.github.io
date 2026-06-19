@@ -245,6 +245,15 @@ export const education = [
 export const publications = {
   journalsPublished: [
     {
+      id: 'J10',
+      authors: 'Argenti L, Cirone A, Massa F, Sentieri E, Losa M, Lorenzini L, Garbarino S, Sofia L, Raffa S, Bauckneht M, Sambuceti G, Kreshpa W, Bozzo G, Tomassini G, De Cesari F, Pelagotti V, Pulze M, Gualco L, Hamedani M, Razzetta C, Brugnolo A, Girtler N, Caneva S, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Roccatagliata L, Bandini F, Orso B, Pardini M',
+      title: 'Exploring the spatial covariance of cerebral vascular density and amyloid burden in Alzheimer\'s disease.',
+      venue: 'Alzheimer\'s & Dementia: Diagnosis, Assessment & Disease Monitoring',
+      vol: '18(2): e70390',
+      year: 2026,
+      doi: '10.1002/dad2.70390',
+    },
+    {
       id: 'J9',
       authors: 'Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan S, Raza N, Sultana J, Habib MA',
       title: 'A robust multi-location evaluation of a machine learning framework for wind power forecasting.',
@@ -337,7 +346,7 @@ export const publications = {
       venue: 'Organization for Human Brain Mapping (OHBM) Annual Meeting',
       location: 'Bordeaux, France',
       year: 2026,
-      type: 'Accepted poster',
+      type: 'Presented',
       url: 'https://humanbrainmapping.org/i4a/pages/index.cfm?pageid=4317',
     },
     {
@@ -537,7 +546,7 @@ export const news = [
   {
     id: 'n17',
     date: 'Jun 2026',
-    body: `Our abstract, "MRI Connectivity Metrics for Alzheimer's Diagnosis, Staging, and Cognitive Decline Prediction," has been accepted for a poster presentation at the [Organization for Human Brain Mapping (OHBM) 2026 Annual Meeting](https://humanbrainmapping.org/i4a/pages/index.cfm?pageid=4317), June 14–18, 2026, in Bordeaux, France. I look forward to presenting this research and engaging with the international neuroimaging community at OHBM 2026.`,
+    body: `Presented our poster, "MRI Connectivity Metrics for Alzheimer's Diagnosis, Staging, and Cognitive Decline Prediction," at the [Organization for Human Brain Mapping (OHBM) 2026 Annual Meeting](https://humanbrainmapping.org/i4a/pages/index.cfm?pageid=4317), June 14–18, 2026, in Bordeaux, France. Great to share this work and engage with the international neuroimaging community at OHBM 2026.`,
   },
   {
     id: 'n16',
@@ -629,7 +638,14 @@ export const news = [
 // are not yet provided. Order = display order; the slideshow rotates them.
 // ─────────────────────────────────────────────────────────────────────────────
 export const newsGallery = [
-  // LoG Italian Meetup 2026 — Pisa, June 2026 (newest)
+  // OHBM 2026 — Bordeaux, June 14–18, 2026 (newest)
+  {
+    src: '/news/OHBM2026.png',
+    alt: 'Presenting MRI Connectivity Metrics poster at OHBM 2026, Bordeaux',
+    caption: 'Presented poster at Organization for Human Brain Mapping (OHBM) 2026 · Bordeaux, France (Jun 2026)',
+  },
+
+  // LoG Italian Meetup 2026 — Pisa, June 9–11, 2026
   {
     src: '/news/log-italy-2026.jpeg',
     alt: 'Presenting Hierarchical Graph-of-Graphs Learning poster at LoG Italian Meetup, Pisa',
