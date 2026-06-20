@@ -2,6 +2,17 @@
   "publications": [
     {
       "id": null,
+      "doi": "10.1002/dad2.70390",
+      "title": "Exploring the spatial covariance of cerebral vascular density and amyloid burden in Alzheimer's disease.",
+      "authors": "Argenti L, Cirone A, Massa F, Sentieri E, Losa M, Lorenzini L, Garbarino S, Sofia L, Raffa S, Bauckneht M, Sambuceti G, Kreshpa W, Bozzo G, Tomassini G, De Cesari F, Pelagotti V, Pulze M, Gualco L, Hamedani M, Razzetta C, Brugnolo A, Girtler N, Caneva S, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Roccatagliata L, Bandini F, Orso B, Pardini M",
+      "venue": "Alzheimer's &amp; Dementia: Diagnosis, Assessment &amp; Disease Monitoring",
+      "vol": "Vol. 18, No. 2",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
       "doi": "10.1016/j.neurobiolaging.2026.02.004",
       "title": "Neurotransmitter landscape and neurodegeneration patterns in Alzheimer’s Disease.",
       "authors": "Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Raffa S, Sambuceti G, Garbarino S, Kreshpa W, Bozzo G, Pelagotti V, Pulze M, Gualco L, Hamedani M, Cirone A, Francia S, Brugnolo A, Girtler N, Caneva S, Roccatagliata L, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Orso B, Pardini M",
@@ -131,19 +142,8 @@
       "year": 2019,
       "section": "conference",
       "type": "proceedings-article"
-    },
-    {
-      "id": null,
-      "doi": "10.5220/0007949902960303",
-      "title": "Classification of Alzheimer’s Disease using Machine Learning Techniques.",
-      "authors": "Shahbaz M, Ali S, Guergachi A, Niazi A, Umer A",
-      "venue": "Proceedings of the 8th International Conference on Data Science, Technology and Applications",
-      "vol": "pp. 296-303",
-      "year": 2019,
-      "section": "conference",
-      "type": "proceedings-article"
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-06-19T10:57:01Z"
+  "last_updated": "2026-06-20T09:38:30Z"
 }
