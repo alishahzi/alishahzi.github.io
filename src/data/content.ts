@@ -229,6 +229,7 @@ export const education = [
     department: '',
     thesis: 'Visible Light-Based Communication System for High Data Rate Real-Time Applications',
     scholarship: 'ICT R&D Scholarship — Federal Government of Pakistan',
+    gpa: '3.46 / 4.00',
     highlights: [
       'Merit-based ICT R&D Scholarship throughout the degree',
       'Final-Year Project funded by the ICT R&D Programme',
@@ -366,7 +367,7 @@ export const publications = {
       venue: 'IV Annual Meeting RIN IRCCS Network — Symposia',
       location: 'Italy',
       year: 2024,
-      type: 'Presented poster',
+      type: 'Presented',
     },
   ],
   selectedConferences: [
