@@ -112,39 +112,6 @@
     },
     {
       "id": null,
-      "doi": "10.1007/978-3-032-12996-3_17",
-      "title": "Hybrid Kernel SVM and Boosting Approaches for Accurate Autism Spectrum Disorder Screening.",
-      "authors": "Ali U, Shahid S, Misbah, Ali S, Aslam S, Mustafa K",
-      "venue": "Lecture Notes in Networks and Systems",
-      "vol": "pp. 178-187",
-      "year": 2026,
-      "section": "conference",
-      "type": "book-chapter"
-    },
-    {
-      "id": null,
-      "doi": "10.1007/978-3-032-13003-7_22",
-      "title": "Socioeconomic Indicator-Based Crime Prediction in Pakistan Using Machine Learning Techniques.",
-      "authors": "Ali U, Hussain T, Akbar MM, Ali S, Sajid",
-      "venue": "Lecture Notes in Networks and Systems",
-      "vol": "pp. 225-235",
-      "year": 2026,
-      "section": "conference",
-      "type": "book-chapter"
-    },
-    {
-      "id": null,
-      "doi": "10.1109/icosst48232.2019.9044042",
-      "title": "Entropy-Based Feature Selection Classification Approach for Detecting Phishing Websites.",
-      "authors": "Ali S, Shahbaz M, Jamil K",
-      "venue": "2019 13th International Conference on Open Source Systems and Technologies (ICOSST)",
-      "vol": "pp. 1-6",
-      "year": 2019,
-      "section": "conference",
-      "type": "proceedings-article"
-    },
-    {
-      "id": null,
       "doi": "10.5220/0007949902960303",
       "title": "Classification of Alzheimer’s Disease using Machine Learning Techniques.",
       "authors": "Shahbaz M, Ali S, Guergachi A, Niazi A, Umer A",
@@ -156,5 +123,5 @@
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-06-22T12:25:39Z"
+  "last_updated": "2026-06-23T10:02:12Z"
 }
