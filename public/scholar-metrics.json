@@ -2,12 +2,12 @@
   "scholar_id": "n3XO81UAAAAJ",
   "name": "Shahzad Ali",
   "affiliation": null,
-  "citations": 282,
-  "citations_5y": 272,
+  "citations": 285,
+  "citations_5y": 275,
   "h_index": 6,
   "h_index_5y": 6,
-  "i10_index": 2,
-  "i10_index_5y": 2,
+  "i10_index": 3,
+  "i10_index_5y": 3,
   "cites_per_year": {
     "2019": 2,
     "2020": 8,
@@ -16,7 +16,7 @@
     "2023": 36,
     "2024": 71,
     "2025": 60,
-    "2026": 35
+    "2026": 38
   },
-  "last_updated": "2026-07-03T08:50:27Z"
+  "last_updated": "2026-07-11T07:41:24Z"
 }
