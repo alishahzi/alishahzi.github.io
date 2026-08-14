@@ -142,8 +142,19 @@
       "year": 2019,
       "section": "conference",
       "type": "proceedings-article"
+    },
+    {
+      "id": null,
+      "doi": "10.5220/0007949902960303",
+      "title": "Classification of Alzheimer’s Disease using Machine Learning Techniques.",
+      "authors": "Shahbaz M, Ali S, Guergachi A, Niazi A, Umer A",
+      "venue": "Proceedings of the 8th International Conference on Data Science, Technology and Applications",
+      "vol": "pp. 296-303",
+      "year": 2019,
+      "section": "conference",
+      "type": "proceedings-article"
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-08-13T07:51:00Z"
+  "last_updated": "2026-08-14T07:49:00Z"
 }
