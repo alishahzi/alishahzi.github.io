@@ -36,8 +36,8 @@ My research focuses on graph learning and AI methods for neurodegenerative disea
 };
 
 export const stats = [
-  { value: '10',  label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Wiley · Elsevier · Springer · CMC' },
-  { value: '5',   label: 'Conference Papers',         sublabel: 'IEEE · Springer · SciTePress' },
+  { value: '11',  label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Wiley · Elsevier · Springer · CMC' },
+  { value: '7',   label: 'Conference Papers',         sublabel: 'IEEE · Springer LNCS · MLCN/MICCAI · SciTePress' },
   { value: '13+', label: 'Professional Certifications', sublabel: 'Coursera · IBM · Microsoft' },
   { value: '7+',  label: 'Years Research & Teaching',  sublabel: 'Italy · UK · Pakistan' },
 ];
@@ -246,6 +246,15 @@ export const education = [
 export const publications = {
   journalsPublished: [
     {
+      id: 'J11',
+      authors: 'Pulze M, Garbarino S, Lorenzini L, et al.; Alzheimer\'s Disease Neuroimaging Initiative',
+      title: 'Structural MRI signature predicts tau staging in Alzheimer\'s disease.',
+      venue: 'Alzheimer\'s & Dementia: Diagnosis, Assessment & Disease Monitoring',
+      vol: '18: e70451',
+      year: 2026,
+      doi: '10.1002/dad2.70451',
+    },
+    {
       id: 'J10',
       authors: 'Argenti L, Cirone A, Massa F, Sentieri E, Losa M, Lorenzini L, Garbarino S, Sofia L, Raffa S, Bauckneht M, Sambuceti G, Kreshpa W, Bozzo G, Tomassini G, De Cesari F, Pelagotti V, Pulze M, Gualco L, Hamedani M, Razzetta C, Brugnolo A, Girtler N, Caneva S, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Roccatagliata L, Bandini F, Orso B, Pardini M',
       title: 'Exploring the spatial covariance of cerebral vascular density and amyloid burden in Alzheimer\'s disease.',
@@ -371,6 +380,22 @@ export const publications = {
     },
   ],
   selectedConferences: [
+    {
+      id: 'C7',
+      authors: 'Ali S, Garbarino S',
+      title: 'From Blood to Brain: Uncertainty-Aware Adaptive Fusion for Alzheimer\'s Staging and Progression Under Incomplete Multimodal Profiles.',
+      venue: 'Eighth International Workshop on Machine Learning in Clinical Neuroimaging (MLCN 2026), held in conjunction with MICCAI 2026',
+      year: 2026,
+      note: 'Accepted — to appear in Springer Lecture Notes in Computer Science (LNCS) proceedings.',
+    },
+    {
+      id: 'C6',
+      authors: 'Ali S, Iqbal U, Ali U, Sajid, Akbar MM',
+      title: 'Deep CNN-Based Framework for Facial Demographic Prediction in Smart Systems.',
+      venue: 'Machine and Computing Technologies for Sustainable Development — MCT4SD 2025, Lecture Notes in Networks and Systems, Vol. 1977, Springer, Cham (eds. Tafuri B, Kumar S, Joshi A)',
+      year: 2026,
+      doi: '10.1007/978-3-032-23716-3_17',
+    },
     {
       id: 'C5',
       authors: 'Ali U, Shahid S, Misbah, Ali S, Aslam S, Mustafa K',
@@ -544,6 +569,11 @@ export const professionalDevelopment = [
 // — they're rendered as clickable cyan accents by the inlineLinks helper.
 // ─────────────────────────────────────────────────────────────────────────────
 export const news = [
+  {
+    id: 'n18',
+    date: 'Oct 2026',
+    body: `Our paper, "From Blood to Brain: Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles," has been accepted at the Eighth International Workshop on Machine Learning in Clinical Neuroimaging ([MLCN 2026](https://mlcnworkshop.github.io/)), held in conjunction with [MICCAI 2026](https://conferences.miccai.org/2026/en/) in Strasbourg, France. I will be at MLCN 2026 to present our paper and look forward to sharing our work and connecting with the medical imaging and machine learning community at MICCAI 2026.`,
+  },
   {
     id: 'n17',
     date: 'Jun 2026',
