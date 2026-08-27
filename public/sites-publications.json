@@ -13,6 +13,17 @@
     },
     {
       "id": null,
+      "doi": "10.1002/dad2.70451",
+      "title": "Structural MRI signature predicts tau staging in Alzheimer's disease.",
+      "authors": "Pulze M, Garbarino S, Lorenzini L, Cirone A, Ali S, Gualco L, Massa F, Arnaldi D, Orso B, Losa M, Kreshpa W, Caneva S, Parodi M, Sofia L, Raffa S, Sambuceti G, Caulo M, Pravatà E, Levrero F, Bozzali M, Morbelli S, Piana M, Uccelli A, Roccatagliata L, Chincarini A, Pardini M",
+      "venue": "Alzheimer's &amp; Dementia: Diagnosis, Assessment &amp; Disease Monitoring",
+      "vol": "Vol. 18, No. 3",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
       "doi": "10.1016/j.neurobiolaging.2026.02.004",
       "title": "Neurotransmitter landscape and neurodegeneration patterns in Alzheimer’s Disease.",
       "authors": "Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Raffa S, Sambuceti G, Garbarino S, Kreshpa W, Bozzo G, Pelagotti V, Pulze M, Gualco L, Hamedani M, Cirone A, Francia S, Brugnolo A, Girtler N, Caneva S, Roccatagliata L, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Orso B, Pardini M",
@@ -134,6 +145,17 @@
     },
     {
       "id": null,
+      "doi": "10.1007/978-3-032-23716-3_17",
+      "title": "Deep CNN-Based Framework for Facial Demographic Prediction in Smart Systems.",
+      "authors": "Ali S, Iqbal U, Ali U, Sajid, Akbar MM",
+      "venue": "Lecture Notes in Networks and Systems",
+      "vol": "pp. 171-180",
+      "year": 2026,
+      "section": "conference",
+      "type": "book-chapter"
+    },
+    {
+      "id": null,
       "doi": "10.1109/icosst48232.2019.9044042",
       "title": "Entropy-Based Feature Selection Classification Approach for Detecting Phishing Websites.",
       "authors": "Ali S, Shahbaz M, Jamil K",
@@ -156,5 +178,5 @@
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-08-26T07:07:10Z"
+  "last_updated": "2026-08-27T17:37:29Z"
 }
