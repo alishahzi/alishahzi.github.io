@@ -134,6 +134,17 @@
     },
     {
       "id": null,
+      "doi": "10.1007/978-3-032-13003-7_22",
+      "title": "Socioeconomic Indicator-Based Crime Prediction in Pakistan Using Machine Learning Techniques.",
+      "authors": "Ali U, Hussain T, Akbar MM, Ali S, Sajid",
+      "venue": "Lecture Notes in Networks and Systems",
+      "vol": "pp. 225-235",
+      "year": 2026,
+      "section": "conference",
+      "type": "book-chapter"
+    },
+    {
+      "id": null,
       "doi": "10.1007/978-3-032-23716-3_17",
       "title": "Deep CNN-Based Framework for Facial Demographic Prediction in Smart Systems.",
       "authors": "Ali S, Iqbal U, Ali U, Sajid, Akbar MM",
@@ -142,6 +153,17 @@
       "year": 2026,
       "section": "conference",
       "type": "book-chapter"
+    },
+    {
+      "id": null,
+      "doi": "10.1109/icosst48232.2019.9044042",
+      "title": "Entropy-Based Feature Selection Classification Approach for Detecting Phishing Websites.",
+      "authors": "Ali S, Shahbaz M, Jamil K",
+      "venue": "2019 13th International Conference on Open Source Systems and Technologies (ICOSST)",
+      "vol": "pp. 1-6",
+      "year": 2019,
+      "section": "conference",
+      "type": "proceedings-article"
     },
     {
       "id": null,
@@ -156,5 +178,5 @@
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-09-26T11:22:26Z"
+  "last_updated": "2026-09-27T11:59:45Z"
 }
