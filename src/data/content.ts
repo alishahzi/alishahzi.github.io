@@ -27,7 +27,7 @@ export const personal = {
   twitter: 'https://x.com/shahzadali039',
   website: 'https://sites.google.com/view/alishahzad/',
   cvUrl: '/cv.html',
-  image: '/profile.png',
+  image: '/profile-2026.png',
   heroBlurb: `PhD candidate at Università di Bologna and IRCCS San Martino working at the intersection of machine learning, graph neural networks, and multimodal neuroimaging. My research focuses on building AI methods that model brain network changes in Alzheimer's disease and predict cognitive decline.`,
   summary: `I am a PhD candidate in Data Science and Computation at [Alma Mater Studiorum – Università di Bologna](https://www.unibo.it/en), Italy. I began my doctoral studies in November 2022, with a PhD project focused on machine learning methods in digital health.
 My doctoral research is conducted within the Life Science Computational ([LISCOMP](https://mida.unige.it/liscomp)) Laboratory, a multidisciplinary research environment formed through the collaboration between the [MIDA](https://mida.unige.it/) (Methods for Image and Data Analysis) group and the [IRCCS San Martino Hospital](https://www.ospedalesanmartino.it/it/), Genova. Since September 2023, I am based at IRCCS San Martino Hospital and work under the supervision of Ing. Nicola Rosso and Dr. Sara Garbarino.
