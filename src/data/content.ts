@@ -350,6 +350,16 @@ export const publications = {
   // ── Conference / symposium abstracts & posters ─────────────────────────
   abstracts: [
     {
+      id: 'A0',
+      authors: 'Ali S, Garbarino S',
+      title: 'From Blood to Brain: Uncertainty-Aware Adaptive Fusion for Alzheimer\'s Staging and Progression Under Incomplete Multimodal Profiles.',
+      venue: 'Eighth International Workshop on Machine Learning in Clinical Neuroimaging (MLCN 2026), held in conjunction with MICCAI 2026',
+      location: 'Strasbourg, France',
+      year: 2026,
+      type: 'Presented',
+      url: 'https://mlcnworkshop.github.io/',
+    },
+    {
       id: 'A1',
       authors: 'Ali S, Kreshpa W, Rosso N, Piana M, Roccatagliata L, Cirone A, Lorenzini L, Campi C, Pardini M, Garbarino S',
       title: 'MRI Connectivity Metrics for Alzheimer\'s Diagnosis, Staging, and Cognitive Decline Prediction.',
@@ -572,7 +582,7 @@ export const news = [
   {
     id: 'n18',
     date: 'Oct 2026',
-    body: `Our paper, "From Blood to Brain: Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles," has been accepted at the Eighth International Workshop on Machine Learning in Clinical Neuroimaging ([MLCN 2026](https://mlcnworkshop.github.io/)), held in conjunction with [MICCAI 2026](https://conferences.miccai.org/2026/en/) in Strasbourg, France. I will be at MLCN 2026 to present our paper and look forward to sharing our work and connecting with the medical imaging and machine learning community at MICCAI 2026.`,
+    body: `Presented our paper, "From Blood to Brain: Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles," on 1 October 2026 at the Eighth International Workshop on Machine Learning in Clinical Neuroimaging ([MLCN 2026](https://mlcnworkshop.github.io/)), held in conjunction with [MICCAI 2026](https://conferences.miccai.org/2026/en/) in Strasbourg, France. Great to share our work and connect with the medical imaging and machine learning community at MICCAI 2026.`,
   },
   {
     id: 'n17',
@@ -669,7 +679,18 @@ export const news = [
 // are not yet provided. Order = display order; the slideshow rotates them.
 // ─────────────────────────────────────────────────────────────────────────────
 export const newsGallery = [
-  // OHBM 2026 — Bordeaux, June 14–18, 2026 (newest)
+  // MLCN 2026 @ MICCAI 2026 — Strasbourg, Oct 1, 2026 (newest)
+  {
+    src: '/news/MICCAI2026_1.png',
+    alt: 'Presenting From Blood to Brain poster at MLCN 2026 @ MICCAI, Strasbourg',
+    caption: 'Presented poster at MLCN 2026 @ MICCAI 2026 · Strasbourg, France (Oct 2026)',
+  },
+  {
+    src: '/news/MICCAI2026_2.png',
+    alt: 'MLCN 2026 workshop @ MICCAI 2026, Strasbourg',
+    caption: 'MLCN 2026 Workshop @ MICCAI 2026 · Strasbourg, France (Oct 2026)',
+  },
+  // OHBM 2026 — Bordeaux, June 14–18, 2026
   {
     src: '/news/OHBM2026.png',
     alt: 'Presenting MRI Connectivity Metrics poster at OHBM 2026, Bordeaux',
