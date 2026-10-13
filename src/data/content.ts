@@ -36,7 +36,7 @@ My research focuses on graph learning and AI methods for neurodegenerative disea
 };
 
 export const stats = [
-  { value: '11',  label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Wiley · Elsevier · Springer · CMC' },
+  { value: '12',  label: 'Journal Articles',          sublabel: 'Frontiers · PLOS · JAHA · Wiley · Elsevier · Springer · CMC · JCCP' },
   { value: '7',   label: 'Conference Papers',         sublabel: 'IEEE · Springer LNCS · MLCN/MICCAI · SciTePress' },
   { value: '13+', label: 'Professional Certifications', sublabel: 'Coursera · IBM · Microsoft' },
   { value: '7+',  label: 'Years Research & Teaching',  sublabel: 'Italy · UK · Pakistan' },
@@ -245,6 +245,15 @@ export const education = [
 // ─────────────────────────────────────────────────────────────────────────────
 export const publications = {
   journalsPublished: [
+    {
+      id: 'J12',
+      authors: 'Zahid A, Aleem B, Ahmad S, Khan M, Anwar MA, Aziz HR, Majid M, Ali S, Iqbal S',
+      title: 'Association of Streptococcus mutans Isolated from Dental Caries in Extracted Permanent Teeth and its Antibiotic Susceptibility Pattern, with Oral Health Status.',
+      venue: 'Journal of Contemporary Clinical Practice',
+      vol: '12(9): 807–819',
+      year: 2026,
+      doi: '10.61336/jccp/26-9-92',
+    },
     {
       id: 'J11',
       authors: 'Pulze M, Garbarino S, Lorenzini L, et al.; Alzheimer\'s Disease Neuroimaging Initiative',
