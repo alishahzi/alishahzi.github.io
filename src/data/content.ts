@@ -253,6 +253,7 @@ export const publications = {
       vol: '12(9): 807–819',
       year: 2026,
       doi: '10.61336/jccp/26-9-92',
+      url: 'https://jccpractice.com/article/association-of-streptococcus-mutans-isolated-from-dental-caries-in-extracted-permanent-teeth-and-its-antibiotic-susceptibility-pattern-with-oral-health-status-2509/',
     },
     {
       id: 'J11',

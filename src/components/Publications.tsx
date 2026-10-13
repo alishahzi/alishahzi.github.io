@@ -80,7 +80,7 @@ function useMergedPublications() {
   }, [sites]);
 }
 
-interface Pub{id?:string;authors?:string;title:string;venue?:string;year?:number|string;doi?:string;if?:number|string;note?:string;vol?:string;location?:string;}
+interface Pub{id?:string;authors?:string;title:string;venue?:string;year?:number|string;doi?:string;url?:string;if?:number|string;note?:string;vol?:string;location?:string;}
 
 function PubCard({pub,index}:{pub:Pub;index:number}){
   return(
@@ -99,10 +99,17 @@ function PubCard({pub,index}:{pub:Pub;index:number}){
             {pub.if && <span className="text-xs px-2.5 py-0.5 rounded-full font-semibold"
               style={{background:"rgba(139,92,246,.15)",border:"1px solid rgba(139,92,246,.35)",color:"#c4b5fd"}}>IF {pub.if}</span>}
             {pub.doi && (
-              <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer"
+              <a href={pub.url || `https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer"
                 className="text-xs font-semibold inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full transition-all hover:brightness-125"
                 style={{background:"rgba(6,182,212,.12)",border:"1px solid rgba(6,182,212,.4)",color:"#06b6d4"}}>
                 DOI: {pub.doi} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {!pub.doi && pub.url && (
+              <a href={pub.url} target="_blank" rel="noopener noreferrer"
+                className="text-xs font-semibold inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full transition-all hover:brightness-125"
+                style={{background:"rgba(6,182,212,.12)",border:"1px solid rgba(6,182,212,.4)",color:"#06b6d4"}}>
+                Article <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>
