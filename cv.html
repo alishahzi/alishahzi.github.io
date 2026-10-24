@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shahzad Ali — Curriculum Vitae</title>
+  <meta name="description" content="Curriculum Vitae of Shahzad Ali, PhD Researcher in Graph Learning and AI for Neurodegenerative Disease Modelling." />
+  <meta name="robots" content="noindex,follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    :root { color-scheme: dark; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #04080f;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #cbd5e1;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(15, 23, 42, .9);
+      border-bottom: 1px solid rgba(100, 116, 139, .25);
+      backdrop-filter: blur(8px);
+    }
+    header a {
+      color: #67e8f9;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s ease;
+    }
+    header a:hover { color: #a5f3fc; }
+    header h1 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #f1f5f9;
+      letter-spacing: .01em;
+    }
+    .viewer {
+      width: 100vw;
+      height: calc(100vh - 49px);
+      border: 0;
+      display: block;
+      background: #1a1a1a;
+    }
+    .fallback {
+      max-width: 480px;
+      margin: 60px auto;
+      padding: 24px;
+      text-align: center;
+      background: rgba(15, 23, 42, .85);
+      border: 1px solid rgba(100, 116, 139, .3);
+      border-radius: 16px;
+    }
+    .fallback p { line-height: 1.6; margin: 0 0 16px; }
+    .fallback a {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: rgba(6, 182, 212, .12);
+      border: 1px solid rgba(6, 182, 212, .4);
+      color: #67e8f9;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">‹ Back to portfolio</a>
+    <h1>Curriculum Vitae &mdash; Shahzad Ali</h1>
+    <span style="width: 130px"></span>
+  </header>
+
+  <!-- The #toolbar=0&navpanes=0 hash is honored by Chromium PDF viewer (Chrome / Edge / Brave)
+       and hides the top toolbar (download / print buttons). Safari and Firefox ignore it
+       but still render the PDF inline because it's inside an <iframe>, not a navigation. -->
+  <iframe
+    class="viewer"
+    src="/cv/CV_Shahzad.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH"
+    title="Curriculum Vitae of Shahzad Ali"
+    referrerpolicy="no-referrer"
+  >
+    <div class="fallback">
+      <p>Your browser cannot display PDFs inline.</p>
+      <a href="/cv/CV_Shahzad.pdf" target="_blank" rel="noopener noreferrer">Open the CV in a new tab</a>
+    </div>
+  </iframe>
+</body>
+</html>
