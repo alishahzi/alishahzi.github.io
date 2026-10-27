@@ -7,9 +7,9 @@ export const personal = {
   name: 'Shahzad Ali',
   shortName: 'Shahzad Ali',
   initials: 'SA',
-  title: 'PhD Researcher — Graph Learning and AI Methods for Neurodegenerative Disease Modelling',
-  subtitle: 'Alma Mater Studiorum — Università di Bologna · IRCCS San Martino · LISCOMP Lab',
-  tagline: 'Graph Learning and AI Methods for Neurodegenerative Disease Modelling',
+  title: 'PhD Researcher — Graph Neural Networks and Multimodal Learning for Alzheimer\'s Disease',
+  subtitle: 'Alma Mater Studiorum — Università di Bologna · LISCOMP Lab (MIDA @ UniGe × IRCCS San Martino)',
+  tagline: 'Graph Neural Networks and Multimodal Learning for Alzheimer\'s Disease: Predictive Modelling and Neuropathological Attribution',
   location: 'Genova, Italy',
   office: 'LISCOMP, IRCCS San Martino Polyclinic Hospital, Genova, Italy',
   email: 'shahzad.ali6@unibo.it',
@@ -28,11 +28,11 @@ export const personal = {
   website: 'https://sites.google.com/view/alishahzad/',
   cvUrl: '/cv.html',
   image: '/profile-2026.png',
-  heroBlurb: `PhD candidate at Università di Bologna and IRCCS San Martino working at the intersection of machine learning, graph neural networks, and multimodal neuroimaging. My research focuses on building AI methods that model brain network changes in Alzheimer's disease and predict cognitive decline.`,
+  heroBlurb: `PhD candidate at Università di Bologna, with industrial collaboration at the LISCOMP Lab (MIDA group @ UniGe × IRCCS San Martino), working at the intersection of graph neural networks, multimodal neuroimaging, and explainable AI. My research focuses on predictive modelling of Alzheimer's disease and neuropathological attribution of model decisions.`,
   summary: `I am a PhD candidate in Data Science and Computation at [Alma Mater Studiorum – Università di Bologna](https://www.unibo.it/en), Italy. I began my doctoral studies in November 2022, with a PhD project focused on machine learning methods in digital health.
 My doctoral research is conducted within the Life Science Computational ([LISCOMP](https://mida.unige.it/liscomp)) Laboratory, a multidisciplinary research environment formed through the collaboration between the [MIDA](https://mida.unige.it/) (Methods for Image and Data Analysis) group and the [IRCCS San Martino Hospital](https://www.ospedalesanmartino.it/it/), Genova. Since September 2023, I am based at IRCCS San Martino Hospital and work under the supervision of Ing. Nicola Rosso and Dr. Sara Garbarino.
 From July 2025 to January 2026, I was a visiting researcher at the [LILI Lab](https://lililab-sussex.github.io/), [University of Sussex](https://www.sussex.ac.uk/), UK. During this period, my research focused on artificial intelligence and graph learning methods for neurodegenerative diseases, leveraging structured clinical and healthcare data to model disease mechanisms and disease progression. Prior to starting my PhD, I served as a lecturer in computer science at the [University of Education](https://www.ue.edu.pk/index.php), Lahore, Pakistan, where I was involved in teaching and academic activities.
-My research focuses on graph learning and AI methods for neurodegenerative disease modelling, with an emphasis on Graph Neural Networks (GNNs) and multimodal data integration for healthcare and clinical applications.`,
+My research focuses on Graph Neural Networks (GNNs) and multimodal learning for Alzheimer's disease, covering predictive modelling, explainable AI, uncertainty and calibration, and neuropathological attribution of model decisions — bringing clinically relevant AI methods closer to translational use.`,
 };
 
 export const stats = [
@@ -114,7 +114,7 @@ export const experience = [
     role: 'PhD Researcher',
     org: 'IRCCS Ospedale Policlinico San Martino',
     orgUrl: 'https://www.ospedalesanmartino.it/it/',
-    department: '[LISCOMP Laboratory](https://mida.unige.it/liscomp) — supervised by Ing. Nicola Rosso and Dr. Sara Garbarino',
+    department: '[LISCOMP Laboratory](https://mida.unige.it/liscomp) (MIDA group @ UniGe × IRCCS San Martino Hospital) — supervised by Ing. Nicola Rosso and Dr. Sara Garbarino',
     location: 'Genova, Italy',
     period: 'Sep 2023 — Nov 2026',
     type: 'Clinical Research',
@@ -192,11 +192,11 @@ export const education = [
     location: 'Bologna, Italy',
     period: 'Nov 2022 — Oct 2026',
     department: 'PhD Programme in Data Science and Computation',
-    thesis: 'Graph Learning and AI Methods for Neurodegenerative Disease Modelling',
+    thesis: 'Graph Neural Networks and Multimodal Learning for Alzheimer\'s Disease: Predictive Modelling and Neuropathological Attribution',
     scholarship: 'PhD Scholarship — Alma Mater Studiorum Università di Bologna',
     highlights: [
-      'Doctoral research conducted within the LISCOMP Laboratory (MIDA group × IRCCS San Martino Hospital)',
-      'Focus: Graph Neural Networks, multimodal neuroimaging, Alzheimer\'s disease',
+      'Doctoral research conducted within the LISCOMP Laboratory (MIDA group @ UniGe × IRCCS San Martino Hospital)',
+      'Focus: graph neural networks · multimodal neuroimaging · explainable AI · uncertainty & calibration · Alzheimer\'s disease · neuropathological validation',
       'Visiting researcher at LILI Lab, University of Sussex, UK (Jul 2025 – Jan 2026)',
     ],
   },
