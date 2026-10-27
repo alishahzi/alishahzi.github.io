@@ -116,7 +116,7 @@ export const experience = [
     orgUrl: 'https://www.ospedalesanmartino.it/it/',
     department: '[LISCOMP Laboratory](https://mida.unige.it/liscomp) — supervised by Ing. Nicola Rosso and Dr. Sara Garbarino',
     location: 'Genova, Italy',
-    period: 'Sep 2023 — Present',
+    period: 'Sep 2023 — Nov 2026',
     type: 'Clinical Research',
     current: true,
     highlights: [
@@ -153,9 +153,9 @@ export const experience = [
     orgUrl: 'https://www.ue.edu.pk/index.php',
     department: 'Department of Information Sciences',
     location: 'Lahore, Pakistan',
-    period: 'Mar 2019 — Present',
+    period: 'Mar 2019 — Sep 2022',
     type: 'Academic Teaching',
-    current: true,
+    current: false,
     highlights: [
       'Teaching undergraduate-level courses in Data Mining, Artificial Intelligence, and Introduction to Machine Learning',
       'Supervising final-year undergraduate projects across AI, data analytics, and software systems',
@@ -190,7 +190,7 @@ export const education = [
     institution: 'Alma Mater Studiorum — Università di Bologna',
     institutionUrl: 'https://www.unibo.it/en',
     location: 'Bologna, Italy',
-    period: 'Nov 2022 — Present',
+    period: 'Nov 2022 — Oct 2026',
     department: 'PhD Programme in Data Science and Computation',
     thesis: 'Graph Learning and AI Methods for Neurodegenerative Disease Modelling',
     scholarship: 'PhD Scholarship — Alma Mater Studiorum Università di Bologna',
@@ -589,6 +589,11 @@ export const professionalDevelopment = [
 // — they're rendered as clickable cyan accents by the inlineLinks helper.
 // ─────────────────────────────────────────────────────────────────────────────
 export const news = [
+  {
+    id: 'n19',
+    date: 'Nov 2026',
+    body: `Upcoming — selected for a spotlight oral presentation (in addition to a poster) at the [Progression of Neurodegenerative Diseases (POND 2026)](https://jokalk.github.io/pond26_draft_page/) workshop on 12–13 November 2026. I will present our work, "Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles," addressing calibrated and interpretable disease staging and progression prediction under incomplete biomarker profiles. Looking forward to sharing this research and engaging with the neurodegeneration-progression modelling community.`,
+  },
   {
     id: 'n18',
     date: 'Oct 2026',
