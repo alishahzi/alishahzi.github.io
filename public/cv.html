@@ -84,17 +84,30 @@
 
   <!-- The #toolbar=0&navpanes=0 hash is honored by Chromium PDF viewer (Chrome / Edge / Brave)
        and hides the top toolbar (download / print buttons). Safari and Firefox ignore it
-       but still render the PDF inline because it's inside an <iframe>, not a navigation. -->
+       but still render the PDF inline because it's inside an <iframe>, not a navigation.
+
+       Cache-busting: a Date.now() query string is injected at load time so the browser
+       never serves a stale cached PDF after we swap the CV file in /public/cv/. -->
   <iframe
+    id="cv-frame"
     class="viewer"
-    src="/cv/Shahzad_CV_postdoc.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH"
     title="Curriculum Vitae of Shahzad Ali"
     referrerpolicy="no-referrer"
   >
     <div class="fallback">
       <p>Your browser cannot display PDFs inline.</p>
-      <a href="/cv/Shahzad_CV_postdoc.pdf" target="_blank" rel="noopener noreferrer">Open the CV in a new tab</a>
+      <a id="cv-fallback" href="/cv/Shahzad_CV_postdoc.pdf" target="_blank" rel="noopener noreferrer">Open the CV in a new tab</a>
     </div>
   </iframe>
+  <script>
+    (function () {
+      var file = "/cv/Shahzad_CV_postdoc.pdf";
+      var bust = "v=" + Date.now();
+      document.getElementById("cv-frame").src =
+        file + "?" + bust + "#toolbar=0&navpanes=0&scrollbar=1&view=FitH";
+      var fb = document.getElementById("cv-fallback");
+      if (fb) fb.href = file + "?" + bust;
+    })();
+  </script>
 </body>
 </html>
