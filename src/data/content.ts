@@ -592,7 +592,7 @@ export const news = [
   {
     id: 'n19',
     date: 'Nov 2026',
-    body: `Upcoming — selected for a spotlight oral presentation (in addition to a poster) at the [Progression of Neurodegenerative Diseases (POND 2026)](https://jokalk.github.io/pond26_draft_page/) workshop on 12–13 November 2026. I will present our work, "Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles," addressing calibrated and interpretable disease staging and progression prediction under incomplete biomarker profiles. Looking forward to sharing this research and engaging with the neurodegeneration-progression modelling community.`,
+    body: `Delivered a spotlight oral talk at the [Progression of Neurodegenerative Diseases (POND 2026)](https://pond2026.pondmodels.net/) workshop, 12–13 November 2026 at the Inria Center at Université Côte d'Azur, Sophia Antipolis, France (co-hosted with [UCL](https://www.ucl.ac.uk/)). Presented our work, "[Uncertainty-Aware Adaptive Fusion for Alzheimer's Staging and Progression Under Incomplete Multimodal Profiles](https://papers.miccai.org/miccai-2026-sat/MLCN_2026_021.html)" ([MLCN 2026, LNCS](https://mlcnworkshop.github.io/)). The take-home: calibrated evidence escalation and adaptive fusion, not missing-test reconstruction. Instead of imputing or synthesising modalities a patient never had, we use whatever evidence is available across sMRI, dMRI, FDG-PET, amyloid-PET, plasma, and CSF, letting modality-specific experts speak and a meta-learner weigh each signal by its reliability, uncertainty, and cross-expert agreement. Great two days of talks and conversations with the community shaping disease-progression modelling.`,
   },
   {
     id: 'n18',
@@ -694,7 +694,13 @@ export const news = [
 // are not yet provided. Order = display order; the slideshow rotates them.
 // ─────────────────────────────────────────────────────────────────────────────
 export const newsGallery = [
-  // MLCN 2026 @ MICCAI 2026 — Strasbourg, Oct 1, 2026 (newest)
+  // POND 2026 — Sophia Antipolis, Nov 12–13, 2026 (newest)
+  {
+    src: '/news/POND2026.png',
+    alt: 'Spotlight talk at POND 2026, Sophia Antipolis',
+    caption: 'Spotlight talk at POND 2026 · Sophia Antipolis, France (Nov 2026)',
+  },
+  // MLCN 2026 @ MICCAI 2026 — Strasbourg, Oct 1, 2026
   {
     src: '/news/MICCAI2026_1.png',
     alt: 'Presenting From Blood to Brain poster at MLCN 2026 @ MICCAI, Strasbourg',
