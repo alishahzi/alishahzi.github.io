@@ -1,0 +1,72 @@
+{
+  "publications": [
+    {
+      "id": null,
+      "doi": "10.1002/dad2.70390",
+      "title": "Exploring the spatial covariance of cerebral vascular density and amyloid burden in Alzheimer's disease.",
+      "authors": "Argenti L, Cirone A, Massa F, Sentieri E, Losa M, Lorenzini L, Garbarino S, Sofia L, Raffa S, Bauckneht M, Sambuceti G, Kreshpa W, Bozzo G, Tomassini G, De Cesari F, Pelagotti V, Pulze M, Gualco L, Hamedani M, Razzetta C, Brugnolo A, Girtler N, Caneva S, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Roccatagliata L, Bandini F, Orso B, Pardini M",
+      "venue": "Alzheimer's &amp; Dementia: Diagnosis, Assessment &amp; Disease Monitoring",
+      "vol": "Vol. 18, No. 2",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1002/dad2.70451",
+      "title": "Structural MRI signature predicts tau staging in Alzheimer's disease.",
+      "authors": "Pulze M, Garbarino S, Lorenzini L, Cirone A, Ali S, Gualco L, Massa F, Arnaldi D, Orso B, Losa M, Kreshpa W, Caneva S, Parodi M, Sofia L, Raffa S, Sambuceti G, Caulo M, Pravatà E, Levrero F, Bozzali M, Morbelli S, Piana M, Uccelli A, Roccatagliata L, Chincarini A, Pardini M",
+      "venue": "Alzheimer's &amp; Dementia: Diagnosis, Assessment &amp; Disease Monitoring",
+      "vol": "Vol. 18, No. 3",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1016/j.neurobiolaging.2026.02.004",
+      "title": "Neurotransmitter landscape and neurodegeneration patterns in Alzheimer’s Disease.",
+      "authors": "Argenti L, Massa F, Losa M, Lombardo L, Lorenzini L, Peira E, Sofia L, Raffa S, Sambuceti G, Garbarino S, Kreshpa W, Bozzo G, Pelagotti V, Pulze M, Gualco L, Hamedani M, Cirone A, Francia S, Brugnolo A, Girtler N, Caneva S, Roccatagliata L, Mattioli P, Morbelli S, Ali S, Piana M, Serrati C, Uccelli A, Chincarini A, Arnaldi D, Orso B, Pardini M",
+      "venue": "Neurobiology of Aging",
+      "vol": "Vol. 162, pp. 49-56",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1371/journal.pone.0344971",
+      "title": "A robust multi-location evaluation of a machine learning framework for wind power forecasting.",
+      "authors": "Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan SU, Raza N, Sultana J, Habib MA",
+      "venue": "PLOS One",
+      "vol": "Vol. 21, No. 4, pp. e0344971",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.3389/fnimg.2026.1746464",
+      "title": "A systematic study on the integration of MRI connectivity metrics for Alzheimer's diagnosis, staging, and cognitive decline prediction.",
+      "authors": "Ali S, Kreshpa W, Rosso N, Piana M, Roccatagliata L, Cirone A, Luigi L, Campi C, Pardini M, Garbarino S",
+      "venue": "Frontiers in Neuroimaging",
+      "vol": "Vol. 5",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1111/aej.12983",
+      "title": "Evaluation of Post‐Endodontic Pain Reduction Using Intracanal Cryotherapy in Symptomatic Apical Periodontitis.",
+      "authors": "Bashir AF, Jatala UW, Fareed MA, Sheryar S, Chattha SA, Khan SR, Ahmad S, Iqbal S, Zafar MS, Ali S",
+      "venue": "Australian Endodontic Journal",
+      "vol": "Vol. 51, No. 3, pp. 677-683",
+      "year": 2025,
+      "section": "journal",
+      "type": "journal-article"
+    }
+  ],
+  "source": "https://sites.google.com/view/alishahzad/publications",
+  "last_updated": "2026-11-20T15:24:28Z"
+}
