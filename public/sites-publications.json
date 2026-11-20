@@ -35,17 +35,6 @@
     },
     {
       "id": null,
-      "doi": "10.1155/sci5/1988107",
-      "title": "Perception of Dental Faculty Regarding Development of Preclinical Endodontic Simulation Curriculum for Undergraduate Dental Students in Pakistan.",
-      "authors": "Naveed Manji S, Imtiaz M, Ehsan S, Mehmood K, Ahmad S, Zaheer N, Iqbal S, Ali S",
-      "venue": "Scientifica",
-      "vol": "Vol. 2026, No. 1",
-      "year": 2026,
-      "section": "journal",
-      "type": "journal-article"
-    },
-    {
-      "id": null,
       "doi": "10.1371/journal.pone.0344971",
       "title": "A robust multi-location evaluation of a machine learning framework for wind power forecasting.",
       "authors": "Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan SU, Raza N, Sultana J, Habib MA",
@@ -65,8 +54,19 @@
       "year": 2026,
       "section": "journal",
       "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1111/aej.12983",
+      "title": "Evaluation of Post‐Endodontic Pain Reduction Using Intracanal Cryotherapy in Symptomatic Apical Periodontitis.",
+      "authors": "Bashir AF, Jatala UW, Fareed MA, Sheryar S, Chattha SA, Khan SR, Ahmad S, Iqbal S, Zafar MS, Ali S",
+      "venue": "Australian Endodontic Journal",
+      "vol": "Vol. 51, No. 3, pp. 677-683",
+      "year": 2025,
+      "section": "journal",
+      "type": "journal-article"
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-11-19T15:41:58Z"
+  "last_updated": "2026-11-20T15:24:28Z"
 }
