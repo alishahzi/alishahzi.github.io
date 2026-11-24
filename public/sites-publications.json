@@ -35,6 +35,17 @@
     },
     {
       "id": null,
+      "doi": "10.1155/sci5/1988107",
+      "title": "Perception of Dental Faculty Regarding Development of Preclinical Endodontic Simulation Curriculum for Undergraduate Dental Students in Pakistan.",
+      "authors": "Naveed Manji S, Imtiaz M, Ehsan S, Mehmood K, Ahmad S, Zaheer N, Iqbal S, Ali S",
+      "venue": "Scientifica",
+      "vol": "Vol. 2026, No. 1",
+      "year": 2026,
+      "section": "journal",
+      "type": "journal-article"
+    },
+    {
+      "id": null,
       "doi": "10.1371/journal.pone.0344971",
       "title": "A robust multi-location evaluation of a machine learning framework for wind power forecasting.",
       "authors": "Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan SU, Raza N, Sultana J, Habib MA",
@@ -54,30 +65,8 @@
       "year": 2026,
       "section": "journal",
       "type": "journal-article"
-    },
-    {
-      "id": null,
-      "doi": "10.1111/aej.12983",
-      "title": "Evaluation of Post‐Endodontic Pain Reduction Using Intracanal Cryotherapy in Symptomatic Apical Periodontitis.",
-      "authors": "Bashir AF, Jatala UW, Fareed MA, Sheryar S, Chattha SA, Khan SR, Ahmad S, Iqbal S, Zafar MS, Ali S",
-      "venue": "Australian Endodontic Journal",
-      "vol": "Vol. 51, No. 3, pp. 677-683",
-      "year": 2025,
-      "section": "journal",
-      "type": "journal-article"
-    },
-    {
-      "id": null,
-      "doi": "10.1007/978-3-032-12996-3_17",
-      "title": "Hybrid Kernel SVM and Boosting Approaches for Accurate Autism Spectrum Disorder Screening.",
-      "authors": "Ali U, Shahid S, Misbah, Ali S, Aslam S, Mustafa K",
-      "venue": "Lecture Notes in Networks and Systems",
-      "vol": "pp. 178-187",
-      "year": 2026,
-      "section": "conference",
-      "type": "book-chapter"
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-11-23T18:01:58Z"
+  "last_updated": "2026-11-24T17:39:42Z"
 }
