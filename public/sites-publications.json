@@ -35,17 +35,6 @@
     },
     {
       "id": null,
-      "doi": "10.1155/sci5/1988107",
-      "title": "Perception of Dental Faculty Regarding Development of Preclinical Endodontic Simulation Curriculum for Undergraduate Dental Students in Pakistan.",
-      "authors": "Naveed Manji S, Imtiaz M, Ehsan S, Mehmood K, Ahmad S, Zaheer N, Iqbal S, Ali S",
-      "venue": "Scientifica",
-      "vol": "Vol. 2026, No. 1",
-      "year": 2026,
-      "section": "journal",
-      "type": "journal-article"
-    },
-    {
-      "id": null,
       "doi": "10.1371/journal.pone.0344971",
       "title": "A robust multi-location evaluation of a machine learning framework for wind power forecasting.",
       "authors": "Ali U, Sufyan M, Ali S, Ahmad M, Rehman Khan SU, Raza N, Sultana J, Habib MA",
@@ -65,8 +54,19 @@
       "year": 2026,
       "section": "journal",
       "type": "journal-article"
+    },
+    {
+      "id": null,
+      "doi": "10.1161/jaha.125.044784",
+      "title": "Cerebrospinal Fluid Biomarkers Profiling in Cerebral Amyloid Angiopathy and Relationship With Disease Phenotypes.",
+      "authors": "Losa M, Ramusino MC, Cama I, Gualco L, Gandoglia I, Massa F, Donniaquio A, Mortola P, Argenti L, Lombardo L, Kreshpa W, Pelagotti V, Bozzo G, Orso B, Mattioli P, Arnaldi D, Cirone A, Ali S, Hamedani M, Pulze M, Plantone D, Lorenzini L, Falcitano L, Mazzacane F, Perini G, Costa A, Piana M, Castellan L, Uccelli A, Schenone A, Kozberg M, Piazza F, Del Sette M, Garbarino S, Roccatagliata L, Farina LM, Pardini M",
+      "venue": "Journal of the American Heart Association",
+      "vol": "Vol. 14, No. 20",
+      "year": 2025,
+      "section": "journal",
+      "type": "journal-article"
     }
   ],
   "source": "https://sites.google.com/view/alishahzad/publications",
-  "last_updated": "2026-11-26T16:51:08Z"
+  "last_updated": "2026-11-27T16:37:01Z"
 }
